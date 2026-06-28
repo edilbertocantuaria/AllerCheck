@@ -84,6 +84,7 @@ api/ragas_evaluation/data/
 # =========================
 # Tools — Processed Data (Artefatos)
 # =========================
+api/tools/data/raw/vigimed/*.csv
 api/tools/data/processed/**/*.csv
 api/tools/data/processed/**/*.json
 api/tools/data/processed/**/*.xlsx
