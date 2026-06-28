@@ -115,7 +115,7 @@ placeholder: "Faça uma pergunta sobre alergia a medicamentos"
 
 ### `web/package.json`
 ```json
-"name": "my-project"   →   "jurisprudencia-ia-web"
+"name": "allercheck"   →   "jurisprudencia-ia-web"
 ```
 
 ---
