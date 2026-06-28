@@ -82,16 +82,15 @@ api/results/
 api/ragas_evaluation/data/
 
 # =========================
-# Tools — Processed Data (Artefatos)
+# Tools — Data Lake (api/tools/data/)
 # =========================
+# Ignore ALL processed data (outputs with timestamps)
+api/tools/data/processed/
+# Raw data sources (for ASBAI, VigiMed, allergia_meds) — keep version controlled
+# but ignore CSV transformations in vigimed raw
 api/tools/data/raw/vigimed/*.csv
-api/tools/data/processed/**/*.csv
-api/tools/data/processed/**/*.json
-api/tools/data/processed/**/*.xlsx
-api/tools/data/processed/**/*.log
-api/tools/data/processed/**/*.md
-api/tools/evaluation/ragas/data/output/**/*.json
-api/tools/evaluation/benchmarks/results/**/*.json
+api/tools/data/raw/vigimed/*.bak
+api/tools/data/raw/vigimed/*.txt
 # =========================
 # Web (Next.js)
 # =========================
@@ -116,3 +115,5 @@ gera_arquivos.py
 api/shortcut.bash
 CLAUDE.md
 .claude
+.env.local
+api/ragas_evaluation_OLD

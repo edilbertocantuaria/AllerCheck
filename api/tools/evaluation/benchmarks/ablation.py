@@ -12,7 +12,7 @@ import httpx
 
 try:
     from dotenv import load_dotenv
-    _env = Path(__file__).parent.parent / ".env"
+    _env = Path(__file__).resolve().parents[3] / ".env"
     if _env.exists():
         load_dotenv(_env)
 except ImportError:
@@ -29,7 +29,7 @@ from ragas.metrics.collections import (
     Faithfulness,
 )
 
-from ragas_evaluation._cli_helpers import (
+from ..ragas.helpers import (
     ALL_METRICS,
     _GEMINI_BASE_URL,
     check_openai as _check_openai,
@@ -40,8 +40,11 @@ from ragas_evaluation._cli_helpers import (
 )
 
 _CONTROL_CHARS_RE = re.compile(r"[\x00-\x08\x0b-\x1f\x7f]")
-INPUT_FILE = Path(__file__).parent / "data" / "output" / "ragas_evaluation_30.json"
-OUTPUT_DIR = Path(__file__).parent / "data" / "output" / "ablation"
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+TOOLS_ROOT = PROJECT_ROOT / "api" / "tools"
+INPUT_FILE  = TOOLS_ROOT / "data" / "processed" / "evaluation" / "ragas_evaluation_latest.json"
+OUTPUT_DIR  = TOOLS_ROOT / "data" / "processed" / "evaluation" / "ablation"
 
 
 def _sanitize(text: str) -> str:
@@ -68,23 +71,15 @@ def _save(path: Path, data: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
-def _build_evaluator(
-    evaluator: str,
-    openai_model: str,
-    gemini_model: str,
-) -> dict:
+
+def _build_evaluator(evaluator: str, openai_model: str, gemini_model: str) -> dict:
     _oai_key    = os.getenv("OPENAI_API_KEY")
     _oai_client = AsyncOpenAI(api_key=_oai_key)
 
     try:
-        _emb = embedding_factory(
-            "huggingface",
-            model="neuralmind/bert-base-portuguese-cased",
-        )
+        _emb = embedding_factory("huggingface", model="neuralmind/bert-base-portuguese-cased")
     except Exception:
-        _emb = embedding_factory(
-            "openai", model="text-embedding-3-small", client=_oai_client,
-        )
+        _emb = embedding_factory("openai", model="text-embedding-3-small", client=_oai_client)
 
     if evaluator == "gpt":
         _llm = llm_factory(openai_model, client=_oai_client, max_tokens=4096)
@@ -102,6 +97,7 @@ def _build_evaluator(
         "context_recall":        ContextRecall(llm=_llm),
         "context_entity_recall": ContextEntityRecall(llm=_llm),
     }
+
 
 async def _collect_answer(
     client: httpx.AsyncClient,
@@ -135,6 +131,7 @@ async def _collect_answer(
     except Exception as e:
         return f"[ERRO NA COLETA: {e}]"
 
+
 async def _evaluate_item(
     metrics: dict,
     question: str,
@@ -165,11 +162,8 @@ async def _evaluate_item(
 
     return results
 
-def _print_comparison(
-    old_scores: list[dict],
-    new_scores: list[dict],
-    evaluator: str,
-) -> None:
+
+def _print_comparison(old_scores: list[dict], new_scores: list[dict], evaluator: str) -> None:
     _banner("ABLATION STUDY: PROMPT MONOLÍTICO vs. PROMPT MODULAR")
     click.echo(f"  Avaliador : {evaluator.upper()}")
     click.echo(f"  Amostras  : {len(old_scores)}\n")
@@ -194,31 +188,25 @@ def _print_comparison(
 
     click.echo()
 
+
 @click.group()
 def cli():
     pass
 
 
 @cli.command()
-@click.option("--api-url",      default="http://localhost:8000", show_default=True)
-@click.option("--jwt-token",    default=None,    help="Bearer token para autenticação")
-@click.option("--use-hyde",     is_flag=True,    default=True,  show_default=True)
-@click.option("--timeout",      default=60,      show_default=True)
-@click.option("--evaluator",    default="gemini",
-              type=click.Choice(["gpt", "gemini"]), show_default=True,
-              help="Avaliador RAGAS a usar")
-@click.option("--openai-model", default="gpt-4o-mini",         show_default=True)
-@click.option("--gemini-model", default="gemini-2.5-flash-lite", show_default=True)
+@click.option("--api-url",        default="http://127.0.0.1:8000", show_default=True)
+@click.option("--jwt-token",      default=None)
+@click.option("--use-hyde",       is_flag=True, default=True, show_default=True)
+@click.option("--timeout",        default=90, show_default=True)
+@click.option("--evaluator",      default="gemini",
+              type=click.Choice(["gpt", "gemini"]), show_default=True)
+@click.option("--openai-model",   default="gpt-4o-mini", show_default=True)
+@click.option("--gemini-model",   default="gemini-2.5-flash-lite", show_default=True)
 @click.option("--skip-api-check", is_flag=True, default=False)
 def pipeline(
-    api_url: str,
-    jwt_token: str | None,
-    use_hyde: bool,
-    timeout: int,
-    evaluator: str,
-    openai_model: str,
-    gemini_model: str,
-    skip_api_check: bool,
+    api_url, jwt_token, use_hyde, timeout,
+    evaluator, openai_model, gemini_model, skip_api_check,
 ) -> None:
     asyncio.run(_run_pipeline(
         api_url=api_url, jwt_token=jwt_token, use_hyde=use_hyde,
@@ -229,14 +217,8 @@ def pipeline(
 
 
 async def _run_pipeline(
-    api_url: str,
-    jwt_token: str | None,
-    use_hyde: bool,
-    timeout: int,
-    evaluator: str,
-    openai_model: str,
-    gemini_model: str,
-    skip_api_check: bool,
+    api_url, jwt_token, use_hyde, timeout,
+    evaluator, openai_model, gemini_model, skip_api_check,
 ) -> None:
     _banner("ABLATION STUDY: COLETA + AVALIAÇÃO")
 
@@ -247,9 +229,9 @@ async def _run_pipeline(
         else:
             ok = await _check_gemini(os.getenv("GEMINI_API_KEY"), gemini_model)
         if not ok:
-            _abort(f"Avaliador {evaluator.upper()} indisponível. Use --skip-api-check para ignorar.")
+            _abort(f"Avaliador {evaluator.upper()} indisponível.")
     else:
-        _step("1/4", "CHECK", "Verificação de API ignorada (--skip-api-check)")
+        _step("1/4", "CHECK", "Verificação de API ignorada")
 
     _step("2/4", "LOAD", f"Carregando {INPUT_FILE.name}")
     with open(INPUT_FILE, encoding="utf-8") as f:
@@ -259,7 +241,7 @@ async def _run_pipeline(
 
     old_scores = [item.get("results", {}).get(evaluator, {}) for item in dataset]
 
-    _step("3/4", "EVAL", f"Iniciando avaliador {evaluator.upper()} ({openai_model if evaluator == 'gpt' else gemini_model})")
+    _step("3/4", "EVAL", f"Iniciando avaliador {evaluator.upper()}")
     metrics    = _build_evaluator(evaluator, openai_model, gemini_model)
     new_scores = []
     results    = []
@@ -324,7 +306,6 @@ async def _run_pipeline(
         },
     })
     click.echo(f"      [OK] {output_file.name}\n")
-
     _print_comparison(old_scores, new_scores, evaluator)
 
 

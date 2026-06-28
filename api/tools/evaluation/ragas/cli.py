@@ -7,21 +7,18 @@ from pathlib import Path
 
 import click
 
-from .collectors import collect_api_responses
-from .ragas_evaluator import EvalResult, RagasEvaluator
-from .utils import (
+from .evaluator import collect_api_responses, EvalResult, RagasEvaluator
+from .helpers import (
     get_iso_timestamp,
     load_xlsx_dataset,
     save_api_responses,
     save_evaluation_dataset,
     save_evaluation_results,
-)
-from ._cli_helpers import (
     ALL_METRICS,
     _GEMINI_BASE_URL,
-    check_openai as _check_openai,
-    check_gemini as _check_gemini,
-    check_anthropic as _check_anthropic,
+    check_openai,
+    check_gemini,
+    check_anthropic,
     step as _step,
     abort as _abort,
     banner as _banner,
@@ -41,6 +38,7 @@ def _result_to_dict(result: EvalResult) -> dict:
         ev: {metric: scores.get(ev) for metric, scores in by_metric.items()}
         for ev in sorted(evaluators)
     }
+
 
 def _build_empty_sums(active_evaluators: list[str]) -> dict:
     return {ev: {m: 0.0 for m in ALL_METRICS} for ev in active_evaluators}
@@ -62,6 +60,7 @@ def _compute_averages(sums: dict, counts: dict) -> dict:
             n = counts[ev][metric]
             avgs[ev][metric] = round(sums[ev][metric] / n, 6) if n > 0 else None
     return avgs
+
 
 def _print_inline_scores(idx: int, total: int, result: EvalResult, active_evaluators: list[str]) -> None:
     parts = []
@@ -86,7 +85,7 @@ async def _evaluate_item(
     item: dict,
     evaluator: RagasEvaluator,
     semaphore: asyncio.Semaphore,
-    active_evaluators: list[str], 
+    active_evaluators: list[str],
 ) -> dict:
     question     = item.get("question", "")
     answer_rag   = item.get("answer", "")
@@ -144,7 +143,7 @@ async def _evaluate_all_concurrent(
     evaluation_results: dict,
     openai_model: str,
     gemini_model: str,
-    active_evaluators: list[str],  
+    active_evaluators: list[str],
 ) -> tuple[list[dict], dict, dict]:
     semaphore = asyncio.Semaphore(concurrency)
     total = len(valid_responses)
@@ -186,6 +185,41 @@ async def _evaluate_all_concurrent(
     return scores_list, sums, counts
 
 
+async def _validate_apis(
+    openai_key: str,
+    gemini_key: str,
+    openai_model: str,
+    gemini_model: str,
+    claude_model: str,
+    active_evaluators: list[str],
+) -> bool:
+    _step("0/6", "VALIDATE", "VALIDANDO CREDENCIAIS DE API")
+
+    checks = []
+
+    if "gpt" in active_evaluators:
+        click.echo(f"  OpenAI ({openai_model})... ", nl=False)
+        ok = await check_openai(openai_key, openai_model)
+        click.echo("✅" if ok else "❌")
+        checks.append(ok)
+
+    if "gemini" in active_evaluators:
+        click.echo(f"  Gemini ({gemini_model})... ", nl=False)
+        ok = await check_gemini(gemini_key, gemini_model)
+        click.echo("✅" if ok else "❌")
+        checks.append(ok)
+
+    if "claude" in active_evaluators:
+        claude_key = os.getenv("ANTHROPIC_API_KEY")
+        click.echo(f"  Claude ({claude_model})... ", nl=False)
+        ok = await check_anthropic(claude_key, claude_model)
+        click.echo("✅" if ok else "❌")
+        checks.append(ok)
+
+    click.echo()
+    return all(checks)
+
+
 @click.group()
 def cli():
     pass
@@ -193,7 +227,7 @@ def cli():
 
 @cli.command()
 @click.option("--input-file", type=click.Path(exists=True),
-              default="ragas_evaluation/data/input/filtred_alergia_medicamentos.xlsx")
+              default="api/tools/data/raw/evaluation/dataset.xlsx")
 @click.option("--max-samples", type=int, default=None,
               help="Amostras aleatórias do dataset. None = todas.")
 @click.option("--api-url", type=str, default="http://localhost:8000")
@@ -209,7 +243,7 @@ def cli():
 @click.option("--evaluators", type=str, default="gpt,gemini,claude",
               help="Avaliadores separados por vírgula: gpt,gemini,claude,ollama")
 @click.option("--seed", type=int, default=None, help="Semente para amostragem reprodutível")
-@click.option("--output-dir", type=click.Path(), default="ragas_evaluation/data/output")
+@click.option("--output-dir", type=click.Path(), default="api/tools/data/processed/evaluation")
 @click.option("--concurrency", type=int, default=5,
               help="Itens avaliados em paralelo. Aumentar acelera, mas pode atingir rate limits.")
 @click.option("--skip-api-check", is_flag=True, default=False)
@@ -218,13 +252,13 @@ def cli():
 def pipeline(
     input_file, max_samples, api_url, api_timeout,
     jwt_token, openai_model, gemini_model, claude_model,
-    SLM_MODEL, SLM_BASE_URL,
+    ollama_model, ollama_base_url,
     evaluators, seed, output_dir,
     concurrency, skip_api_check, use_hyde,
 ):
     evaluators_list = [e.strip() for e in evaluators.split(",")]
-    SLM_MODEL = SLM_MODEL or os.getenv("SLM_MODEL", "mistral")
-    SLM_BASE_URL = SLM_BASE_URL or os.getenv("SLM_BASE_URL", "http://localhost:11434")
+    SLM_MODEL = ollama_model or os.getenv("SLM_MODEL", "mistral")
+    SLM_BASE_URL = ollama_base_url or os.getenv("SLM_BASE_URL", "http://localhost:11434")
     asyncio.run(_run_pipeline(
         input_file=input_file, max_samples=max_samples,
         api_url=api_url, api_timeout=api_timeout, jwt_token=jwt_token,
@@ -379,7 +413,7 @@ async def _run_pipeline(
 @cli.command()
 @click.option("--input-file", type=click.Path(exists=True), required=True)
 @click.option("--max-samples", type=int, default=None)
-@click.option("--output-dir", type=click.Path(), default="ragas_evaluation/data/output")
+@click.option("--output-dir", type=click.Path(), default="api/tools/data/processed/evaluation")
 def prepare_dataset(input_file, max_samples, output_dir):
     click.echo(f"[LOAD] Carregando {input_file}...")
     questions = load_xlsx_dataset(input_file, max_samples=max_samples)

@@ -4,15 +4,12 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
-
 from .benchmark import get_config, run_benchmark
-from ...ragas.cli.helpers import get_iso_timestamp
-from ...evaluation.ragas.cli.helpers import get_iso_timestamp
+from ..ragas.helpers import get_iso_timestamp
 
-PROJECT_ROOT = Path(__file__).resolve().parents[4]
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
 TOOLS_ROOT = PROJECT_ROOT / "api" / "tools"
-OUTPUT_DIR = TOOLS_ROOT / "evaluation" / "benchmarks" / "results"
+OUTPUT_DIR = TOOLS_ROOT / "data" / "processed" / "evaluation"
 
 
 async def main():
@@ -28,7 +25,7 @@ async def main():
     results = await run_benchmark(config)
 
     if results:
-        timestamp = get_iso_timestamp().replace(":", "").replace("-", "")
+        timestamp = get_iso_timestamp().replace(":", "").replace("-", "")[:15]
         output_file = OUTPUT_DIR / f"{timestamp}_ollama_benchmark.json"
 
         output_data = {

@@ -2,7 +2,7 @@ import os
 import sys
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 TOOLS_ROOT = PROJECT_ROOT / "api" / "tools"
 ENV_FILE = PROJECT_ROOT / ".env"
 
@@ -27,6 +27,7 @@ OUTPUT_DIRS = [
     TOOLS_ROOT / "data" / "processed" / "allergia_meds",
     TOOLS_ROOT / "data" / "processed" / "evaluation",
 ]
+
 
 def check_env_file() -> bool:
     if not ENV_FILE.exists():
@@ -109,14 +110,15 @@ def check_imports() -> bool:
 
         print("   ✅ tools.pipelines.common")
 
-        from tools.evaluation.ragas.cli.helpers import ALL_METRICS
+        from tools.evaluation.ragas.helpers import ALL_METRICS
 
-        print("   ✅ tools.evaluation.ragas.cli.helpers")
+        print("   ✅ tools.evaluation.ragas.helpers")
 
         return True
     except ImportError as e:
         print(f"   ❌ Import failed: {e}")
         return False
+
 
 def main() -> int:
     print("=" * 70)

@@ -7,8 +7,11 @@ import click
 import numpy as np
 from scipy.stats import pearsonr
 
-INPUT_30   = Path("ragas_evaluation/data/output/ragas_evaluation_30.json")
-METRICS    = [
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+TOOLS_ROOT = PROJECT_ROOT / "api" / "tools"
+INPUT_30    = TOOLS_ROOT / "data" / "processed" / "evaluation" / "ragas_evaluation_latest.json"
+
+METRICS = [
     "faithfulness", "answer_relevancy",
     "context_precision", "context_recall", "context_entity_recall",
 ]
@@ -38,7 +41,7 @@ def _load_ollama(path: Path) -> dict[str, dict]:
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
     return {
-        str(s["question_id"]): s["ollama"]
+        str(s["question_id"]): s.get("ollama", {})
         for s in data["scores"]
     }
 
@@ -54,8 +57,7 @@ def _load_api(path: Path) -> dict[str, dict]:
 
 def _print_summary_table(ollama: dict, api: dict) -> None:
     col = 26
-    header = f"  {'Métrica':<{col}}"
-    header += "  " + "  ".join(f"{'OLLAMA':>8}") 
+    header = f"  {'Métrica':<{col}}  {'OLLAMA':>8}"
     for ev in API_EVALUATORS:
         header += f"  {ev.upper():>8}"
     click.echo(header)
@@ -64,7 +66,6 @@ def _print_summary_table(ollama: dict, api: dict) -> None:
     for metric in METRICS:
         ollama_vals = [v.get(metric) for v in ollama.values()]
         ollama_avg  = _avg(ollama_vals)
-
         row = f"  {metric:<{col}}  {ollama_avg:>8.4f}" if ollama_avg is not None else f"  {metric:<{col}}  {'n/a':>8}"
 
         for ev in API_EVALUATORS:
@@ -139,7 +140,7 @@ def _print_interpretation(ollama: dict, api: dict) -> None:
 @click.option(
     "--ollama-file", "ollama_file", required=True,
     type=click.Path(exists=True),
-    help="JSON gerado pelo run_ollama_30.py",
+    help="JSON gerado pelo run_ragas_eval com --evaluators ollama",
 )
 def main(ollama_file: str) -> None:
     ollama = _load_ollama(Path(ollama_file))
@@ -147,7 +148,7 @@ def main(ollama_file: str) -> None:
 
     click.echo("\n" + "=" * 70)
     click.echo("SLM vs LLM — CORRELAÇÃO DE AVALIADORES")
-    click.echo(f"SLM: qwen2.5:7b (Ollama local) | LLM: GPT, Gemini, Claude | n={len(ollama)}")
+    click.echo(f"SLM: Ollama | LLM: GPT, Gemini, Claude | n={len(ollama)}")
     click.echo("=" * 70)
 
     click.echo("\n── Scores médios por avaliador ──────────────────────────")
