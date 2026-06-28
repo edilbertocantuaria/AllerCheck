@@ -1,0 +1,117 @@
+# =========================
+# Python
+# =========================
+**/__pycache__/
+**/*.py[cod]
+**/*.pyo
+**/*.pyd
+
+# =========================
+# Virtual environments
+# =========================
+api/venv/
+api/.venv/
+api/env/
+
+# =========================
+# Environment / secrets
+# =========================
+.env
+api/config.yaml
+api/.env
+web/.env
+
+# =========================
+# Logs
+# =========================
+api/logs/
+*.log
+*.jsonl
+
+# =========================
+# Jupyter
+# =========================
+**/.ipynb_checkpoints
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Test cache
+# =========================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =========================
+# Build artifacts
+# =========================
+dist/
+build/
+*.egg-info/
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.bak
+*.swp
+
+# =========================
+# Documents used for RAG
+# =========================
+api/docs/*.pdf
+api/docs/*.zip
+api/docs/*.docx
+api/docs/ingested/*.pdf
+
+# =========================
+# Experiment outputs
+# =========================
+api/experiments/
+api/results/
+api/ragas_evaluation/data/
+
+# =========================
+# Tools — Processed Data (Artefatos)
+# =========================
+api/tools/data/processed/**/*.csv
+api/tools/data/processed/**/*.json
+api/tools/data/processed/**/*.xlsx
+api/tools/data/processed/**/*.log
+api/tools/data/processed/**/*.md
+api/tools/evaluation/ragas/data/output/**/*.json
+api/tools/evaluation/benchmarks/results/**/*.json
+# =========================
+# Web (Next.js)
+# =========================
+web/node_modules/
+web/.next/
+web/.env.local
+web/.env*.local
+
+# =========================
+# Venv & Coverage (folder-level ignores)
+# =========================
+api/venv/*
+api/htmlcov/*
+.conda/*
+
+# =========================
+# Others
+# =========================
+gera_arquivos.py
+*.txt
+!api/requirements.txt
+api/shortcut.bash
+CLAUDE.md
+.claude

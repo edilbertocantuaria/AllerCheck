@@ -1,0 +1,46 @@
+# Git
+.git
+.gitignore
+.github
+
+# Environment & Config
+.env
+.env.*
+api/config.yaml
+
+# Build artifacts
+node_modules
+web/.next
+dist
+build/
+
+# Logs
+api/logs
+logs/
+*.log
+*.jsonl
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation & misc
+*.md
+docs/
+htmlcov/
+coverage.xml
+postgres_data/

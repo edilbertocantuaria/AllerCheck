@@ -1,0 +1,27 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.env
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Chaves de API - nunca incluir na imagem
+config.yaml
+
+# Logs e dados gerados em runtime
+logs/
+
+# Documentos locais (montados via volume se necessário)
+docs/
+
+# Outros
+.git/
+.gitignore
+*.md
+shortcut.bash
