@@ -1,14 +1,21 @@
 import asyncio
 import json
 import sys
-from datetime import datetime
 from pathlib import Path
+
+# Carrega .env antes de qualquer import do projeto
+try:
+    from dotenv import load_dotenv
+    _env = Path(__file__).resolve().parents[3] / ".env"
+    if _env.exists():
+        load_dotenv(_env)
+except ImportError:
+    pass
 
 from .benchmark import get_config, run_benchmark
 from ..ragas.helpers import get_iso_timestamp
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
-TOOLS_ROOT = PROJECT_ROOT / "api" / "tools"
+TOOLS_ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_DIR = TOOLS_ROOT / "data" / "processed" / "evaluation"
 
 
@@ -31,9 +38,9 @@ async def main():
         output_data = {
             "timestamp": get_iso_timestamp(),
             "config": {
-                "base_url": config["base_url"],
+                "base_url":    config["base_url"],
                 "temperature": config["temperature"],
-                "timeout": config["timeout"],
+                "timeout":     config["timeout"],
             },
             "results": results,
         }
