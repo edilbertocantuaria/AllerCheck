@@ -8,7 +8,10 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_community.vectorstores import Pinecone as PineconeVectorStore
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_ollama import ChatOllama
+from langchain_core.language_models import BaseChatModel
+from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage, AIMessage
 from openai import AsyncOpenAI
+from anthropic import Anthropic, AsyncAnthropic
 
 from app.config import INDEX_NAME
 from app.prompts import (
@@ -40,6 +43,76 @@ REGRAS OBRIGATÓRIAS:
 Query: {query}
 
 Trecho técnico:"""
+
+
+class ChatAnthropicWrapper(BaseChatModel):
+    model: str
+    temperature: float = 0.7
+
+    def __init__(self, model: str, temperature: float = 0.7, **kwargs):
+        super().__init__(model=model, temperature=temperature, **kwargs)
+
+    class Config:
+        arbitrary_types_allowed = True
+        extra = "allow"
+
+    @property
+    def client(self):
+        if not hasattr(self, "_client"):
+            self._client = Anthropic()
+        return self._client
+
+    @property
+    def async_client(self):
+        if not hasattr(self, "_async_client"):
+            self._async_client = AsyncAnthropic()
+        return self._async_client
+
+    def _generate(self, messages: list[BaseMessage], **kwargs):
+        from langchain_core.outputs import ChatGeneration
+        formatted = [{"role": self._format_role(m), "content": m.content} for m in messages]
+        max_tokens = kwargs.get("max_tokens", 350)
+        response = self.client.messages.create(
+            model=self.model,
+            max_tokens=max_tokens,
+            temperature=self.temperature,
+            messages=formatted,
+        )
+        return [ChatGeneration(message=AIMessage(content=response.content[0].text))]
+
+    async def _astream(self, messages: list[BaseMessage], **kwargs):
+        from langchain_core.outputs import ChatGenerationChunk
+        formatted = [{"role": self._format_role(m), "content": m.content} for m in messages]
+        max_tokens = kwargs.get("max_tokens", 350)
+        async with self.async_client.messages.stream(
+            model=self.model,
+            max_tokens=max_tokens,
+            temperature=self.temperature,
+            messages=formatted,
+        ) as stream:
+            async for text in stream.text_stream:
+                yield ChatGenerationChunk(message=AIMessage(content=text))
+
+    async def astream(self, input, **kwargs):
+        messages = input if isinstance(input, list) else [HumanMessage(content=str(input))]
+        async for chunk in self._astream(messages, **kwargs):
+            yield chunk.message
+
+    @staticmethod
+    def _format_role(message: BaseMessage) -> str:
+        if hasattr(message, "role"):
+            return message.role
+        if message.__class__.__name__ == "HumanMessage":
+            return "user"
+        if message.__class__.__name__ == "AIMessage":
+            return "assistant"
+        if message.__class__.__name__ == "SystemMessage":
+            return "user"
+        return "user"
+
+    @property
+    def _llm_type(self) -> str:
+        return "anthropic"
 
 
 def _sanitize(text: str) -> str:
@@ -80,6 +153,13 @@ def _build_rewrite_llm():
             openai_api_key=gem_key,
             openai_api_base=_GEMINI_BASE_URL,
         )
+    elif provider == "anthropic":
+        ant_model = os.getenv("REWRITE_MODEL", "claude-3-5-sonnet-20241022")
+        logger.info("rewrite_llm: Anthropic (%s)", ant_model)
+        return ChatAnthropicWrapper(
+            model=ant_model,
+            temperature=temperature,
+        )
     else:
         oai_model = os.getenv("REWRITE_MODEL", "gpt-4o-mini")
         logger.info("rewrite_llm: OpenAI (%s)", oai_model)
@@ -109,6 +189,13 @@ def _build_answer_llm():
             streaming=True,
             openai_api_key=gem_key,
             openai_api_base=_GEMINI_BASE_URL,
+        )
+    elif provider == "anthropic":
+        ant_model = os.getenv("ANSWER_MODEL", "claude-3-5-sonnet-20241022")
+        logger.info("answer_llm: Anthropic (%s)", ant_model)
+        return ChatAnthropicWrapper(
+            model=ant_model,
+            temperature=temperature,
         )
     else:
         oai_model = os.getenv("ANSWER_MODEL", "gpt-4o")

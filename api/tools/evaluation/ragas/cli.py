@@ -25,6 +25,16 @@ from .helpers import (
 )
 
 
+def _load_env() -> None:
+    try:
+        from dotenv import load_dotenv
+        _env = Path(__file__).resolve().parents[4] / ".env"
+        if _env.exists():
+            load_dotenv(_env, override=True)
+    except ImportError:
+        pass
+
+
 def _result_to_dict(result: EvalResult) -> dict:
     by_metric = {
         "faithfulness":          result.faithfulness,
@@ -237,9 +247,9 @@ def cli():
 @click.option("--gemini-model", type=str, default="gemini-2.5-flash-lite")
 @click.option("--claude-model", type=str, default="claude-haiku-4-5-20251001")
 @click.option("--ollama-model", type=str, default=None,
-              help=f"Modelo Ollama local para avaliação. (padrão: {os.getenv('SLM_MODEL', 'mistral')})")
+              help="Modelo Ollama local para avaliação.")
 @click.option("--ollama-base-url", type=str, default=None,
-              help=f"Base URL do servidor Ollama. (padrão: {os.getenv('SLM_BASE_URL', 'http://localhost:11434')}/v1)")
+              help="Base URL do servidor Ollama.")
 @click.option("--evaluators", type=str, default="gpt,gemini,claude",
               help="Avaliadores separados por vírgula: gpt,gemini,claude,ollama")
 @click.option("--seed", type=int, default=None, help="Semente para amostragem reprodutível")
@@ -256,9 +266,12 @@ def pipeline(
     evaluators, seed, output_dir,
     concurrency, skip_api_check, use_hyde,
 ):
+    _load_env()
+
+    SLM_MODEL    = ollama_model    or os.getenv("SLM_MODEL", "mistral")
+    SLM_BASE_URL = ollama_base_url or os.getenv("SLM_BASE_URL", "http://localhost:11434/v1")
+
     evaluators_list = [e.strip() for e in evaluators.split(",")]
-    SLM_MODEL = ollama_model or os.getenv("SLM_MODEL", "mistral")
-    SLM_BASE_URL = ollama_base_url or os.getenv("SLM_BASE_URL", "http://localhost:11434")
     asyncio.run(_run_pipeline(
         input_file=input_file, max_samples=max_samples,
         api_url=api_url, api_timeout=api_timeout, jwt_token=jwt_token,

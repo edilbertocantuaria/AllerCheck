@@ -10,14 +10,6 @@ from pathlib import Path
 import click
 import httpx
 
-try:
-    from dotenv import load_dotenv
-    _env = Path(__file__).resolve().parents[3] / ".env"
-    if _env.exists():
-        load_dotenv(_env)
-except ImportError:
-    pass
-
 from openai import AsyncOpenAI
 from ragas.llms import llm_factory
 from ragas.embeddings.base import embedding_factory
@@ -41,8 +33,7 @@ from ..ragas.helpers import (
 
 _CONTROL_CHARS_RE = re.compile(r"[\x00-\x08\x0b-\x1f\x7f]")
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
-TOOLS_ROOT = PROJECT_ROOT / "api" / "tools"
+TOOLS_ROOT = Path(__file__).resolve().parents[2]
 INPUT_FILE  = TOOLS_ROOT / "data" / "processed" / "evaluation" / "ragas_evaluation_latest.json"
 OUTPUT_DIR  = TOOLS_ROOT / "data" / "processed" / "evaluation" / "ablation"
 
@@ -220,6 +211,14 @@ async def _run_pipeline(
     api_url, jwt_token, use_hyde, timeout,
     evaluator, openai_model, gemini_model, skip_api_check,
 ) -> None:
+    try:
+        from dotenv import load_dotenv
+        _env = Path(__file__).resolve().parents[4] / ".env"
+        if _env.exists():
+            load_dotenv(_env, override=True)
+    except ImportError:
+        pass
+
     _banner("ABLATION STUDY: COLETA + AVALIAÇÃO")
 
     if not skip_api_check:

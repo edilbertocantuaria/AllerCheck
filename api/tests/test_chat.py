@@ -1,5 +1,7 @@
 from fastapi.testclient import TestClient
 
+import app.services.chat as chat_service
+
 
 def test_chat_flow_multiple_questions(client: TestClient, conversation_factory, ask_chat_question) -> None:
     headers, conversation_id = conversation_factory(
@@ -85,6 +87,29 @@ def test_chat_response_is_streaming_text(client: TestClient, conversation_factor
     )
     assert response.status_code == 200
     assert isinstance(response.text, str)
+
+
+def test_chat_returns_fallback_when_streaming_fails(client: TestClient, conversation_factory, monkeypatch) -> None:
+    headers, conversation_id = conversation_factory(email="streaming-failure@example.com")
+
+    class FailingAnswerLlm:
+        async def astream(self, _chain_input):
+            raise RuntimeError("modelo indisponível")
+
+    class FakeRagService:
+        def __init__(self, use_hyde=True):
+            self.answer_llm = FailingAnswerLlm()
+
+    monkeypatch.setattr(chat_service, "get_rag_service", lambda use_hyde=True: FakeRagService(use_hyde=use_hyde))
+
+    response = client.post(
+        "/chat",
+        json={"conversation_id": conversation_id, "question": "Teste de fallback"},
+        headers=headers,
+    )
+
+    assert response.status_code == 200
+    assert "Não foi possível gerar" in response.text
 
 
 def test_evaluate_chunks_endpoint(client: TestClient) -> None:
