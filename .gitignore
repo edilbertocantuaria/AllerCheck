@@ -117,3 +117,7 @@ CLAUDE.md
 .claude
 .env.local
 api/ragas_evaluation_OLD
+docker-compose.yml
+
+api/tools/data/*
+api/api/tools/data/processed/*
