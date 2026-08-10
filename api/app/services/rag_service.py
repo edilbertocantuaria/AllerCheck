@@ -2,8 +2,10 @@ import logging
 import os
 import re
 from functools import lru_cache
+from pathlib import Path
 from typing import Any
 
+import networkx as nx
 from langchain.prompts import ChatPromptTemplate
 from langchain_community.vectorstores import Pinecone as PineconeVectorStore
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
@@ -20,12 +22,25 @@ from app.prompts.registry import PromptKey, get_prompt
 from app.utils import format_document_title
 from app.web_search import get_web_context
 from app.services.reranker import Reranker
+from app.services.ontology_expander import load_ontology, expand_query
 
 logger = logging.getLogger(__name__)
 
 _NO_SOURCE_MARKER = "NO_SOURCE_AVAILABLE"
 _CONTROL_CHARS_RE = re.compile(r'[\x00-\x08\x0b-\x0c\x0e-\x1f\x7f]')
 _GEMINI_BASE_URL  = "https://generativelanguage.googleapis.com/v1beta/openai/"
+
+# Lazy-load ontology graph (singleton)
+_ONTOLOGY_PATH = Path(__file__).parent.parent.parent / "tools" / "data" / "processed" / "evaluation" / "ontologia" / "ontologia_farma.json"
+_ontology_graph: nx.DiGraph | None = None
+
+
+def _get_ontology() -> nx.DiGraph | None:
+    """Get or load ontology graph (lazy singleton)."""
+    global _ontology_graph
+    if _ontology_graph is None and _ONTOLOGY_PATH.exists():
+        _ontology_graph = load_ontology(str(_ONTOLOGY_PATH))
+    return _ontology_graph
 
 _HYDE_PROMPT = """Você é um redator de documentos técnicos de farmacovigilância.
 Escreva exatamente 1 a 2 frases como se fossem um trecho de ficha técnica ou registro
@@ -227,10 +242,12 @@ class RagService:
             return match.group(1).strip()
         return response
 
-    async def _retrieve(self, query: str) -> list[Any]:
+    async def _retrieve(self, query: str, ontology_expansion: list[str] | None = None) -> tuple[list[Any], int]:
+        retrieval_k = int(os.getenv("RETRIEVAL_K", "8"))
+        retrieval_threshold = float(os.getenv("RETRIEVAL_SCORE_THRESHOLD", "0.60"))
+
+        # Busca 1: query original
         try:
-            retrieval_k = int(os.getenv("RETRIEVAL_K", "8"))
-            retrieval_threshold = float(os.getenv("RETRIEVAL_SCORE_THRESHOLD", "0.60"))
             results = self._vectorstore.similarity_search_with_relevance_scores(
                 query, k=retrieval_k, score_threshold=retrieval_threshold
             )
@@ -240,8 +257,45 @@ class RagService:
                 query_docs.append(doc)
         except Exception as exc:
             logger.error("Pinecone retrieval falhou para query '%s': %s", query[:80], exc)
-            return []
+            return [], 0
 
+        # Busca 2: apenas termos expandidos da ontologia (multi-query)
+        ontology_docs = []
+        ontology_chunks_added = 0
+        if ontology_expansion and len(ontology_expansion) > 0:
+            expanded_query = " ".join(ontology_expansion)
+            print(f"[MULTI-QUERY] Buscando apenas termos expandidos: '{expanded_query}'")
+            try:
+                expanded_results = self._vectorstore.similarity_search_with_relevance_scores(
+                    expanded_query, k=retrieval_k, score_threshold=retrieval_threshold
+                )
+                ontology_docs = []
+                for doc, score in expanded_results:
+                    doc.metadata["score"] = round(score, 4)
+                    ontology_docs.append(doc)
+            except Exception as exc:
+                logger.warning("Ontology expansion retrieval falhou (%s) — continuando com query original.", exc)
+                ontology_docs = []
+
+        # Merge deduplicando por content (usando primeiras 200 chars como ID único)
+        combined_dict = {}
+        for doc in query_docs:
+            doc_id = doc.page_content[:200]
+            combined_dict[doc_id] = doc
+
+        for doc in ontology_docs:
+            doc_id = doc.page_content[:200]
+            if doc_id not in combined_dict:
+                combined_dict[doc_id] = doc
+                ontology_chunks_added += 1
+            else:
+                # Manter o score mais alto entre as duas buscas
+                if doc.metadata.get("score", 0) > combined_dict[doc_id].metadata.get("score", 0):
+                    combined_dict[doc_id] = doc
+
+        merged = list(combined_dict.values())
+
+        # HyDE: sempre aplicar à query original (não aos termos expandidos)
         if self.use_hyde:
             hypothetical = self._generate_hypothetical_answer(query)
             if hypothetical:
@@ -253,22 +307,20 @@ class RagService:
                     for doc, score in hyde_results:
                         doc.metadata["score"] = round(score, 4)
                         hyde_docs.append(doc)
-                    merged = _deduplicate_docs(query_docs + hyde_docs)
+                    merged = _deduplicate_docs(merged + hyde_docs)
                 except Exception as exc:
-                    logger.warning("HyDE retrieval falhou (%s) — usando só query_docs.", exc)
-                    merged = query_docs
-            else:
-                merged = query_docs
-        else:
-            merged = query_docs
+                    logger.warning("HyDE retrieval falhou (%s) — continuando com merged docs.", exc)
 
         reranked = await self._reranker.rerank_async(query=query, docs=merged, top_k=8)
 
-        logger.debug(
-            "Retrieve: %d (query) → %d (merged) → %d (reranked)",
-            len(query_docs), len(merged), len(reranked),
-        )
-        return reranked
+        log_msg = f"Retrieve: {len(query_docs)} (query) + {len(ontology_docs)} (ontology) → {len(merged)} (merged)"
+        if ontology_expansion:
+            log_msg += f" → +{ontology_chunks_added} novos chunks"
+        log_msg += f" → {len(reranked)} (reranked)"
+        logger.debug(log_msg)
+        print(f"[MULTI-QUERY] {log_msg}")
+
+        return reranked, ontology_chunks_added
 
     def generate_conversation_title(self, question: str) -> str:
         normalized = " ".join(question.strip().split())
@@ -332,49 +384,87 @@ class RagService:
         self,
         question: str,
         history: list[dict[str, str]] | None = None,
+        use_ontology: bool = False,
     ) -> dict[str, Any]:
         history_str = self.build_history_str(history or [])
         query_rewritten, is_in_scope = self._rewrite_query(question, history_str)
+
+        # Expand query with ontology if enabled (sem concatenar à query)
+        ontology_expansion: list[str] = []
+        ontology_chunks_added: int = 0
+        if use_ontology:
+            print(f"[ONTOLOGY DEBUG] use_ontology=True")
+            graph = _get_ontology()
+            if graph:
+                print(f"[ONTOLOGY DEBUG] query original: {query_rewritten}")
+                ontology_expansion = expand_query(query_rewritten, graph, max_terms=5)
+                print(f"[ONTOLOGY DEBUG] termos expandidos: {ontology_expansion}")
+
         hyde_reformulation: str | None = None
         contexts: list[dict[str, Any]] = []
         if is_in_scope:
             if self.use_hyde:
                 hyde_reformulation = self._generate_hypothetical_answer(query_rewritten) or None
-            vector_docs = await self._retrieve(query_rewritten)
-            contexts    = self.extract_chunks_from_docs(vector_docs)
+            vector_docs, ontology_chunks_added = await self._retrieve(query_rewritten, ontology_expansion)
+            contexts = self.extract_chunks_from_docs(vector_docs)
         return {
-            "question_rewrite":   query_rewritten,
-            "hyde_reformulation": hyde_reformulation,
-            "contexts":           contexts,
-            "use_hyde":           self.use_hyde,
-            "is_in_scope":        is_in_scope,
+            "question_rewrite":       query_rewritten,
+            "hyde_reformulation":     hyde_reformulation,
+            "contexts":               contexts,
+            "use_hyde":               self.use_hyde,
+            "is_in_scope":            is_in_scope,
+            "ontology_expansion":     ontology_expansion,
+            "ontology_chunks_added":  ontology_chunks_added,
         }
 
     async def get_chunks_for_question(
         self,
         question: str,
         history: list[dict[str, str]] | None = None,
+        use_ontology: bool = False,
     ) -> list[dict[str, Any]]:
         history_str = self.build_history_str(history or [])
         query, is_in_scope = self._rewrite_query(question, history_str)
+
+        # Expand query with ontology if enabled (sem concatenar)
+        ontology_expansion: list[str] = []
+        if use_ontology:
+            graph = _get_ontology()
+            if graph:
+                ontology_expansion = expand_query(query, graph, max_terms=5)
+                if ontology_expansion:
+                    logger.info(f"[ONTOLOGY DEBUG] expanding query: {ontology_expansion}")
+
         if not is_in_scope:
             return []
-        vector_docs = await self._retrieve(query)
+        vector_docs, _ = await self._retrieve(query, ontology_expansion)
         return self.extract_chunks_from_docs(vector_docs)
 
     async def build_chain_input(
         self,
         question: str,
         history_str: str,
-    ) -> tuple[Any, dict[str, list[str]], bool, str]:
+        use_ontology: bool = False,
+    ) -> tuple[Any, dict[str, list[str]], bool, str, list[str]]:
         question    = _sanitize(question)
         history_str = _sanitize(history_str)
 
         if not self._check_safety(question):
             emergency_content = get_prompt(PromptKey.EMERGENCY_RESPONSE)
-            return None, {"internal": [], "web": []}, True, emergency_content
+            return None, {"internal": [], "web": []}, True, emergency_content, []
 
         query, is_in_scope = self._rewrite_query(question, history_str)
+
+        # Expand query with ontology if enabled (sem concatenar)
+        ontology_expansion: list[str] = []
+        if use_ontology:
+            logger.info(f"[ONTOLOGY DEBUG] use_ontology=True in build_chain_input")
+            graph = _get_ontology()
+            if graph:
+                logger.info(f"[ONTOLOGY DEBUG] query original: {query}")
+                ontology_expansion = expand_query(query, graph, max_terms=5)
+                if ontology_expansion:
+                    logger.info(f"[ONTOLOGY DEBUG] termos expandidos: {ontology_expansion}")
 
         internal_ctx  = ""
         internal_src: list[str] = []
@@ -391,7 +481,7 @@ class RagService:
             )
             logger.info("Query fora do escopo: %s", question[:80])
         else:
-            vector_docs  = await self._retrieve(query)
+            vector_docs, _ = await self._retrieve(query, ontology_expansion)
             internal_ctx, internal_src = self.process_internal_docs(vector_docs)
 
             if not internal_ctx:
@@ -428,7 +518,7 @@ class RagService:
             }
         )
 
-        return chain_input, {"internal": internal_src, "web": web_sources}, False, ""
+        return chain_input, {"internal": internal_src, "web": web_sources}, False, "", ontology_expansion
 
 
 @lru_cache(maxsize=2)
