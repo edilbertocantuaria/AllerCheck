@@ -34,6 +34,7 @@ class PreparedChatContext:
     conversation: Conversation | None
     is_emergency: bool = field(default=False)
     emergency_content: str = field(default="")
+    ontology_expansion: list[str] = field(default_factory=list)
 
 
 def _normalize(text: str) -> str:
@@ -104,10 +105,11 @@ def build_history_str(history: list[dict[str, str]]) -> str:
     return get_rag_service(use_hyde=True).build_history_str(history)
 
 
-async def build_chain_input(question: str, history_str: str, use_hyde: bool = True):
+async def build_chain_input(question: str, history_str: str, use_hyde: bool = True, use_ontology: bool = False):
     return await get_rag_service(use_hyde=use_hyde).build_chain_input(
         question=question,
         history_str=history_str,
+        use_ontology=use_ontology,
     )
 
 
@@ -156,10 +158,11 @@ async def prepare_chat_query(
             [{"role": item.role, "content": item.content} for item in payload.history]
         )
 
-    chain_input, sources, is_emergency, emergency_content = await build_chain_input(
+    chain_input, sources, is_emergency, emergency_content, ontology_expansion = await build_chain_input(
         question=payload.question,
         history_str=history_str,
         use_hyde=payload.use_hyde,
+        use_ontology=payload.use_ontology,
     )
 
     return PreparedChatContext(
@@ -168,6 +171,7 @@ async def prepare_chat_query(
         conversation=conversation,
         is_emergency=is_emergency,
         emergency_content=emergency_content,
+        ontology_expansion=ontology_expansion,
     )
 
 

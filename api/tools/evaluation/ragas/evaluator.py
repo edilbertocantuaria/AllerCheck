@@ -167,6 +167,7 @@ async def collect_api_responses(
     jwt_token: str | None = None,
     timeout: int = 30,
     use_hyde: bool = True,
+    use_ontology: bool = False,
 ) -> list[dict[str, Any]]:
     results = []
     headers = {"Authorization": f"Bearer {jwt_token}"} if jwt_token else {}
@@ -180,9 +181,9 @@ async def collect_api_responses(
                 print(f"[AVISO] Pergunta {idx} vazia, pulando...")
                 continue
 
-            print(f"[COLLECT] Coletando resposta {idx}/{len(questions)}: {question[:50]}... (use_hyde={use_hyde})")
+            print(f"[COLLECT] Coletando resposta {idx}/{len(questions)}: {question[:50]}... (use_hyde={use_hyde}, use_ontology={use_ontology})")
 
-            payload = {"conversation_id": None, "question": question, "history": [], "use_hyde": use_hyde}
+            payload = {"conversation_id": None, "question": question, "history": [], "use_hyde": use_hyde, "use_ontology": use_ontology}
 
             try:
                 detailed_resp = await client.post(

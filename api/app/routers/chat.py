@@ -12,6 +12,7 @@ from app.schemas import (
 from app.services.chat import build_chat_stream, format_sources_block, select_sources, _CITATION_FLAG_RE
 from app.services.rag_service import get_rag_service
 from app.unit_of_work import SqlAlchemyUnitOfWork, get_uow
+from app.prompts import QUESTION_REWRITE, QUESTION_INIT
 
 _MODEL_PRICING = {
     "gpt-4o": {"input": 2.50, "output": 10.00},
@@ -67,6 +68,7 @@ async def evaluate_chunks(payload: ChatRequest):
         chunks = await rag_service.get_chunks_for_question(
             question=payload.question,
             history=payload.history if payload.history else None,
+            use_ontology=payload.use_ontology,
         )
         return EvaluateChunksResponse(
             question=payload.question,
@@ -91,6 +93,7 @@ async def evaluate_detailed(payload: ChatRequest):
         internals = await rag_service.get_pipeline_internals(
             question=payload.question,
             history=payload.history if payload.history else None,
+            use_ontology=payload.use_ontology,
         )
 
         contexts = internals.get("contexts", []) 
@@ -111,7 +114,7 @@ async def evaluate_detailed(payload: ChatRequest):
             try:
                 history_str = rag_service.build_history_str(payload.history or [])
 
-                chain_input, sources, is_emergency, emergency_content = await rag_service.build_chain_input(
+                chain_input, sources, is_emergency, emergency_content, _ = await rag_service.build_chain_input(
                     question=payload.question,
                     history_str=history_str,
                 )
@@ -200,7 +203,7 @@ async def evaluate_comparison(payload: ChatRequest):
         if not internals.get("is_in_scope"):
             raise ValueError("Pergunta fora do escopo")
 
-        chain_input, sources, _, _ = await rag_service.build_chain_input(
+        chain_input, sources, _, _, _ = await rag_service.build_chain_input(
             question=payload.question,
             history_str=history_str,
         )

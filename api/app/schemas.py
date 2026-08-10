@@ -49,6 +49,7 @@ class ChatRequest(BaseModel):
     question: str = Field(min_length=1)
     history: list[ChatHistoryItem] = Field(default_factory=list)
     use_hyde: bool = Field(default=True, description="Enable HyDE for question rewriting")
+    use_ontology: bool = Field(default=False, description="Enable ontology-based query expansion")
 
 
 class ChunkResponse(BaseModel):

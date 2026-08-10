@@ -249,12 +249,14 @@ def cli():
 @click.option("--skip-api-check", is_flag=True, default=False)
 @click.option("--use-hyde", is_flag=True, default=False,
               help="Habilita HyDE ensemble no retrieval. Padrão: desabilitado.")
+@click.option("--use-ontology", is_flag=True, default=False,
+              help="Habilita expansão ontológica de queries. Padrão: desabilitado.")
 def pipeline(
     input_file, max_samples, api_url, api_timeout,
     jwt_token, openai_model, gemini_model, claude_model,
     ollama_model, ollama_base_url,
     evaluators, seed, output_dir,
-    concurrency, skip_api_check, use_hyde,
+    concurrency, skip_api_check, use_hyde, use_ontology,
 ):
     evaluators_list = [e.strip() for e in evaluators.split(",")]
     SLM_MODEL = ollama_model or os.getenv("SLM_MODEL", "mistral")
@@ -266,7 +268,7 @@ def pipeline(
         SLM_MODEL=SLM_MODEL, SLM_BASE_URL=SLM_BASE_URL,
         evaluators=evaluators_list, seed=seed,
         output_dir=output_dir, concurrency=concurrency,
-        skip_api_check=skip_api_check, use_hyde=use_hyde,
+        skip_api_check=skip_api_check, use_hyde=use_hyde, use_ontology=use_ontology,
     ))
 
 
@@ -275,7 +277,7 @@ async def _run_pipeline(
     jwt_token, openai_model, gemini_model, claude_model,
     SLM_MODEL, SLM_BASE_URL,
     evaluators, seed, output_dir,
-    concurrency, skip_api_check, use_hyde: bool = False,
+    concurrency, skip_api_check, use_hyde: bool = False, use_ontology: bool = False,
 ) -> None:
 
     _banner("PIPELINE RAGAS: VALIDAÇÃO → DATASET → API → AVALIAÇÃO")
@@ -308,12 +310,12 @@ async def _run_pipeline(
     except Exception as e:
         click.echo(f"      [AVISO] {e}\n", err=True)
 
-    _step("3/6", "COLLECT", f"COLETANDO RESPOSTAS DA API — {api_url} (use_hyde={use_hyde})")
+    _step("3/6", "COLLECT", f"COLETANDO RESPOSTAS DA API — {api_url} (use_hyde={use_hyde}, use_ontology={use_ontology})")
     try:
         collected = await collect_api_responses(
             questions=questions, api_base_url=api_url,
             jwt_token=jwt_token, timeout=api_timeout,
-            use_hyde=use_hyde,
+            use_hyde=use_hyde, use_ontology=use_ontology,
         )
         valid_responses = [r for r in collected if r.get("answer") is not None]
         click.echo(f"      [OK] {len(valid_responses)}/{len(collected)} respostas válidas\n")

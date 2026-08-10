@@ -100,20 +100,44 @@ async def get_sinonimos(session, rxcui: str) -> list[str]:
                     sinonimos.append(nome)
     return list(set(sinonimos))
 
-async def get_classe_atc(session, rxcui: str) -> dict | None:
+async def get_classes_atc(session, rxcui: str) -> list[dict]:
+    """Retorna TODAS as classes ATC (tty=IN ou PIN) para um medicamento."""
     data = await get_json(session, "https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json",
                           params={"rxcui": rxcui, "relaSource": "ATC"})
     if not data:
-        return None
+        return []
+
     infos = data.get("rxclassDrugInfoList", {}).get("rxclassDrugInfo", [])
+    classes = []
+    seen_ids = set()
+
+    # Primeira passagem: classes com tty=IN (mais relevantes)
     for info in infos:
         if info.get("minConcept", {}).get("tty", "") == "IN":
             item = info.get("rxclassMinConceptItem", {})
-            return {"classId": item.get("classId", ""), "className": item.get("className", ""), "classType": item.get("classType", "")}
-    if infos:
-        item = infos[0].get("rxclassMinConceptItem", {})
-        return {"classId": item.get("classId", ""), "className": item.get("className", ""), "classType": item.get("classType", "")}
-    return None
+            class_id = item.get("classId", "")
+            if class_id and class_id not in seen_ids:
+                seen_ids.add(class_id)
+                classes.append({
+                    "classId": class_id,
+                    "className": item.get("className", ""),
+                    "classType": item.get("classType", "")
+                })
+
+    # Segunda passagem: classes com tty=PIN (menos relevantes, mas ainda relevantes)
+    for info in infos:
+        if info.get("minConcept", {}).get("tty", "") == "PIN":
+            item = info.get("rxclassMinConceptItem", {})
+            class_id = item.get("classId", "")
+            if class_id and class_id not in seen_ids:
+                seen_ids.add(class_id)
+                classes.append({
+                    "classId": class_id,
+                    "className": item.get("className", ""),
+                    "classType": item.get("classType", "")
+                })
+
+    return classes
 
 async def get_membros_classe(session, class_id: str) -> list[dict]:
     data = await get_json(session, "https://rxnav.nlm.nih.gov/REST/rxclass/classMembers.json",
@@ -161,7 +185,7 @@ async def processar_medicamento(session: aiohttp.ClientSession, med: dict) -> di
         "fonte_traducao":   med.get("fonte_traducao", "whodrug"),
         "rxcui":            None,
         "sinonimos_rxnorm": [],
-        "classe_atc":       None,
+        "classes_atc":      [],  # MUDADO: lista em vez de dict único
         "membros_classe":   [],
         "hierarquia_atc":   [],
         "pharm_class":      [],
@@ -183,22 +207,44 @@ async def processar_medicamento(session: aiohttp.ClientSession, med: dict) -> di
             resultado["sinonimos_rxnorm"] = sinonimos
             resultado["cobertura"].append("rxnorm_sinonimos")
 
-        # Classe ATC
-        classe = await get_classe_atc(session, rxcui)
-        if classe:
-            resultado["classe_atc"] = classe
+        # TODAS as Classes ATC (não apenas uma)
+        classes = await get_classes_atc(session, rxcui)
+        if classes:
+            resultado["classes_atc"] = classes
             resultado["cobertura"].append("rxclass_atc")
 
-            # Membros
-            membros = await get_membros_classe(session, classe["classId"])
-            if membros:
-                resultado["membros_classe"] = membros
+            # Membros: consolidar de TODAS as classes, deduplicando por rxcui
+            membros_dict = {}  # {rxcui: {name, tty, from_class}}
+            for classe in classes:
+                membros = await get_membros_classe(session, classe["classId"])
+                for membro in membros:
+                    rxcui_membro = membro.get("rxcui", "")
+                    if rxcui_membro and rxcui_membro not in membros_dict:
+                        membros_dict[rxcui_membro] = {
+                            "rxcui": rxcui_membro,
+                            "name": membro.get("name", ""),
+                            "tty": membro.get("tty", ""),
+                            "from_class": classe["classId"]
+                        }
+
+            if membros_dict:
+                resultado["membros_classe"] = list(membros_dict.values())
                 resultado["cobertura"].append("rxclass_membros")
 
-            # Hierarquia
-            hierarquia = await get_hierarquia_atc(session, classe["classId"])
-            if hierarquia:
-                resultado["hierarquia_atc"] = hierarquia
+            # Hierarquia: consolidar de TODAS as classes, deduplicando por classId
+            hierarquia_dict = {}  # {classId: {className}}
+            for classe in classes:
+                hierarquia = await get_hierarquia_atc(session, classe["classId"])
+                for nivel in hierarquia:
+                    class_id = nivel.get("classId", "")
+                    if class_id and class_id not in hierarquia_dict:
+                        hierarquia_dict[class_id] = {
+                            "classId": class_id,
+                            "className": nivel.get("className", "")
+                        }
+
+            if hierarquia_dict:
+                resultado["hierarquia_atc"] = list(hierarquia_dict.values())
                 resultado["cobertura"].append("rxclass_hierarquia")
 
     # openFDA (independente do RxCUI)
