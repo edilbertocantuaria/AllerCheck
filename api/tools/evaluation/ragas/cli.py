@@ -91,9 +91,10 @@ async def _evaluate_item(
     answer_rag   = item.get("answer", "")
     ground_truth = item.get("ground_truth", "")
     contexts     = item.get("contexts", [])
+    question_id = item.get("question_id")
 
     score_item: dict = {
-        "question_id":  item.get("question_id"),
+        "question_id":  question_id,
         "question":     question,
         "ground_truth": ground_truth,
         "answer":       answer_rag,
@@ -110,13 +111,15 @@ async def _evaluate_item(
     ).strip()
 
     if len(_answer_sanitized) < 50:
-        msg = f"resposta corrompida/truncada ({len(_answer_sanitized)} chars após sanitização) — item ignorado, zero tokens gastos"
+        msg = f"resposta corrompida/truncada ({len(_answer_sanitized)} chars após sanitização)"
         score_item["errors"].append(msg)
-        click.echo(f"      [{idx:>3}/{total}] [SKIP] {msg}", err=True)
+        click.echo(f"      [{idx:>3}/{total}] [SKIP] question_id={question_id} | {msg}", err=True)
+        click.echo(f"              PERGUNTA: {question}", err=True)
+        click.echo(f"              RESPOSTA: {answer_rag[:100]}...", err=True)
         return score_item
 
     async with semaphore:
-        click.echo(f"      [{idx:>3}/{total}] iniciando... ({question[:45].strip()})")
+        click.echo(f"      [{idx:>3}/{total}] question_id={question_id} | iniciando... ({question[:60].strip()})")
         try:
             result: EvalResult = await evaluator.evaluate_all(
                 question=question, answer=_answer_sanitized,
@@ -129,7 +132,9 @@ async def _evaluate_item(
             import traceback
             msg = f"{type(e).__name__}: {e}"
             score_item["errors"].append(msg)
-            click.echo(f"      [{idx:>3}/{total}] [ERRO] {msg}", err=True)
+            click.echo(f"      [{idx:>3}/{total}] [ERRO] question_id={question_id}", err=True)
+            click.echo(f"              PERGUNTA: {question}", err=True)
+            click.echo(f"              ERRO: {msg}", err=True)
             click.echo(traceback.format_exc(), err=True)
 
     return score_item
@@ -157,7 +162,6 @@ async def _evaluate_all_concurrent(
     counts = {ev: {m: 0 for m in ALL_METRICS} for ev in active_evaluators}
     scores_list: list[dict] = []
 
-    checkpoint_every = max(10, concurrency * 2)
     completed = 0
 
     for coro in asyncio.as_completed(tasks):
@@ -174,12 +178,8 @@ async def _evaluate_all_concurrent(
                 context_entity_recall = {ev: score_item["results"][ev]["context_entity_recall"] for ev in score_item["results"]},
             )
             _accumulate(sums, counts, result_obj)
-
-        if completed % checkpoint_every == 0:
-            evaluation_results["scores"]  = scores_list
-            evaluation_results["summary"] = _compute_averages(sums, counts)
-            save_evaluation_results(evaluation_results, output_dir)
-            click.echo(f"      [CHECKPOINT] {completed}/{total} salvos")
+        elif score_item["errors"]:
+            click.echo(f"      [{score_item['question_id']:>3}/{total}] [FALHOU] {score_item['errors'][0]}", err=True)
 
     scores_list.sort(key=lambda x: x.get("question_id") or 0)
     return scores_list, sums, counts
@@ -280,7 +280,7 @@ async def _run_pipeline(
     concurrency, skip_api_check, use_hyde: bool = False, use_ontology: bool = False,
 ) -> None:
 
-    _banner("PIPELINE RAGAS: VALIDAÇÃO → DATASET → API → AVALIAÇÃO")
+    _banner("PIPELINE RAGAS: VALIDACAO > DATASET > API > AVALIACAO")
 
     if not skip_api_check:
         openai_key = os.getenv("OPENAI_API_KEY")
@@ -359,6 +359,7 @@ async def _run_pipeline(
         "evaluators": active_evaluators,
         "seed":       seed,
         "use_hyde":   use_hyde,
+        "use_ontology": use_ontology,
         "metrics":    ALL_METRICS,
         "summary":    {},
         "scores":     [],

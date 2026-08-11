@@ -15,7 +15,6 @@ try:
 except ImportError:
     pass
 
-import anthropic
 import httpx
 from openai import AsyncOpenAI
 from openai.types.chat import ChatCompletion
@@ -31,7 +30,7 @@ from ragas.metrics.collections import (
 
 from .helpers import get_iso_timestamp
 
-_GEMINI_BASE_URL  = os.getenv("_GEMINI_BASE_URL")
+_GEMINI_BASE_URL  = os.getenv("GEMINI_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai/")
 _SLM_BASE_URL  = os.getenv("SLM_BASE_URL")
 
 _UNICODE_ESCAPE_RE   = re.compile(r'\\u([0-9a-fA-F]{4})')
@@ -168,7 +167,14 @@ async def collect_api_responses(
     timeout: int = 30,
     use_hyde: bool = True,
     use_ontology: bool = False,
+    max_retries: int = 3,
 ) -> list[dict[str, Any]]:
+    """
+    Coleta respostas da API com retry automático.
+
+    Args:
+        max_retries: Número máximo de tentativas por pergunta (padrão: 3)
+    """
     results = []
     headers = {"Authorization": f"Bearer {jwt_token}"} if jwt_token else {}
 
@@ -185,50 +191,83 @@ async def collect_api_responses(
 
             payload = {"conversation_id": None, "question": question, "history": [], "use_hyde": use_hyde, "use_ontology": use_ontology}
 
-            try:
-                detailed_resp = await client.post(
-                    f"{api_base_url}/evaluate/detailed",
-                    json=payload,
-                    headers=headers,
-                )
-                detailed_data = detailed_resp.json() if detailed_resp.status_code == 200 else {}
+            success = False
+            last_error = None
 
-                contexts = [c.get("content") for c in detailed_data.get("chunks", [])] if detailed_data.get("chunks") else []
-                clean_answer = await _collect_chat(client, api_base_url, payload, headers)
+            # Tentar com retry automático
+            for attempt in range(1, max_retries + 1):
+                try:
+                    detailed_resp = await client.post(
+                        f"{api_base_url}/evaluate/detailed",
+                        json=payload,
+                        headers=headers,
+                    )
+                    detailed_data = detailed_resp.json() if detailed_resp.status_code == 200 else {}
 
-                results.append({
-                    "question_id":         idx,
-                    "question":            question,
-                    "question_rewrite":    detailed_data.get("question_rewrite"),
-                    "hyde_reformulation":  detailed_data.get("hyde_reformulation"),
-                    "answer":              clean_answer,
-                    "ground_truth":        ground_truth,
-                    "contexts":            contexts,
-                    "collected_at":        get_iso_timestamp(),
-                })
-                print(f"[OK] Resposta {idx} coletada com sucesso")
+                    contexts = [c.get("content") for c in detailed_data.get("chunks", [])] if detailed_data.get("chunks") else []
+                    clean_answer = await _collect_chat(client, api_base_url, payload, headers)
 
-            except httpx.HTTPError as e:
-                print(f"[ERRO] Erro HTTP na pergunta {idx}: {e}")
+                    ontology_exp = detailed_data.get("ontology_expansion", [])
+                    ontology_str = f" [ONTOLOGIA] {' | '.join(ontology_exp)}" if ontology_exp else ""
+
+                    results.append({
+                        "question_id":         idx,
+                        "question":            question,
+                        "question_rewrite":    detailed_data.get("question_rewrite"),
+                        "hyde_reformulation":  detailed_data.get("hyde_reformulation"),
+                        "ontology_expansion":  ontology_exp,
+                        "answer":              clean_answer,
+                        "ground_truth":        ground_truth,
+                        "contexts":            contexts,
+                        "collected_at":        get_iso_timestamp(),
+                        "retry_attempts":      attempt,
+                    })
+                    print(f"[OK] Resposta {idx} coletada com sucesso{ontology_str}")
+                    success = True
+                    break
+
+                except httpx.TimeoutException as e:
+                    last_error = f"TimeoutException (tentativa {attempt}/{max_retries}): {type(e).__name__}"
+                    if attempt < max_retries:
+                        wait = 0.5 * (2 ** (attempt - 1))  # Backoff reduzido: 0.5s, 1s, 2s
+                        print(f"[RETRY] Q{idx} timeout, aguardando {wait}s antes de retry...")
+                        await asyncio.sleep(wait)
+                    else:
+                        print(f"[ERRO] Q{idx} timeout após {max_retries} tentativas")
+
+                except httpx.HTTPStatusError as e:
+                    last_error = f"HTTP {e.response.status_code}: {e.response.reason_phrase}"
+                    print(f"[ERRO] Q{idx} HTTP {e.response.status_code} (tentativa {attempt}/{max_retries})")
+                    if attempt == max_retries:
+                        print(f"        Erro: {last_error}")
+
+                except httpx.HTTPError as e:
+                    last_error = f"{type(e).__name__}: {str(e)}"
+                    if attempt < max_retries:
+                        wait = 0.5 * (2 ** (attempt - 1))
+                        print(f"[RETRY] Q{idx} erro HTTP, aguardando {wait}s...")
+                        await asyncio.sleep(wait)
+                    else:
+                        print(f"[ERRO] Q{idx}: {last_error}")
+
+                except Exception as e:
+                    last_error = f"{type(e).__name__}: {str(e)}"
+                    print(f"[ERRO] Q{idx} erro inesperado (tentativa {attempt}/{max_retries}): {last_error}")
+                    if attempt < max_retries:
+                        wait = 0.5 * (2 ** (attempt - 1))
+                        await asyncio.sleep(wait)
+
+            # Se falhou após todos os retries
+            if not success:
                 results.append({
-                    "question_id":  idx,
-                    "question":     question,
-                    "answer":       None,
-                    "ground_truth": ground_truth,
-                    "contexts":     [],
-                    "error":        str(e),
-                    "collected_at": get_iso_timestamp(),
-                })
-            except Exception as e:
-                print(f"[ERRO] Erro inesperado na pergunta {idx}: {e}")
-                results.append({
-                    "question_id":  idx,
-                    "question":     question,
-                    "answer":       None,
-                    "ground_truth": ground_truth,
-                    "contexts":     [],
-                    "error":        str(e),
-                    "collected_at": get_iso_timestamp(),
+                    "question_id":      idx,
+                    "question":         question,
+                    "answer":           None,
+                    "ground_truth":     ground_truth,
+                    "contexts":         [],
+                    "error":            last_error or "Falha desconhecida",
+                    "collected_at":     get_iso_timestamp(),
+                    "retry_attempts":   max_retries,
                 })
 
     return results
@@ -254,8 +293,8 @@ class EvalResult:
 
 class RagasEvaluator:
 
-    _claude_sem = asyncio.Semaphore(1)
-    _ollama_sem = asyncio.Semaphore(1)
+    _claude_sem = asyncio.Semaphore(3)
+    _ollama_sem = asyncio.Semaphore(3)
 
     def __init__(
         self,
@@ -303,6 +342,7 @@ class RagasEvaluator:
         _gemini_llm = llm_factory(gemini_model, client=_gem_client, max_tokens=4096, temperature=evaluator_temperature)
 
         _ant_key    = anthropic_api_key or os.getenv("ANTHROPIC_API_KEY")
+        import anthropic
         _ant_client = anthropic.AsyncAnthropic(api_key=_ant_key)
         _claude_llm = llm_factory(
             claude_model,
