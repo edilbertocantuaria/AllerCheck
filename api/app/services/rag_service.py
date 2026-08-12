@@ -1,6 +1,10 @@
+import asyncio
+import functools
 import logging
 import os
 import re
+import threading
+from concurrent.futures import ThreadPoolExecutor
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -27,6 +31,11 @@ from app.services.ontology_expander import load_ontology, expand_query
 logger = logging.getLogger(__name__)
 
 _NO_SOURCE_MARKER = "NO_SOURCE_AVAILABLE"
+
+# Executor customizado com mais threads para Pinecone retrieval
+# Cada requisição COM ontologia faz 2 buscas paralelas via asyncio.gather()
+# Pool padrão (~32 threads) esgota rapidamente. Aumentar para 64 threads.
+_executor = ThreadPoolExecutor(max_workers=64, thread_name_prefix="pinecone_")
 _CONTROL_CHARS_RE = re.compile(r'[\x00-\x08\x0b-\x0c\x0e-\x1f\x7f]')
 _GEMINI_BASE_URL  = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
@@ -246,36 +255,44 @@ class RagService:
         retrieval_k = int(os.getenv("RETRIEVAL_K", "8"))
         retrieval_threshold = float(os.getenv("RETRIEVAL_SCORE_THRESHOLD", "0.60"))
 
-        # Busca 1: query original
-        try:
-            results = self._vectorstore.similarity_search_with_relevance_scores(
-                query, k=retrieval_k, score_threshold=retrieval_threshold
+        async def _search(q: str, k: int, threshold: float) -> list[Any]:
+            """Executa busca síncrona no executor customizado (não bloqueia event loop)."""
+            loop = asyncio.get_running_loop()
+            func = functools.partial(
+                self._vectorstore.similarity_search_with_relevance_scores,
+                q, k=k, score_threshold=threshold
             )
-            query_docs = []
+            results = await loop.run_in_executor(_executor, func)
+            thread_name = threading.current_thread().name
+            logger.debug(f"[EXECUTOR] Busca executada na thread: {thread_name}")
+            docs = []
             for doc, score in results:
                 doc.metadata["score"] = round(score, 4)
-                query_docs.append(doc)
+                docs.append(doc)
+            return docs
+
+        # Busca 1 (query original) e Busca 2 (ontologia) em PARALELO
+        query_docs = []
+        ontology_docs = []
+        ontology_chunks_added = 0
+
+        try:
+            if ontology_expansion and len(ontology_expansion) > 0:
+                expanded_query = " ".join(ontology_expansion)
+                print(f"[MULTI-QUERY] Paralelizando: query original + termos expandidos")
+
+                query_docs, ontology_docs = await asyncio.gather(
+                    _search(query, retrieval_k, retrieval_threshold),
+                    _search(expanded_query, retrieval_k, retrieval_threshold),
+                    return_exceptions=False
+                )
+            else:
+                print(f"[MULTI-QUERY] Buscando: query original apenas")
+                query_docs = await _search(query, retrieval_k, retrieval_threshold)
+                ontology_docs = []
         except Exception as exc:
             logger.error("Pinecone retrieval falhou para query '%s': %s", query[:80], exc)
             return [], 0
-
-        # Busca 2: apenas termos expandidos da ontologia (multi-query)
-        ontology_docs = []
-        ontology_chunks_added = 0
-        if ontology_expansion and len(ontology_expansion) > 0:
-            expanded_query = " ".join(ontology_expansion)
-            print(f"[MULTI-QUERY] Buscando apenas termos expandidos: '{expanded_query}'")
-            try:
-                expanded_results = self._vectorstore.similarity_search_with_relevance_scores(
-                    expanded_query, k=retrieval_k, score_threshold=retrieval_threshold
-                )
-                ontology_docs = []
-                for doc, score in expanded_results:
-                    doc.metadata["score"] = round(score, 4)
-                    ontology_docs.append(doc)
-            except Exception as exc:
-                logger.warning("Ontology expansion retrieval falhou (%s) — continuando com query original.", exc)
-                ontology_docs = []
 
         # Merge deduplicando por content (usando primeiras 200 chars como ID único)
         combined_dict = {}
@@ -300,13 +317,7 @@ class RagService:
             hypothetical = self._generate_hypothetical_answer(query)
             if hypothetical:
                 try:
-                    hyde_results = self._vectorstore.similarity_search_with_relevance_scores(
-                        hypothetical, k=4, score_threshold=0.62
-                    )
-                    hyde_docs = []
-                    for doc, score in hyde_results:
-                        doc.metadata["score"] = round(score, 4)
-                        hyde_docs.append(doc)
+                    hyde_docs = await _search(hypothetical, 4, 0.62)
                     merged = _deduplicate_docs(merged + hyde_docs)
                 except Exception as exc:
                     logger.warning("HyDE retrieval falhou (%s) — continuando com merged docs.", exc)
