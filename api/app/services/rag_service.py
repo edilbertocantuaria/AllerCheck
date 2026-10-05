@@ -521,7 +521,7 @@ Traduções:"""
         query_rewritten, is_in_scope = self._rewrite_query(question, history_str)
 
         # Expand query with ontology if enabled (sem concatenar à query)
-        ontology_expansion: list[dict | str] = []
+        ontology_expansion: list[dict] = []  # List of {en, pt} dicts from RxNorm + LLM translation
         ontology_chunks_added: int = 0
         if use_ontology:
             print(f"[ONTOLOGY DEBUG] use_ontology=True")
@@ -539,7 +539,10 @@ Traduções:"""
         if is_in_scope:
             if self.use_hyde:
                 hyde_reformulation = self._generate_hypothetical_answer(query_rewritten) or None
-            vector_docs, ontology_chunks_added = await self._retrieve(query_rewritten, ontology_expansion)
+            # Extract Portuguese terms from dicts for _retrieve()
+            ontology_terms_pt = [t.get("pt", t.get("en", "")) if isinstance(t, dict) else t
+                                 for t in ontology_expansion] if ontology_expansion else []
+            vector_docs, ontology_chunks_added = await self._retrieve(query_rewritten, ontology_terms_pt)
             contexts = self.extract_chunks_from_docs(vector_docs)
         return {
             "question_rewrite":       query_rewritten,
@@ -561,10 +564,12 @@ Traduções:"""
         query, is_in_scope = self._rewrite_query(question, history_str)
 
         # Expand query with ontology if enabled (sem concatenar)
-        ontology_expansion: list = []
+        ontology_expansion: list[str] = []
         if use_ontology:
-            ontology_expansion = await expand_query_from_rxnorm(query, max_terms=5)
-            if ontology_expansion:
+            onto_dicts = await expand_query_from_rxnorm(query, max_terms=5)
+            if onto_dicts:
+                # Extract Portuguese terms from {en, pt} dicts
+                ontology_expansion = [t.get("pt", t.get("en", "")) for t in onto_dicts if isinstance(t, dict)]
                 logger.info(f"[ONTOLOGY DEBUG] expanding query: {ontology_expansion}")
 
         if not is_in_scope:
@@ -592,9 +597,11 @@ Traduções:"""
         if use_ontology:
             logger.info(f"[ONTOLOGY DEBUG] use_ontology=True in build_chain_input")
             logger.info(f"[ONTOLOGY DEBUG] query original: {query}")
-            ontology_expansion = await expand_query_from_rxnorm(query, max_terms=5)
-            if ontology_expansion:
-                logger.info(f"[ONTOLOGY DEBUG] termos expandidos: {ontology_expansion}")
+            onto_dicts = await expand_query_from_rxnorm(query, max_terms=5)
+            if onto_dicts:
+                # Extract Portuguese terms from {en, pt} dicts
+                ontology_expansion = [t.get("pt", t.get("en", "")) for t in onto_dicts if isinstance(t, dict)]
+                logger.info(f"[ONTOLOGY DEBUG] termos expandidos (PT): {ontology_expansion}")
 
         internal_ctx  = ""
         internal_src: list[str] = []
