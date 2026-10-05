@@ -81,6 +81,30 @@ def _deduplicate_docs(docs: list[Any]) -> list[Any]:
     return unique
 
 
+_MEDICATION_PATTERN = re.compile(r'([A-ZÀ-Úa-zà-ú][\wà-úÀ-Ú\s]*?)\s*\(([^)]+)\)')
+
+
+def extract_medication_zones(query_rewritten: str) -> str:
+    """
+    Extrai apenas os trechos 'Nome (conteúdo)' da query reescrita,
+    que é onde o motor de reescrita coloca os medicamentos mencionados.
+    Evita falsos positivos ao detectar nós do grafo em palavras aleatórias
+    do contexto/sintoma/pergunta.
+
+    Args:
+        query_rewritten: Query após reescrita estruturada.
+
+    Returns:
+        String com os trechos medicamento+conteúdo concatenados.
+        Retorna string vazia se nenhum padrão for encontrado.
+    """
+    matches = _MEDICATION_PATTERN.findall(query_rewritten)
+    if not matches:
+        return ""
+    zones = [f"{nome.strip()} {conteudo.strip()}" for nome, conteudo in matches]
+    return " ".join(zones)
+
+
 def _build_rewrite_llm():
     provider = os.getenv("REWRITE_PROVIDER", "openai").lower()
     temperature = float(os.environ["REWRITE_TEMPERATURE"])
@@ -408,7 +432,10 @@ class RagService:
             graph = _get_ontology()
             if graph:
                 print(f"[ONTOLOGY DEBUG] query original: {query_rewritten}")
-                ontology_expansion = expand_query(query_rewritten, graph, max_terms=5)
+                zona_restrita = extract_medication_zones(query_rewritten)
+                texto_para_expansao = zona_restrita if zona_restrita else query_rewritten
+                print(f"[ONTOLOGY DEBUG] zona de medicamentos: '{texto_para_expansao}'")
+                ontology_expansion = expand_query(texto_para_expansao, graph, max_terms=5)
                 print(f"[ONTOLOGY DEBUG] termos expandidos: {ontology_expansion}")
 
         hyde_reformulation: str | None = None
@@ -442,7 +469,9 @@ class RagService:
         if use_ontology:
             graph = _get_ontology()
             if graph:
-                ontology_expansion = expand_query(query, graph, max_terms=5)
+                zona_restrita = extract_medication_zones(query)
+                texto_para_expansao = zona_restrita if zona_restrita else query
+                ontology_expansion = expand_query(texto_para_expansao, graph, max_terms=5)
                 if ontology_expansion:
                     logger.info(f"[ONTOLOGY DEBUG] expanding query: {ontology_expansion}")
 
@@ -473,7 +502,10 @@ class RagService:
             graph = _get_ontology()
             if graph:
                 logger.info(f"[ONTOLOGY DEBUG] query original: {query}")
-                ontology_expansion = expand_query(query, graph, max_terms=5)
+                zona_restrita = extract_medication_zones(query)
+                texto_para_expansao = zona_restrita if zona_restrita else query
+                logger.info(f"[ONTOLOGY DEBUG] zona de medicamentos: '{texto_para_expansao}'")
+                ontology_expansion = expand_query(texto_para_expansao, graph, max_terms=5)
                 if ontology_expansion:
                     logger.info(f"[ONTOLOGY DEBUG] termos expandidos: {ontology_expansion}")
 

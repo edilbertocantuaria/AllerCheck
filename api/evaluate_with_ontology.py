@@ -188,8 +188,8 @@ async def main(
     # 1. CARREGAR
     _step("1/6", "LOAD", "CARREGANDO DATASET")
     try:
-        questions = load_xlsx_dataset(input_file, max_samples=max_samples)
-        click.echo(f"      [OK] {len(questions)} questões carregadas\n")
+        questions = load_xlsx_dataset(input_file, max_samples=max_samples, seed=seed)
+        click.echo(f"      [OK] {len(questions)} questões carregadas (seed={seed})\n")
     except Exception as e:
         _abort(f"Erro ao carregar: {e}")
 
@@ -337,8 +337,10 @@ if __name__ == "__main__":
 
     input_file = sys.argv[1] if len(sys.argv) > 1 else "tools/data/raw/evaluation/filtred_alergia_medicamentos.xlsx"
     max_samples = int(sys.argv[2]) if len(sys.argv) > 2 else 30
+    seed = int(sys.argv[3]) if len(sys.argv) > 3 else 42
 
     asyncio.run(main(
         input_file=input_file,
         max_samples=max_samples,
+        seed=seed,
     ))

@@ -85,7 +85,7 @@ def get_iso_timestamp() -> str:
     return datetime.now(_BRT).isoformat(timespec="microseconds")
 
 
-def load_xlsx_dataset(file_path: str, max_samples: int | None = None) -> list[dict[str, Any]]:
+def load_xlsx_dataset(file_path: str, max_samples: int | None = None, seed: int | None = None) -> list[dict[str, Any]]:
     try:
         import openpyxl
     except ImportError:
@@ -103,6 +103,8 @@ def load_xlsx_dataset(file_path: str, max_samples: int | None = None) -> list[di
             data.append(row_dict)
 
     if max_samples is not None and len(data) > max_samples:
+        if seed is not None:
+            random.seed(seed)
         data = random.sample(data, max_samples)
 
     return data
