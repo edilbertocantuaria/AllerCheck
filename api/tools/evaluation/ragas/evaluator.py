@@ -208,7 +208,10 @@ async def collect_api_responses(
                     clean_answer = await _collect_chat(client, api_base_url, payload, headers)
 
                     ontology_exp = detailed_data.get("ontology_expansion", [])
-                    ontology_str = f" [ONTOLOGIA] {' | '.join(ontology_exp)}" if ontology_exp else ""
+                    # Extract strings from dicts: [{"en": "...", "pt": "..."}] → ["pt_term", ...]
+                    ontology_terms = [t.get("pt", t.get("en", "")) if isinstance(t, dict) else t
+                                      for t in ontology_exp] if ontology_exp else []
+                    ontology_str = f" [ONTOLOGIA] {' | '.join(ontology_terms)}" if ontology_terms else ""
 
                     results.append({
                         "question_id":         idx,
