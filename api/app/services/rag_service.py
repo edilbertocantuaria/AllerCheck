@@ -71,13 +71,32 @@ def _sanitize(text: str) -> str:
 
 
 def _deduplicate_docs(docs: list[Any]) -> list[Any]:
-    seen: set[str] = set()
+    """Deduplicate docs by content, merging retrieval_source metadata."""
+    seen: dict[str, Any] = {}
     unique: list[Any] = []
+
     for doc in docs:
         key = doc.page_content[:200]
         if key not in seen:
-            seen.add(key)
+            seen[key] = doc
             unique.append(doc)
+        else:
+            # Duplicate found: merge retrieval sources
+            existing_doc = seen[key]
+            existing_source = existing_doc.metadata.get("retrieval_source", "unknown")
+            new_source = doc.metadata.get("retrieval_source", "unknown")
+
+            # Mark as hybrid if different sources
+            if existing_source != new_source:
+                existing_doc.metadata["retrieval_source"] = "hybrid"
+
+            # Keep higher score
+            if doc.metadata.get("score", 0) > existing_doc.metadata.get("score", 0):
+                seen[key] = doc
+                # Update with new doc but preserve hybrid marker
+                doc.metadata["retrieval_source"] = "hybrid" if existing_source != new_source else new_source
+                unique[unique.index(existing_doc)] = doc
+
     return unique
 
 
