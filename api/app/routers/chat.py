@@ -147,6 +147,7 @@ async def evaluate_detailed(payload: ChatRequest):
             question_rewrite=internals.get("question_rewrite"),
             hyde_reformulation=internals.get("hyde_reformulation"),
             ontology_expansion=internals.get("ontology_expansion"),
+            ontology_chunks_added=internals.get("ontology_chunks_added", 0),
             chunks=contexts,
             total_chunks=len(contexts),
             use_hyde=payload.use_hyde,
