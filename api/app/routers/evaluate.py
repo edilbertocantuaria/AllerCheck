@@ -64,7 +64,10 @@ async def evaluate_ontology_debug(payload: ChatRequest):
 
         chunks_by_source = {"original_query": 0, "ontology_expansion": 0, "hyde": 0, "hybrid": 0}
         if is_in_scope and payload.use_ontology:
-            vector_docs, ont_chunks_added = await rag_service._retrieve(query_rewritten, ontology_expansion_en)
+            # Extract Portuguese terms from dicts for _retrieve()
+            ontology_terms_pt = [t.get("pt", t.get("en", "")) if isinstance(t, dict) else t
+                                 for t in ontology_expansion_en] if ontology_expansion_en else []
+            vector_docs, ont_chunks_added = await rag_service._retrieve(query_rewritten, ontology_terms_pt)
             for doc in vector_docs:
                 source = doc.metadata.get("retrieval_source", "unknown")
                 if source in chunks_by_source:
