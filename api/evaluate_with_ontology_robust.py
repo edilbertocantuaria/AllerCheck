@@ -123,8 +123,16 @@ async def main(
     # 2. VALIDATE
     _step("2/6", "VALIDATE", "VALIDANDO API")
     api_url = "http://localhost:8000"
-    check_gemini()
-    click.echo(f"      [OK] Gemini validado\n")
+    gemini_api_key = os.getenv("GEMINI_API_KEY")
+    gemini_model = "gemini-2.5-flash-lite"
+    if gemini_api_key:
+        try:
+            await check_gemini(gemini_api_key, gemini_model)
+            click.echo(f"      [OK] Gemini validado\n")
+        except Exception as e:
+            click.echo(f"      ⚠️  Aviso: Gemini validation falhou: {e}\n")
+    else:
+        click.echo(f"      ⚠️  Aviso: GEMINI_API_KEY não configurada\n")
 
     # 3. COLLECT COM ONTOLOGIA (com fallback)
     _step("3/6", "COLLECT", f"COLETANDO {target_samples} RESPOSTAS (COM ONTOLOGIA)")
