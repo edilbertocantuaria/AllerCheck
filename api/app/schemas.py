@@ -58,6 +58,7 @@ class ChunkResponse(BaseModel):
     score: float | None = None
     rerank_score: float | None = None
     rank: int | None = None
+    retrieval_source: str | None = None  # "original_query" | "ontology_expansion" | "hyde"
 
 
 class EvaluateChunksResponse(BaseModel):

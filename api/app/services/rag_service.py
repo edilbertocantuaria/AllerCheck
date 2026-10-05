@@ -322,17 +322,23 @@ class RagService:
         combined_dict = {}
         for doc in query_docs:
             doc_id = doc.page_content[:200]
+            doc.metadata["retrieval_source"] = "original_query"
             combined_dict[doc_id] = doc
 
         for doc in ontology_docs:
             doc_id = doc.page_content[:200]
             if doc_id not in combined_dict:
+                doc.metadata["retrieval_source"] = "ontology_expansion"
                 combined_dict[doc_id] = doc
                 ontology_chunks_added += 1
             else:
                 # Manter o score mais alto entre as duas buscas
                 if doc.metadata.get("score", 0) > combined_dict[doc_id].metadata.get("score", 0):
+                    doc.metadata["retrieval_source"] = "ontology_expansion"
                     combined_dict[doc_id] = doc
+                else:
+                    # Mark como hybrid se apareceu em ambas buscas
+                    combined_dict[doc_id].metadata["retrieval_source"] = "hybrid"
 
         merged = list(combined_dict.values())
 
@@ -342,6 +348,8 @@ class RagService:
             if hypothetical:
                 try:
                     hyde_docs = await _search(hypothetical, 4, 0.62)
+                    for doc in hyde_docs:
+                        doc.metadata["retrieval_source"] = "hyde"
                     merged = _deduplicate_docs(merged + hyde_docs)
                 except Exception as exc:
                     logger.warning("HyDE retrieval falhou (%s) — continuando com merged docs.", exc)
@@ -407,11 +415,12 @@ class RagService:
             formatted_source = format_document_title(doc.metadata.get("source", ""))
             meta = doc.metadata if hasattr(doc, "metadata") else {}
             chunks.append({
-                "content":      doc.page_content,
-                "source":       formatted_source if formatted_source != "Unknown Source" else "Unknown",
-                "score":        meta.get("score"),
-                "rerank_score": meta.get("rerank_score"),
-                "rank":         rank,
+                "content":           doc.page_content,
+                "source":            formatted_source if formatted_source != "Unknown Source" else "Unknown",
+                "score":             meta.get("score"),
+                "rerank_score":      meta.get("rerank_score"),
+                "rank":              rank,
+                "retrieval_source":  meta.get("retrieval_source"),  # "original_query" | "ontology_expansion" | "hyde" | "hybrid"
             })
         return chunks
 
