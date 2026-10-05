@@ -16,6 +16,7 @@ COPY ingestion/ ./ingestion/
 COPY tools/ ./tools/
 COPY tests/ ./tests
 COPY evaluate_with_ontology.py .
+COPY evaluate_with_ontology_robust.py .
 RUN mkdir -p logs docs
 
 EXPOSE 8000
