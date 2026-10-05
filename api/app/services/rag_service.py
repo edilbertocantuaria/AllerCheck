@@ -419,7 +419,7 @@ class RagService:
         self,
         question: str,
         history: list[dict[str, str]] | None = None,
-        use_ontology: bool = False,
+        use_ontology: bool = True,
     ) -> dict[str, Any]:
         history_str = self.build_history_str(history or [])
         query_rewritten, is_in_scope = self._rewrite_query(question, history_str)
@@ -459,7 +459,7 @@ class RagService:
         self,
         question: str,
         history: list[dict[str, str]] | None = None,
-        use_ontology: bool = False,
+        use_ontology: bool = True,
     ) -> list[dict[str, Any]]:
         history_str = self.build_history_str(history or [])
         query, is_in_scope = self._rewrite_query(question, history_str)
@@ -484,7 +484,7 @@ class RagService:
         self,
         question: str,
         history_str: str,
-        use_ontology: bool = False,
+        use_ontology: bool = True,
     ) -> tuple[Any, dict[str, list[str]], bool, str, list[str]]:
         question    = _sanitize(question)
         history_str = _sanitize(history_str)

@@ -105,7 +105,7 @@ def build_history_str(history: list[dict[str, str]]) -> str:
     return get_rag_service(use_hyde=True).build_history_str(history)
 
 
-async def build_chain_input(question: str, history_str: str, use_hyde: bool = True, use_ontology: bool = False):
+async def build_chain_input(question: str, history_str: str, use_hyde: bool = True, use_ontology: bool = True):
     return await get_rag_service(use_hyde=use_hyde).build_chain_input(
         question=question,
         history_str=history_str,
