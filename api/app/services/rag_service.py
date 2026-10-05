@@ -373,12 +373,29 @@ class RagService:
                 except Exception as exc:
                     logger.warning("HyDE retrieval falhou (%s) — continuando com merged docs.", exc)
 
-        reranked = await self._reranker.rerank_async(query=query, docs=merged, top_k=8)
+        # Separar chunks de ontologia do reranker (ontologia é "bonus knowledge")
+        # Reranquear apenas chunks de original_query e hyde
+        ontology_docs_to_rerank = []
+        core_docs_to_rerank = []
+
+        for doc in merged:
+            source = doc.metadata.get("retrieval_source")
+            if source in ("ontology_expansion", "hybrid"):
+                ontology_docs_to_rerank.append(doc)
+            else:
+                core_docs_to_rerank.append(doc)
+
+        # Reranquear apenas core docs (original_query + hyde)
+        reranked_core = await self._reranker.rerank_async(query=query, docs=core_docs_to_rerank, top_k=8)
+
+        # Adicionar chunks de ontologia ao final (sem rerank)
+        # Eles são conhecimento bonus que não deve ser penalizado
+        reranked = reranked_core + ontology_docs_to_rerank
 
         log_msg = f"Retrieve: {len(query_docs)} (query) + {len(ontology_docs)} (ontology) → {len(merged)} (merged)"
         if ontology_expansion:
-            log_msg += f" → +{ontology_chunks_added} novos chunks"
-        log_msg += f" → {len(reranked)} (reranked)"
+            log_msg += f" → +{ontology_chunks_added} novos chunks (não-reranqueados)"
+        log_msg += f" → {len(reranked_core)} (reranked) + {len(ontology_docs_to_rerank)} (ontology bonus)"
         logger.debug(log_msg)
         print(f"[MULTI-QUERY] {log_msg}")
 
