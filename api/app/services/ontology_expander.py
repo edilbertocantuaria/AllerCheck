@@ -56,10 +56,36 @@ def load_ontology(path: str) -> Optional[nx.DiGraph]:
         return None
 
 
+def _get_node_id_portuguese(graph: nx.DiGraph, node_id: str) -> str:
+    """
+    Translates node ID to Portuguese variant if available.
+
+    Examples:
+    - "azlocillin" → "azlocilina" (if node exists)
+    - "duloxetine" → "duloxetina" (if node exists)
+    - "amoxicilina" → "amoxicilina" (already Portuguese)
+    """
+    if node_id in graph:
+        node_data = graph.nodes.get(node_id, {})
+        # Prefer Portuguese variants: look for lowercase ID with Portuguese chars
+        if isinstance(node_data, dict):
+            # Try common English→Portuguese transformations
+            pt_candidates = [
+                node_id.replace("in", "ina").lower(),  # aspirin → aspirina
+                node_id.replace("en", "ena").lower(),  # doloxetine → duloxetena
+                node_id.replace("e", "a").lower() if node_id.endswith("e") else None,
+            ]
+            for candidate in pt_candidates:
+                if candidate and candidate in graph:
+                    return candidate
+    return node_id
+
+
 def expand_query(
     query: str,
     graph: nx.DiGraph,
-    max_terms: int = 5
+    max_terms: int = 5,
+    prefer_portuguese: bool = True
 ) -> list[str]:
     """
     Expand query with related medication terms from ontology.
@@ -74,6 +100,7 @@ def expand_query(
         query: User query text
         graph: Loaded ontology graph
         max_terms: Maximum number of expansion terms to return
+        prefer_portuguese: Try to return Portuguese variants of terms
 
     Returns:
         List of expansion terms (excluding original query terms)
@@ -129,7 +156,11 @@ def expand_query(
             if relation in priority_terms:
                 # Exclude the detected med itself and terms already in query
                 if neighbor != med and neighbor not in query_terms_set:
-                    priority_terms[relation].add(neighbor)
+                    # Try to get Portuguese variant if enabled
+                    neighbor_id = neighbor
+                    if prefer_portuguese:
+                        neighbor_id = _get_node_id_portuguese(graph, neighbor)
+                    priority_terms[relation].add(neighbor_id)
 
     # Step 3: Build result respecting priority order (cross-reactivity > synonyms > same class)
     result = []

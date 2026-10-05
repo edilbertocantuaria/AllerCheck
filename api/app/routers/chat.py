@@ -117,6 +117,7 @@ async def evaluate_detailed(payload: ChatRequest):
                 chain_input, sources, is_emergency, emergency_content, _ = await rag_service.build_chain_input(
                     question=payload.question,
                     history_str=history_str,
+                    use_ontology=payload.use_ontology,
                 )
 
                 prompts_used = [
