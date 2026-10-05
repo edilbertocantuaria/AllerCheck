@@ -7,6 +7,7 @@ from app.db import init_db
 from app.routers.auth import router as auth_router
 from app.routers.chat import router as chat_router
 from app.routers.conversations import router as conversations_router
+from app.routers.evaluate import router as evaluate_router
 
 
 @asynccontextmanager
@@ -32,6 +33,7 @@ app = FastAPI(
 app.include_router(auth_router)
 app.include_router(conversations_router)
 app.include_router(chat_router)
+app.include_router(evaluate_router)
 
 
 @app.get("/health", tags=["health"], response_class=PlainTextResponse)

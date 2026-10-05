@@ -339,6 +339,7 @@ if __name__ == "__main__":
     max_samples = int(sys.argv[2]) if len(sys.argv) > 2 else 30
     seed = int(sys.argv[3]) if len(sys.argv) > 3 else 42
 
+    print(f"\n📊 Rodando RAGAS: {max_samples} amostras (seed={seed})\n")
     asyncio.run(main(
         input_file=input_file,
         max_samples=max_samples,

@@ -26,7 +26,7 @@ from app.prompts.registry import PromptKey, get_prompt
 from app.utils import format_document_title
 from app.web_search import get_web_context
 from app.services.reranker import Reranker
-from app.services.ontology_expander import load_ontology, expand_query
+from app.services.ontology_expander import expand_query_from_rxnorm
 
 logger = logging.getLogger(__name__)
 
@@ -39,17 +39,7 @@ _executor = ThreadPoolExecutor(max_workers=64, thread_name_prefix="pinecone_")
 _CONTROL_CHARS_RE = re.compile(r'[\x00-\x08\x0b-\x0c\x0e-\x1f\x7f]')
 _GEMINI_BASE_URL  = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
-# Lazy-load ontology graph (singleton)
-_ONTOLOGY_PATH = Path(__file__).parent.parent.parent / "tools" / "data" / "processed" / "evaluation" / "ontologia" / "ontologia_farma.json"
-_ontology_graph: nx.DiGraph | None = None
-
-
-def _get_ontology() -> nx.DiGraph | None:
-    """Get or load ontology graph (lazy singleton)."""
-    global _ontology_graph
-    if _ontology_graph is None and _ONTOLOGY_PATH.exists():
-        _ontology_graph = load_ontology(str(_ONTOLOGY_PATH))
-    return _ontology_graph
+# Ontology now loaded from RxNorm API directly (no local file)
 
 _HYDE_PROMPT = """Você é um redator de documentos técnicos de farmacovigilância.
 Escreva exatamente 1 a 2 frases como se fossem um trecho de ficha técnica ou registro
@@ -99,29 +89,6 @@ def _deduplicate_docs(docs: list[Any]) -> list[Any]:
 
     return unique
 
-
-_MEDICATION_PATTERN = re.compile(r'([A-ZÀ-Úa-zà-ú][\wà-úÀ-Ú\s]*?)\s*\(([^)]+)\)')
-
-
-def extract_medication_zones(query_rewritten: str) -> str:
-    """
-    Extrai apenas os trechos 'Nome (conteúdo)' da query reescrita,
-    que é onde o motor de reescrita coloca os medicamentos mencionados.
-    Evita falsos positivos ao detectar nós do grafo em palavras aleatórias
-    do contexto/sintoma/pergunta.
-
-    Args:
-        query_rewritten: Query após reescrita estruturada.
-
-    Returns:
-        String com os trechos medicamento+conteúdo concatenados.
-        Retorna string vazia se nenhum padrão for encontrado.
-    """
-    matches = _MEDICATION_PATTERN.findall(query_rewritten)
-    if not matches:
-        return ""
-    zones = [f"{nome.strip()} {conteudo.strip()}" for nome, conteudo in matches]
-    return " ".join(zones)
 
 
 def _build_rewrite_llm():
@@ -321,8 +288,22 @@ class RagService:
 
         try:
             if ontology_expansion and len(ontology_expansion) > 0:
-                expanded_query = " ".join(ontology_expansion)
-                print(f"[MULTI-QUERY] Paralelizando: query original + termos expandidos")
+                # Extract Portuguese terms from ontology expansion
+                ontology_terms_pt = []
+                for term in ontology_expansion:
+                    if isinstance(term, dict):
+                        # Portuguese translation from RxNorm expansion
+                        pt_term = term.get("pt", term.get("en", ""))
+                    else:
+                        # Fallback: use English term as-is
+                        pt_term = term
+
+                    if pt_term:
+                        ontology_terms_pt.append(pt_term)
+
+                expanded_query = " ".join(ontology_terms_pt)
+                print(f"[MULTI-QUERY] Paralelizando: query original + termos expandidos (PT-BR)")
+                print(f"[MULTI-QUERY] Termos ontologia (PT): {ontology_terms_pt}")
 
                 query_docs, ontology_docs = await asyncio.gather(
                     _search(query, retrieval_k, retrieval_threshold),
@@ -444,6 +425,76 @@ class RagService:
             )
         return "\n\n".join(context_parts), source_list
 
+    async def _translate_ontology_terms(self, terms: list[dict | str]) -> list[dict]:
+        """Traduz termos de ontologia via LLM (PT-BR)."""
+        if not terms:
+            return []
+
+        # Extrair apenas termos em inglês para traduzir
+        terms_to_translate = []
+        for term in terms:
+            if isinstance(term, dict):
+                en_term = term.get("en", "")
+                if en_term:
+                    terms_to_translate.append(en_term)
+            else:
+                terms_to_translate.append(term)
+
+        if not terms_to_translate:
+            return terms
+
+        try:
+            terms_str = ", ".join(terms_to_translate)
+            prompt = f"""Você é um especialista em tradução de nomes de medicamentos do inglês para português brasileiro.
+
+Traduza APENAS os seguintes nomes de medicamentos para português brasileiro:
+
+TERMOS: {terms_str}
+
+IMPORTANTE:
+- Use nomes técnicos reconhecidos em português
+- Se não houver tradução conhecida, deixe em inglês
+- Retorne APENAS as traduções, uma por linha, no formato: "original" → "tradução"
+- Sem explicações adicionais
+
+Traduções:"""
+
+            response = await self.answer_llm.ainvoke(prompt)
+            result_text = response.content
+            logger.info(f"[ONTOLOGY LLM TRANSLATION] Response:\n{result_text}")
+
+            # Parse translations
+            translations_dict = {}
+            for line in result_text.strip().split("\n"):
+                if "→" in line:
+                    parts = line.split("→")
+                    if len(parts) == 2:
+                        original = parts[0].strip().strip('"').strip("'")
+                        translated = parts[1].strip().strip('"').strip("'")
+                        translations_dict[original] = translated
+
+            # Aplicar traduções aos termos originais
+            result = []
+            for term in terms:
+                if isinstance(term, dict):
+                    en_term = term.get("en", "")
+                    # Use LLM translation if available, otherwise use existing pt
+                    pt_translated = translations_dict.get(en_term, term.get("pt", en_term))
+                    result.append({
+                        "en": en_term,
+                        "pt": pt_translated  # Agora com tradução LLM
+                    })
+                else:
+                    # Para strings simples, tenta traduzir
+                    pt_translated = translations_dict.get(term, term)
+                    result.append(pt_translated)
+
+            return result
+
+        except Exception as e:
+            logger.error(f"[ONTOLOGY LLM TRANSLATION] Erro: {e}")
+            return terms  # Fallback para original
+
     @staticmethod
     def extract_chunks_from_docs(docs: list[Any]) -> list[dict[str, Any]]:
         chunks = []
@@ -470,18 +521,18 @@ class RagService:
         query_rewritten, is_in_scope = self._rewrite_query(question, history_str)
 
         # Expand query with ontology if enabled (sem concatenar à query)
-        ontology_expansion: list[str] = []
+        ontology_expansion: list[dict | str] = []
         ontology_chunks_added: int = 0
         if use_ontology:
             print(f"[ONTOLOGY DEBUG] use_ontology=True")
-            graph = _get_ontology()
-            if graph:
-                print(f"[ONTOLOGY DEBUG] query original: {query_rewritten}")
-                zona_restrita = extract_medication_zones(query_rewritten)
-                texto_para_expansao = zona_restrita if zona_restrita else query_rewritten
-                print(f"[ONTOLOGY DEBUG] zona de medicamentos: '{texto_para_expansao}'")
-                ontology_expansion = expand_query(texto_para_expansao, graph, max_terms=5)
-                print(f"[ONTOLOGY DEBUG] termos expandidos: {ontology_expansion}")
+            print(f"[ONTOLOGY DEBUG] query original: {query_rewritten}")
+            ontology_expansion = await expand_query_from_rxnorm(query_rewritten, max_terms=5)
+            print(f"[ONTOLOGY DEBUG] termos expandidos (antes tradução): {ontology_expansion}")
+
+            # Traduzir termos de ontologia via LLM
+            if ontology_expansion:
+                ontology_expansion = await self._translate_ontology_terms(ontology_expansion)
+                print(f"[ONTOLOGY DEBUG] termos expandidos (após tradução LLM): {ontology_expansion}")
 
         hyde_reformulation: str | None = None
         contexts: list[dict[str, Any]] = []
@@ -510,15 +561,11 @@ class RagService:
         query, is_in_scope = self._rewrite_query(question, history_str)
 
         # Expand query with ontology if enabled (sem concatenar)
-        ontology_expansion: list[str] = []
+        ontology_expansion: list = []
         if use_ontology:
-            graph = _get_ontology()
-            if graph:
-                zona_restrita = extract_medication_zones(query)
-                texto_para_expansao = zona_restrita if zona_restrita else query
-                ontology_expansion = expand_query(texto_para_expansao, graph, max_terms=5)
-                if ontology_expansion:
-                    logger.info(f"[ONTOLOGY DEBUG] expanding query: {ontology_expansion}")
+            ontology_expansion = await expand_query_from_rxnorm(query, max_terms=5)
+            if ontology_expansion:
+                logger.info(f"[ONTOLOGY DEBUG] expanding query: {ontology_expansion}")
 
         if not is_in_scope:
             return []
@@ -540,19 +587,14 @@ class RagService:
 
         query, is_in_scope = self._rewrite_query(question, history_str)
 
-        # Expand query with ontology if enabled (sem concatenar)
+        # Expand query with ontology if enabled (RxNorm API)
         ontology_expansion: list[str] = []
         if use_ontology:
             logger.info(f"[ONTOLOGY DEBUG] use_ontology=True in build_chain_input")
-            graph = _get_ontology()
-            if graph:
-                logger.info(f"[ONTOLOGY DEBUG] query original: {query}")
-                zona_restrita = extract_medication_zones(query)
-                texto_para_expansao = zona_restrita if zona_restrita else query
-                logger.info(f"[ONTOLOGY DEBUG] zona de medicamentos: '{texto_para_expansao}'")
-                ontology_expansion = expand_query(texto_para_expansao, graph, max_terms=5)
-                if ontology_expansion:
-                    logger.info(f"[ONTOLOGY DEBUG] termos expandidos: {ontology_expansion}")
+            logger.info(f"[ONTOLOGY DEBUG] query original: {query}")
+            ontology_expansion = await expand_query_from_rxnorm(query, max_terms=5)
+            if ontology_expansion:
+                logger.info(f"[ONTOLOGY DEBUG] termos expandidos: {ontology_expansion}")
 
         internal_ctx  = ""
         internal_src: list[str] = []

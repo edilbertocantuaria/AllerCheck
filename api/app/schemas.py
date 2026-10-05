@@ -81,7 +81,7 @@ class DetailedEvaluationResponse(BaseModel):
     question: str
     question_rewrite: str | None = None
     hyde_reformulation: str | None = None
-    ontology_expansion: list[str] | None = None
+    ontology_expansion: list[str | dict] | None = None
     ontology_chunks_added: int = 0
     chunks: list[ChunkResponse] | None = None
     total_chunks: int = 0
