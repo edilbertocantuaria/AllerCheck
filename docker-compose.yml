@@ -97,6 +97,7 @@ services:
       - ./api/config.yaml:/app/config.yaml:ro
       - ./api/docs:/app/docs
       - ./api/logs:/app/logs
+      - ./api/tools/data/processed/evaluation:/app/tools/data/processed/evaluation
     depends_on:
       - db
       - ollama
@@ -181,6 +182,7 @@ services:
       - ./api/config.yaml:/app/config.yaml:ro
       - ./api/docs:/app/docs
       - ./api/logs:/app/logs
+      - ./api/tools/data/processed/evaluation:/app/tools/data/processed/evaluation
     depends_on:
       - db
       - ollama
