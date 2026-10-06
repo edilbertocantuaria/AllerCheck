@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """
-🚀 PIPELINE UNIFICADO: Um comando para tudo!
-python pipeline.py --num-questions=262
+🚀 PIPELINE COMPLETO EM UM COMANDO!
 
-Fluxo automático:
-1. Verifica se evaluation_*.json existe
-2. Se não → aviso (precisa rodar RAGAS via Docker)
-3. Roda LLM-as-Judge
-4. Consolida relatório final
-5. Mostra resumo executivo
+Fluxo:
+1. Seleciona N questões aleatórias (seed fixo)
+2. Roda RAGAS COM ontologia (via Docker)
+3. Roda RAGAS SEM ontologia (via Docker)
+4. Roda LLM-as-Judge (local, 3 juízes)
+5. Consolida relatório único com todas as métricas
+
+Uso:
+  python pipeline.py                    # 262 questões
+  python pipeline.py --num-questions=50 # 50 questões
 """
 
 import json
@@ -27,61 +30,91 @@ _BRT = timezone(timedelta(hours=-3))
 
 
 def banner(title):
-    """Exibe banner colorido"""
+    """Exibe banner"""
     print("\n" + "=" * 75)
     print(f"  {title}")
     print("=" * 75 + "\n")
 
 
-def find_latest_evaluation_file():
-    """Encontra evaluation_*.json mais recente"""
-    eval_dir = Path("api/tools/data/processed/evaluation/unified")
-    if eval_dir.exists():
-        files = sorted(eval_dir.glob("evaluation_*.json"))
-        return files[-1] if files else None
-    return None
+def check_docker():
+    """Verifica se Docker está rodando"""
+    try:
+        result = subprocess.run(
+            ["docker", "ps"],
+            capture_output=True,
+            timeout=5
+        )
+        return result.returncode == 0
+    except:
+        return False
 
 
-def load_selected_questions(num_samples: int = 3, seed: int = 42):
-    """Carrega questões selecionadas do evaluation_*.json"""
-    eval_file = find_latest_evaluation_file()
+def load_dataset_and_select(xlsx_path: str, num_samples: int = 262, seed: int = 42):
+    """Carrega dataset Excel e seleciona N questões aleatórias"""
+    import pandas as pd
 
-    if not eval_file:
-        print("❌ ERRO: evaluation_*.json não encontrado!")
-        print("\n📝 Para gerar, rode:")
-        print("   docker compose up -d api")
-        print("   docker exec allercheck-api python api/evaluate_with_ontology_robust.py \\")
-        print("     tools/data/raw/evaluation/filtred_alergia_medicamentos.xlsx 50 42")
-        sys.exit(1)
+    print(f"📊 Carregando dataset: {xlsx_path}")
 
-    with open(eval_file, encoding="utf-8") as f:
-        eval_data = json.load(f)
-
-    com_items = eval_data.get("conditions", [{}])[0].get("items", [])
+    full_path = Path("api") / xlsx_path
+    df = pd.read_excel(full_path)
+    print(f"   Total disponível: {len(df)} questões")
 
     random.seed(seed)
-    total_available = len(com_items)
-    selected_indices = sorted(random.sample(range(total_available), min(num_samples, total_available)))
-
-    print(f"📊 Dataset carregado: {eval_file.name}")
-    print(f"   Total disponível: {total_available} questões")
-    print(f"   Selecionadas (seed={seed}): {selected_indices}\n")
+    selected_indices = sorted(random.sample(range(len(df)), min(num_samples, len(df))))
+    print(f"   Selecionadas (seed={seed}): {len(selected_indices)} questões\n")
 
     questions = []
     for idx in selected_indices:
-        item = com_items[idx]
+        row = df.iloc[idx]
         questions.append({
-            "question_id": item.get("question_id", idx + 1),
+            "question_id": idx + 1,
             "index": idx,
-            "question": item.get("question", ""),
+            "question": row.get("question", "") if "question" in df.columns else str(row),
         })
 
-    return questions, eval_file
+    return questions
 
 
-def run_llm_judge(num_questions: int = 3):
+def save_questions_json(questions, label="selecionadas"):
+    """Salva questões em JSON"""
+    output_dir = Path("api/tools/data/processed/pipeline")
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    timestamp = datetime.now(_BRT).strftime("%Y%m%d_%H%M%S")
+    output_file = output_dir / f"questoes_{label}_{timestamp}.json"
+
+    output_file.write_text(json.dumps(questions, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"💾 Salvo: {output_file.name}\n")
+
+    return output_file
+
+
+def run_ragas_docker(num_questions: int, seed: int):
+    """Roda RAGAS via Docker (sem problemas de dependência local)"""
+    print("🔍 Rodando RAGAS COM/SEM ontologia via Docker...\n")
+
+    # Comando dentro do container
+    cmd = [
+        "docker", "exec", "allercheck-api",
+        "python", "api/evaluate_with_ontology_robust.py",
+        "tools/data/raw/evaluation/filtred_alergia_medicamentos.xlsx",
+        str(num_questions),
+        str(seed)
+    ]
+
+    result = subprocess.run(cmd, timeout=600)
+
+    if result.returncode != 0:
+        print(f"\n❌ RAGAS falhou")
+        return False
+
+    print(f"\n✅ RAGAS completado")
+    return True
+
+
+def run_llm_judge(num_questions: int):
     """Roda LLM-as-Judge"""
-    print(f"⚖️  Rodando avaliação com 3 juízes LLM ({num_questions} questões)...\n")
+    print(f"\n⚖️  Rodando LLM-as-Judge ({num_questions} questões)...\n")
 
     cmd = [sys.executable, "llm_as_judge_test_local.py", str(num_questions)]
     result = subprocess.run(cmd)
@@ -95,7 +128,7 @@ def run_llm_judge(num_questions: int = 3):
 
 
 def find_latest_files():
-    """Encontra arquivos mais recentes"""
+    """Encontra arquivos mais recentes gerados"""
     ragas_dir = Path("api/tools/data/processed/evaluation/unified")
     judge_dir = Path("api/tools/data/processed/llm_judge")
 
@@ -113,8 +146,8 @@ def find_latest_files():
     return ragas_file, judge_file
 
 
-def consolidate_report(num_questions: int = 3):
-    """Consolida relatório final"""
+def consolidate_report(num_questions: int):
+    """Consolida todos os dados em um relatório único"""
     print(f"\n📋 Consolidando relatório final...\n")
 
     timestamp = datetime.now(_BRT).strftime("%Y%m%d_%H%M%S")
@@ -123,6 +156,8 @@ def consolidate_report(num_questions: int = 3):
 
     if not ragas_file or not judge_file:
         print(f"❌ Arquivos não encontrados!")
+        print(f"   RAGAS: {ragas_file}")
+        print(f"   Judge: {judge_file}")
         return None
 
     with open(ragas_file, encoding="utf-8") as f:
@@ -131,7 +166,7 @@ def consolidate_report(num_questions: int = 3):
     with open(judge_file, encoding="utf-8") as f:
         judge_data = json.load(f)
 
-    # Consolidar
+    # Consolidar questão por questão
     consolidated_items = []
     ragas_items = ragas_data.get("conditions", [{}])[0].get("items", [])
     judge_items = judge_data.get("results", [])
@@ -139,6 +174,7 @@ def consolidate_report(num_questions: int = 3):
     for j_item in judge_items:
         q_id = j_item.get("question_id")
 
+        # Encontrar item RAGAS correspondente
         r_item = None
         for r in ragas_items:
             if r.get("question_id") == q_id:
@@ -172,7 +208,7 @@ def consolidate_report(num_questions: int = 3):
 
     report = {
         "timestamp": datetime.now(_BRT).isoformat(),
-        "pipeline": "RAGAS + LLM-as-Judge (Consolidado)",
+        "pipeline": "RAGAS (COM+SEM) + LLM-as-Judge Consolidado",
         "num_questions": len(consolidated_items),
         "source_files": {
             "ragas": str(ragas_file),
@@ -200,34 +236,56 @@ def consolidate_report(num_questions: int = 3):
 
 def main(num_questions: int = 262, seed: int = 42):
     """Executa pipeline completo"""
-    banner("🚀 PIPELINE UNIFICADO: RAGAS + LLM-as-Judge")
+    banner("🚀 PIPELINE COMPLETO: Questões → RAGAS → LLM-as-Judge → Consolidação")
 
-    # 1. Carregar questões
-    questions, eval_file = load_selected_questions(num_samples=num_questions, seed=seed)
+    # 0. Verificar Docker
+    if not check_docker():
+        print("❌ Docker não está rodando!")
+        print("\nPara iniciar:")
+        print("  docker compose up -d api")
+        print("\nOu use o pipeline_fast se já tem evaluation_*.json:")
+        print("  python pipeline_fast.py --num-questions=262")
+        sys.exit(1)
 
-    print(f"✅ {len(questions)} questões selecionadas:")
-    for q in questions[:5]:
+    print("✅ Docker disponível\n")
+
+    # 1. Selecionar questões
+    questions = load_dataset_and_select(
+        "tools/data/raw/evaluation/filtred_alergia_medicamentos.xlsx",
+        num_samples=num_questions,
+        seed=seed
+    )
+
+    print(f"✅ Questões selecionadas: {len(questions)}")
+    for q in questions[:3]:
         print(f"   • Q{q['question_id']}: {q['question'][:50]}...")
-    if len(questions) > 5:
-        print(f"   ... e mais {len(questions) - 5} questões")
+    if len(questions) > 3:
+        print(f"   ... + {len(questions) - 3} mais")
 
-    # 2. Rodar LLM-as-Judge
+    # 2. Salvar questões
+    save_questions_json(questions, "selecionadas")
+
+    # 3. Rodar RAGAS
+    ragas_ok = run_ragas_docker(num_questions=num_questions, seed=seed)
+    if not ragas_ok:
+        print("\n❌ Pipeline interrompido: RAGAS falhou")
+        sys.exit(1)
+
+    # 4. Rodar LLM-as-Judge
     judge_ok = run_llm_judge(num_questions=num_questions)
-
     if not judge_ok:
-        print("\n❌ Pipeline falhou")
-        return
+        print("\n❌ Pipeline interrompido: LLM-as-Judge falhou")
+        sys.exit(1)
 
-    # 3. Consolidar
+    # 5. Consolidar
     result = consolidate_report(num_questions=num_questions)
-
     if not result:
         print("\n❌ Consolidação falhou")
-        return
+        sys.exit(1)
 
     report_file, report = result
 
-    # 4. RESUMO EXECUTIVO
+    # 6. RESUMO EXECUTIVO
     banner("✅ PIPELINE COMPLETO!")
 
     summary = report["summary"]
@@ -243,11 +301,9 @@ def main(num_questions: int = 262, seed: int = 42):
     print(f"   Preferem ground_truth: {scores.get('ground_truth', 0)} questões")
 
     print(f"\n📁 ARQUIVOS GERADOS:")
-    print(f"   Relatório: {report_file}")
-    print(f"   Tamanho: {report_file.stat().st_size / 1024:.1f} KB")
-
-    print(f"\n📖 Para análise detalhada:")
-    print(f"   cat {report_file}")
+    print(f"   Relatório consolidado: {report_file}")
+    print(f"   RAGAS: api/tools/data/processed/evaluation/unified/")
+    print(f"   LLM-Judge: api/tools/data/processed/llm_judge/")
 
     print("\n" + "=" * 75 + "\n")
 
@@ -256,13 +312,16 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="🚀 Pipeline Unificado: Um comando para tudo!",
+        description="🚀 Pipeline Completo: Um Comando Para Tudo!",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Exemplos:
   python pipeline.py                              # 262 questões (full)
-  python pipeline.py --num-questions=50           # 50 questões (teste)
+  python pipeline.py --num-questions=50           # 50 questões
   python pipeline.py --num-questions=15 --seed=99 # 15 questões, seed diferente
+
+Requisito:
+  docker compose up -d api
         """
     )
     parser.add_argument("--num-questions", type=int, default=262,
