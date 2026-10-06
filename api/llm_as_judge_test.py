@@ -1,0 +1,235 @@
+#!/usr/bin/env python3
+"""
+LLM-as-Judge: 3 juízes avaliam N pares de respostas (ground_truth vs COM/SEM ontologia)
+Embaralhado, sem saber qual é qual.
+"""
+
+import asyncio
+import json
+import random
+from pathlib import Path
+from datetime import datetime, timezone, timedelta
+from dotenv import load_dotenv
+import os
+import sys
+
+api_root = Path(__file__).resolve().parent
+project_root = api_root.parent
+load_dotenv(project_root / ".env")
+
+os.chdir(str(api_root))
+
+from openai import AsyncOpenAI
+
+_BRT = timezone(timedelta(hours=-3))
+
+JUDGES = {
+    "gpt-4o-mini": {"provider": "openai", "model": "gpt-4o-mini"},
+    "gemini": {"provider": "gemini", "model": "gemini-2.5-flash-lite"},
+    "claude": {"provider": "anthropic", "model": "claude-haiku-4-5-20251001"},
+}
+
+# Load prompt from template file
+PROMPT_TEMPLATE_FILE = Path("app/prompts/templates/llm_judge_prompt.md")
+PROMPT_TEMPLATE = PROMPT_TEMPLATE_FILE.read_text(encoding="utf-8")
+
+
+async def judge_responses(question: str, responses: dict, judge_name: str, judge_config: dict) -> dict:
+    """Envia para um juiz avaliar as 3 respostas"""
+
+    if judge_config["provider"] == "openai":
+        client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        response = await client.chat.completions.create(
+            model=judge_config["model"],
+            messages=[{
+                "role": "user",
+                "content": PROMPT_TEMPLATE.format(
+                    question=question,
+                    response_a=responses["A"],
+                    response_b=responses["B"],
+                    response_c=responses["C"],
+                )
+            }],
+            temperature=0.7,
+        )
+        text = response.choices[0].message.content
+
+    elif judge_config["provider"] == "gemini":
+        import google.generativeai as genai
+        genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+        model = genai.GenerativeModel(judge_config["model"])
+        response = await asyncio.to_thread(
+            model.generate_content,
+            PROMPT_TEMPLATE.format(
+                question=question,
+                response_a=responses["A"],
+                response_b=responses["B"],
+                response_c=responses["C"],
+            )
+        )
+        text = response.text
+
+    elif judge_config["provider"] == "anthropic":
+        from anthropic import Anthropic
+        client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+        response = await asyncio.to_thread(
+            client.messages.create,
+            model=judge_config["model"],
+            max_tokens=500,
+            messages=[{
+                "role": "user",
+                "content": PROMPT_TEMPLATE.format(
+                    question=question,
+                    response_a=responses["A"],
+                    response_b=responses["B"],
+                    response_c=responses["C"],
+                )
+            }]
+        )
+        text = response.content[0].text
+
+    # Parse JSON response
+    try:
+        import re
+        json_match = re.search(r'\{[^{}]*"choice"[^{}]*\}', text, re.DOTALL)
+        if json_match:
+            result = json.loads(json_match.group())
+        else:
+            result = {"choice": "A", "confidence": 0.5, "reasoning": "Parse error"}
+    except:
+        result = {"choice": "A", "confidence": 0.5, "reasoning": "Parse error"}
+
+    return {
+        "judge": judge_name,
+        **result
+    }
+
+
+async def main(num_questions: int = 3):
+    # Load evaluation file
+    eval_file = Path("tools/data/processed/evaluation/unified/evaluation_20261005_222729.json")
+    with open(eval_file) as f:
+        eval_data = json.load(f)
+
+    print(f"📄 Carregado: {eval_file.name}")
+    print(f"   {len(eval_data['conditions'][0]['items'])} questões com ontologia")
+    print(f"   {len(eval_data['conditions'][1]['items'])} questões sem ontologia\n")
+
+    # Select N random questions
+    com_items = [item for item in eval_data['conditions'][0]['items'] if not item.get('errors')]
+    sem_items = [item for item in eval_data['conditions'][1]['items'] if not item.get('errors')]
+
+    max_idx = min(len(com_items), len(sem_items))
+    test_indices = sorted(random.sample(range(max_idx), min(num_questions, max_idx)))
+
+    print(f"🎲 Selecionadas {len(test_indices)} questões ALEATÓRIAS: {test_indices}\n")
+
+    llm_judge_results = []
+
+    for pos, idx in enumerate(test_indices, 1):
+        item_com = com_items[idx]
+        item_sem = sem_items[idx]
+
+        question = item_com.get("question", "")
+        ground_truth = item_com.get("ground_truth", "")
+        answer_com = item_com.get("answer", "")
+        answer_sem = item_sem.get("answer", "")
+
+        # Embaralhar 3 respostas
+        responses_shuffled = [
+            ("ground_truth", ground_truth),
+            ("com_ontologia", answer_com),
+            ("sem_ontologia", answer_sem),
+        ]
+        random.shuffle(responses_shuffled)
+
+        # Map para A, B, C
+        responses_dict = {}
+        mapping = {}
+        for p, (source, text) in enumerate(responses_shuffled):
+            letter = chr(ord('A') + p)
+            responses_dict[letter] = text
+            mapping[letter] = source
+
+        print(f"🔬 QUESTÃO {pos}/{len(test_indices)}:")
+        print(f"   {question[:80]}...")
+
+        # Collect votes from 3 judges
+        votes = await asyncio.gather(*[
+            judge_responses(question, responses_dict, judge_name, judge_config)
+            for judge_name, judge_config in JUDGES.items()
+        ])
+
+        # Map back to sources
+        for vote in votes:
+            vote["choice_source"] = mapping.get(vote["choice"], "unknown")
+
+        # Consensus
+        choices = [v["choice_source"] for v in votes]
+        consensus = max(set(choices), key=choices.count) if choices else None
+
+        print(f"\n   VOTOS:")
+        for vote in votes:
+            print(f"     {vote['judge']:15} → {vote['choice']} ({vote['choice_source']}) | confidence: {vote['confidence']:.2f}")
+        print(f"   CONSENSO: {consensus} ({choices.count(consensus)}/3)")
+
+        # RAGAS verdict
+        ragas_com = item_com.get("results", {}).get("gemini", {})
+        ragas_sem = item_sem.get("results", {}).get("gemini", {})
+
+        cr_com = ragas_com.get("context_recall", 0)
+        cr_sem = ragas_sem.get("context_recall", 0)
+        ragas_winner = "com_ontologia" if cr_com > cr_sem else "sem_ontologia" if cr_sem > cr_com else "empate"
+
+        print(f"   RAGAS:    context_recall COM={cr_com:.3f} vs SEM={cr_sem:.3f} → {ragas_winner}")
+
+        agreement = "✅ ACORDÂN CIA" if consensus == ragas_winner else "❌ DIVERGÂN CIA"
+        print(f"   {agreement}\n")
+
+        llm_judge_results.append({
+            "question_id": idx + 1,
+            "question": question,
+            "mapping": mapping,
+            "votes": votes,
+            "consensus": consensus,
+            "ragas_winner": ragas_winner,
+            "agreement": consensus == ragas_winner,
+        })
+
+    # Save results com DATA E HORA
+    timestamp_iso = datetime.now(_BRT).isoformat()
+    timestamp_file = datetime.now(_BRT).strftime("%Y%m%d_%H%M%S")
+
+    output = {
+        "timestamp": timestamp_iso,
+        "test_type": f"LLM-as-Judge ({len(test_indices)} questões aleatórias)",
+        "judges": list(JUDGES.keys()),
+        "source_file": str(eval_file),
+        "results": llm_judge_results,
+        "summary": {
+            "total_questions": len(llm_judge_results),
+            "agreements": sum(1 for r in llm_judge_results if r["agreement"]),
+            "divergences": sum(1 for r in llm_judge_results if not r["agreement"]),
+        }
+    }
+
+    # Criar subpasta llm_judge
+    output_dir = Path("tools/data/processed/llm_judge")
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    output_file = output_dir / f"llm_judge_{timestamp_file}.json"
+    output_file.write_text(json.dumps(output, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    print(f"{'='*70}")
+    print(f"✅ RESUMO:")
+    print(f"   Total: {output['summary']['total_questions']} questões")
+    print(f"   Acordos: {output['summary']['agreements']}")
+    print(f"   Divergências: {output['summary']['divergences']}")
+    print(f"   Arquivo: {output_file.name}")
+    print(f"   Caminho: {output_file}")
+    print(f"{'='*70}\n")
+
+
+if __name__ == "__main__":
+    num_questions = int(sys.argv[1]) if len(sys.argv) > 1 else 3
+    asyncio.run(main(num_questions=num_questions))

@@ -6,24 +6,9 @@ import logging
 import re
 from typing import Any
 
+from app.prompts.registry import PromptKey, get_prompt
+
 logger = logging.getLogger(__name__)
-
-_RERANK_PROMPT = """Você é um avaliador de relevância clínica. Analise se o trecho abaixo ajuda a responder a pergunta.
-
-Pergunta: {question}
-
-Trecho:
-{chunk}
-
-Regras de pontuação ESTRITAS:
-- 10: Menciona TODOS os medicamentos da pergunta E responde diretamente à dúvida
-- 8-9: Menciona pelo menos UM medicamento da pergunta com informação clinicamente útil
-- 5-7: Tema relacionado mas NÃO menciona nenhum medicamento específico da pergunta
-- 2-4: Fala de medicamento DIFERENTE dos mencionados na pergunta
-- 0-1: Irrelevante ou fora do contexto clínico
-
-Identifique os medicamentos na pergunta e verifique se o trecho os menciona explicitamente.
-Responda APENAS com um número inteiro de 0 a 10, sem explicação:"""
 
 
 class Reranker:
@@ -32,7 +17,7 @@ class Reranker:
 
     async def _score_chunk(self, question: str, chunk_text: str) -> float:
         try:
-            prompt   = _RERANK_PROMPT.format(question=question, chunk=chunk_text[:800])
+            prompt   = get_prompt(PromptKey.RERANK_PROMPT).format(question=question, chunk=chunk_text[:800])
             response = await self._llm.ainvoke(prompt)
             raw      = (response.content or "").strip()
             match    = re.search(r'\d+(?:\.\d+)?', raw)

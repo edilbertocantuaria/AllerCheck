@@ -1,0 +1,122 @@
+{
+  "timestamp": "2026-10-05T22:40:35.038275-03:00",
+  "test_type": "LLM-as-Judge (3 questões)",
+  "judges": [
+    "gpt-4o",
+    "gemini",
+    "claude"
+  ],
+  "source_file": "tools/data/processed/evaluation/unified/evaluation_20261005_222729.json",
+  "results": [
+    {
+      "question_id": 1,
+      "question": "Olá eu sou alérgica a dipirona e o médico me passou pra eu tomar ibuprofeno tem algum problema?eu posso Tomar o ibuprofeno sendo alérgica a dipirona?",
+      "mapping": {
+        "A": "sem_ontologia",
+        "B": "ground_truth",
+        "C": "com_ontologia"
+      },
+      "votes": [
+        {
+          "judge": "gpt-4o",
+          "choice": "C",
+          "confidence": 0.9,
+          "reasoning": "A resposta C é clara e fornece informações importantes sobre a possibilidade de reações alérgicas, além de enfatizar a necessidade de consultar um médico, o que é crucial para a segurança do paciente. A resposta também aborda a questão da sensibilização cruzada, que é relevante para a compreensão do risco.",
+          "choice_source": "com_ontologia"
+        },
+        {
+          "judge": "gemini",
+          "choice": "C",
+          "confidence": 0.9,
+          "reasoning": "A Resposta C é a mais completa e cautelosa. Ela explica de forma clara que as classes são diferentes, mas menciona a possibilidade de sensibilidade cruzada e reforça a importância da consulta médica e de um especialista, o que é crucial para a segurança do paciente.",
+          "choice_source": "com_ontologia"
+        },
+        {
+          "judge": "claude",
+          "choice": "A",
+          "confidence": 0.85,
+          "reasoning": "A Resposta A oferece a melhor combinação de clareza clínica e segurança: explica adequadamente que dipirona e ibuprofeno pertencem a classes diferentes (reduzindo risco teórico de reação cruzada), reforça a necessidade imperativa de informar o médico já prescrevente sobre a alergia, e recomenda avaliação especializada sem criar alarme desnecessário. A Resposta B é excessivamente cautelosa (sugere evitar o medicamento já prescrito pelo médico), enquanto a Resposta C, embora completa, contém imprecisão ao mencionar 'sensibilidades cruzadas dentro da mesma classe' quando dipirona não é AINE.",
+          "choice_source": "sem_ontologia"
+        }
+      ],
+      "consensus": "com_ontologia",
+      "ragas_winner": "empate",
+      "agreement": false
+    },
+    {
+      "question_id": 2,
+      "question": "Sou alérgica a Nimesulida. Posso tomar cetoprofeno?",
+      "mapping": {
+        "A": "ground_truth",
+        "B": "com_ontologia",
+        "C": "sem_ontologia"
+      },
+      "votes": [
+        {
+          "judge": "gpt-4o",
+          "choice": "B",
+          "confidence": 0.9,
+          "reasoning": "A resposta B apresenta uma explicação clara sobre a reatividade cruzada entre Nimesulida e Cetoprofeno, enfatizando a segurança do paciente ao evitar AINEs em caso de alergia confirmada. Além disso, sugere a consulta com um especialista, o que é uma abordagem responsável e útil para o manejo da condição.",
+          "choice_source": "com_ontologia"
+        },
+        {
+          "judge": "gemini",
+          "choice": "C",
+          "confidence": 0.9,
+          "reasoning": "A Resposta C oferece a melhor clareza clínica e segurança ao explicar a reatividade cruzada entre AINEs e a importância de evitar outros da mesma classe, além de recomendar a consulta a um especialista de forma direta e útil.",
+          "choice_source": "sem_ontologia"
+        },
+        {
+          "judge": "claude",
+          "choice": "A",
+          "confidence": 0.85,
+          "reasoning": "A Resposta A é clinicamente mais precisa ao explicar o mecanismo real das alergias a AINEs (reações não IgE-mediadas com alto risco de reatividade cruzada) e oferece orientação clara e segura (evitar o medicamento), além de recomendar avaliação especializada para estratificação adequada. As Respostas B e C são redundantes e menos informativas, baseando-se em fonte duvidosa ('5k Analises Sobre Alergias Medicamentosas') e reconhecendo falta de informações específicas, enquanto a Resposta A fornece fundamento fisiopatológico sólido para sua recomendação.",
+          "choice_source": "ground_truth"
+        }
+      ],
+      "consensus": "com_ontologia",
+      "ragas_winner": "com_ontologia",
+      "agreement": true
+    },
+    {
+      "question_id": 3,
+      "question": "Bom dia, a minha mãe é alérgica ao Paracetamol. Foi operada ao coração. Podem por favor indicar-me qual a alternativa a este medicamento? Obrigada.",
+      "mapping": {
+        "A": "com_ontologia",
+        "B": "ground_truth",
+        "C": "sem_ontologia"
+      },
+      "votes": [
+        {
+          "judge": "gpt-4o",
+          "choice": "A",
+          "confidence": 0.9,
+          "reasoning": "A resposta A é mais completa e detalhada, enfatizando a necessidade de consultar um médico devido ao histórico clínico da paciente, o que é crucial para garantir a segurança e evitar reações adversas. Além disso, oferece informações úteis sobre as alternativas ao Paracetamol.",
+          "choice_source": "com_ontologia"
+        },
+        {
+          "judge": "gemini",
+          "choice": "C",
+          "confidence": 0.9,
+          "reasoning": "A Resposta C é a mais completa e segura. Ela oferece alternativas, enfatiza a necessidade de acompanhamento médico devido ao histórico da paciente e sugere a consulta a um especialista, priorizando a clareza clínica e a segurança.",
+          "choice_source": "sem_ontologia"
+        },
+        {
+          "judge": "claude",
+          "choice": "C",
+          "confidence": 0.85,
+          "reasoning": "A Resposta C oferece o melhor equilíbrio entre informação clínica clara, ênfase adequada na segurança (considerando a cirurgia cardíaca e alergia conhecida), e recomendação apropriada de consulta especializada, sem ser excessivamente verbosa como A. A Resposta B, embora concisa, é demasiado superficial e não aborda adequadamente o contexto clínico crítico da paciente.",
+          "choice_source": "sem_ontologia"
+        }
+      ],
+      "consensus": "sem_ontologia",
+      "ragas_winner": "empate",
+      "agreement": false
+    }
+  ],
+  "summary": {
+    "total_questions": 3,
+    "agreements": 1,
+    "divergences": 2
+  }
+}

@@ -39,22 +39,6 @@ _executor = ThreadPoolExecutor(max_workers=64, thread_name_prefix="pinecone_")
 _CONTROL_CHARS_RE = re.compile(r'[\x00-\x08\x0b-\x0c\x0e-\x1f\x7f]')
 _GEMINI_BASE_URL  = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
-# Ontology now loaded from RxNorm API directly (no local file)
-
-_HYDE_PROMPT = """Você é um redator de documentos técnicos de farmacovigilância.
-Escreva exatamente 1 a 2 frases como se fossem um trecho de ficha técnica ou registro
-de farmacovigilância sobre o tema da query abaixo.
-
-REGRAS OBRIGATÓRIAS:
-- Máximo 2 frases. Sem elaboração adicional.
-- Mencione APENAS os medicamentos e reações presentes na query. Não adicione outros.
-- Escreva como dado técnico registrado, não como conselho médico.
-- Use os mesmos termos técnicos da query (princípio ativo, classe farmacológica).
-
-Query: {query}
-
-Trecho técnico:"""
-
 
 def _sanitize(text: str) -> str:
     return _CONTROL_CHARS_RE.sub('', text).strip()
@@ -220,7 +204,7 @@ class RagService:
 
     def _generate_hypothetical_answer(self, query: str) -> str:
         try:
-            prompt       = _HYDE_PROMPT.format(query=query)
+            prompt       = get_prompt(PromptKey.HYDE_PROMPT).format(query=query)
             response     = self.rewrite_llm.invoke(prompt)
             hypothetical = (response.content or "").strip()
             if not hypothetical:

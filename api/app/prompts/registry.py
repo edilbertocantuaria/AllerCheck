@@ -12,6 +12,8 @@ class PromptKey(StrEnum):
     SAFETY_GATE        = "safety_gate.md"
     GROUNDING_CHECK    = "grounding_check.md"
     EMERGENCY_RESPONSE = "emergency_response.md"
+    HYDE_PROMPT        = "hyde_prompt.md"
+    RERANK_PROMPT      = "rerank_prompt.md"
 
 
 def get_prompt(key: PromptKey) -> str:
