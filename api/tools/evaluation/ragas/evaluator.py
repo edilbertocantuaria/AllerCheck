@@ -214,7 +214,7 @@ async def collect_api_responses(
                     ontology_str = f" [ONTOLOGIA] {' | '.join(ontology_terms)}" if ontology_terms else ""
 
                     results.append({
-                        "question_id":         idx,
+                        "question_id":         item.get("question_id", idx),
                         "question":            question,
                         "question_rewrite":    detailed_data.get("question_rewrite"),
                         "hyde_reformulation":  detailed_data.get("hyde_reformulation"),

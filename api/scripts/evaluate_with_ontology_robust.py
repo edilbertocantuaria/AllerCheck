@@ -118,6 +118,7 @@ async def _evaluate_item(idx, total, item, evaluator, semaphore, active_evaluato
         "ground_truth": ground_truth,
         "answer": answer_rag,
         "contexts": contexts,
+        "ontology_expansion": item.get("ontology_expansion", []),  # ← NOVO: Salvar expansão
         "results": {},
         "errors": [],
     }
@@ -158,20 +159,40 @@ async def main(
     input_file: str = "tools/data/raw/evaluation/filtred_alergia_medicamentos.xlsx",
     target_samples: int = 30,
     seed: int = 42,
+    selected_questions_file: str = None,
 ):
     """
     Avalia COM e SEM ontologia com fallback automático.
-    Coleta questões até ter target_samples VÁLIDAS em ambas condições.
+    Se selected_questions_file for passado, usa aquele subset específico.
+    Senão, carrega do Excel e seleciona target_samples.
     """
     import click
 
     _banner("PIPELINE RAGAS: COM/SEM ONTOLOGIA (COM FALLBACK)")
 
     # 1. LOAD
-    _step("1/6", "LOAD", "CARREGANDO DATASET")
-    questions = load_xlsx_dataset(input_file, max_samples=None, seed=seed)
+    _step("1/6", "LOAD", "CARREGANDO DATASET E QUESTÕES")
+
+    if selected_questions_file:
+        click.echo(f"      Lendo questões selecionadas: {selected_questions_file}\n")
+        try:
+            with open(selected_questions_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                # Suportar tanto formato antigo (lista) quanto novo (dict com metadata)
+                if isinstance(data, dict) and "questions" in data:
+                    questions = data["questions"]
+                else:
+                    questions = data
+            click.echo(f"      [OK] {len(questions)} questões carregadas\n")
+        except Exception as e:
+            click.echo(f"      [ERRO] Falha ao ler {selected_questions_file}: {e}\n")
+            click.echo(f"      Caindo para modo padrão (Excel + seed)\n")
+            questions = load_xlsx_dataset(input_file, max_samples=target_samples, seed=seed)
+    else:
+        questions = load_xlsx_dataset(input_file, max_samples=target_samples, seed=seed)
+
     total_available = len(questions)
-    click.echo(f"      [OK] {total_available} questões disponíveis no dataset\n")
+    click.echo(f"      [OK] {total_available} questões disponíveis\n")
 
     # 2. VALIDATE
     _step("2/6", "VALIDATE", "VALIDANDO API")
@@ -187,98 +208,82 @@ async def main(
     else:
         click.echo(f"      ⚠️  Aviso: GEMINI_API_KEY não configurada\n")
 
-    # 3. COLLECT COM ONTOLOGIA (com fallback)
-    _step("3/6", "COLLECT", f"COLETANDO {target_samples} RESPOSTAS (COM ONTOLOGIA)")
+    # 3. COLLECT COM/SEM SINCRONIZADO (mesmas questões em ambas condições)
+    _step("3/6", "COLLECT", f"COLETANDO RESPOSTAS (COM + SEM ONTOLOGIA SINCRONIZADO)")
+
     responses_com = []
-    question_idx = 0
-    while len(responses_com) < target_samples and question_idx < total_available:
-        q = questions[question_idx]
-        question_id = q.get("question_id", question_idx + 1)
+    responses_sem = []
+    failed_questions = []
+
+    for idx, q in enumerate(questions):
+        question_id = q.get("question_id", idx + 1)
         question_text = q.get("question", "")[:50]
 
-        click.echo(f"      Coletando resposta {len(responses_com)+1}/{target_samples}: Q{question_id}")
-
+        # Tentar coletar COM ontologia
+        click.echo(f"      [{idx+1}/{len(questions)}] Q{question_id}: Coletando COM ontologia...", nl=False)
         try:
-            collected = await collect_api_responses(
+            collected_com = await collect_api_responses(
                 questions=[q],
                 api_base_url=api_url,
                 timeout=60,
                 use_hyde=False,
                 use_ontology=True,
             )
-            if collected and len(collected) > 0:
-                item = collected[0]
-                if item.get("answer") and item.get("contexts"):
-                    responses_com.append(item)
-                    click.echo(f"      [OK] Resposta {len(responses_com)} coletada com sucesso\n")
-                else:
-                    click.echo(f"      [SKIP] Q{question_id}: resposta ou contextos vazios, tentando próxima\n")
-                    question_idx += 1
-                    continue
-            else:
-                click.echo(f"      [SKIP] Q{question_id}: coleta falhou, tentando próxima\n")
-                question_idx += 1
-                continue
+            item_com = None
+            if collected_com and len(collected_com) > 0:
+                item_com = collected_com[0]
+                if not (item_com.get("answer") and item_com.get("contexts")):
+                    item_com = None
         except Exception as e:
-            click.echo(f"      [ERRO] Q{question_id}: {type(e).__name__}, tentando próxima\n")
-            question_idx += 1
-            continue
+            click.echo(f" [ERRO: {type(e).__name__}]")
+            item_com = None
 
-        question_idx += 1
-
-    click.echo(f"      [OK] {len(responses_com)}/{target_samples} válidas\n")
-    if len(responses_com) < target_samples:
-        click.echo(f"      ⚠️  Aviso: Apenas {len(responses_com)}/{target_samples} questões coletadas COM ontologia\n")
-
-    # 4. COLLECT SEM ONTOLOGIA (com fallback - pode usar questões diferentes)
-    _step("4/6", "COLLECT", f"COLETANDO {len(responses_com)} RESPOSTAS (SEM ONTOLOGIA)")
-    responses_sem = []
-    question_idx = 0
-
-    while len(responses_sem) < len(responses_com) and question_idx < total_available:
-        q = questions[question_idx]
-        q_id = q.get("question_id", question_idx + 1)
-        question_text = q.get("question", "")[:50]
-
-        click.echo(f"      Coletando resposta {len(responses_sem)+1}/{len(responses_com)}: Q{q_id}")
-
+        # Tentar coletar SEM ontologia
+        click.echo(f" SEM ontologia...", nl=False)
         try:
-            collected = await collect_api_responses(
+            collected_sem = await collect_api_responses(
                 questions=[q],
                 api_base_url=api_url,
                 timeout=60,
                 use_hyde=False,
                 use_ontology=False,
             )
-            if collected and len(collected) > 0:
-                item = collected[0]
-                if item.get("answer") and item.get("contexts"):
-                    responses_sem.append(item)
-                    click.echo(f"      [OK] Resposta {len(responses_sem)} coletada com sucesso\n")
-                else:
-                    click.echo(f"      [SKIP] Q{q_id}: resposta ou contextos vazios, tentando próxima\n")
-                    question_idx += 1
-                    continue
-            else:
-                click.echo(f"      [SKIP] Q{q_id}: coleta falhou, tentando próxima\n")
-                question_idx += 1
-                continue
+            item_sem = None
+            if collected_sem and len(collected_sem) > 0:
+                item_sem = collected_sem[0]
+                if not (item_sem.get("answer") and item_sem.get("contexts")):
+                    item_sem = None
         except Exception as e:
-            click.echo(f"      [ERRO] Q{q_id}: {type(e).__name__}, tentando próxima\n")
-            question_idx += 1
-            continue
+            click.echo(f" [ERRO: {type(e).__name__}]")
+            item_sem = None
 
-        question_idx += 1
+        # Registrar resultado
+        if item_com and item_sem:
+            responses_com.append(item_com)
+            responses_sem.append(item_sem)
+            click.echo(f" [OK]\n")
+        else:
+            reason = []
+            if not item_com:
+                reason.append("COM")
+            if not item_sem:
+                reason.append("SEM")
+            click.echo(f" [SKIP: {'/'.join(reason)} falhou]\n")
+            failed_questions.append({"question_id": question_id, "reason": "/".join(reason)})
 
-    click.echo(f"      [OK] {len(responses_sem)}/{len(responses_com)} válidas\n")
+    click.echo(f"      [OK] {len(responses_com)} questões válidas em ambas condições\n")
 
-    # Garantir paridade
-    min_count = min(len(responses_com), len(responses_sem))
-    responses_com = responses_com[:min_count]
-    responses_sem = responses_sem[:min_count]
+    if failed_questions:
+        click.echo(f"      ⚠️  {len(failed_questions)} questões falharam:\n")
+        for fail in failed_questions[:5]:
+            click.echo(f"         Q{fail['question_id']}: {fail['reason']}")
+        if len(failed_questions) > 5:
+            click.echo(f"         ... + {len(failed_questions) - 5} mais\n")
 
-    if min_count == 0:
-        _abort("Nenhuma resposta válida coletada!")
+    if len(responses_com) == 0:
+        _abort("Nenhuma resposta válida coletada em ambas condições!")
+
+    min_count = len(responses_com)  # Ambas têm mesmo tamanho por construção
 
     # 5. AVALIAR
     _step("5/6", "EVAL", f"AVALIANDO {min_count} questões (concorrência: 5)")
@@ -367,7 +372,13 @@ if __name__ == "__main__":
     import sys
 
     input_file = sys.argv[1] if len(sys.argv) > 1 else "tools/data/raw/evaluation/filtred_alergia_medicamentos.xlsx"
-    target_samples = int(sys.argv[2]) if len(sys.argv) > 2 else 30
+    selected_questions_file = sys.argv[2] if len(sys.argv) > 2 else None
     seed = int(sys.argv[3]) if len(sys.argv) > 3 else 42
 
-    asyncio.run(main(input_file=input_file, target_samples=target_samples, seed=seed))
+    # Se selected_questions_file foi passado, usá-lo; senão, usar o padrão (30 questões)
+    if selected_questions_file:
+        target_samples = None  # Será determinado pelo arquivo
+    else:
+        target_samples = 30  # Padrão para backward compatibility
+
+    asyncio.run(main(input_file=input_file, target_samples=target_samples, seed=seed, selected_questions_file=selected_questions_file))

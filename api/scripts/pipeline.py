@@ -50,7 +50,7 @@ def check_docker():
 
 
 def load_dataset_and_select(xlsx_path: str, num_samples: int = 262, seed: int = 42):
-    """Carrega dataset Excel e seleciona N questões aleatórias"""
+    """Carrega dataset Excel e seleciona N questões aleatórias com dados completos"""
     import pandas as pd
 
     print(f"📊 Carregando dataset: {xlsx_path}")
@@ -70,39 +70,60 @@ def load_dataset_and_select(xlsx_path: str, num_samples: int = 262, seed: int = 
             "question_id": idx + 1,
             "index": idx,
             "question": row.get("question", "") if "question" in df.columns else str(row),
+            "answer": row.get("answer", "") if "answer" in df.columns else "",
+            "dataset_source": "filtred_alergia_medicamentos.xlsx",
+            "row_number": idx,
         })
 
     return questions
 
 
 def save_questions_json(questions, label="selecionadas"):
-    """Salva questões em JSON"""
-    output_dir = Path("api/tools/data/processed/pipeline")
+    """Salva questões em JSON com estrutura clara para RAGAS/Judge"""
+    output_dir = Path("api/tools/data/processed/evaluation")
     output_dir.mkdir(parents=True, exist_ok=True)
 
     timestamp = datetime.now(_BRT).strftime("%Y%m%d_%H%M%S")
     output_file = output_dir / f"questoes_{label}_{timestamp}.json"
 
-    output_file.write_text(json.dumps(questions, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"💾 Salvo: {output_file.name}\n")
+    data_to_save = {
+        "metadata": {
+            "timestamp": datetime.now(_BRT).isoformat(),
+            "total_questions": len(questions),
+            "dataset_source": "filtred_alergia_medicamentos.xlsx",
+        },
+        "questions": questions
+    }
+
+    output_file.write_text(json.dumps(data_to_save, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"💾 Salvo: {output_file.name}")
+    print(f"   📍 Path: {output_file}")
+    print(f"   📊 Questões: {len(questions)}\n")
 
     return output_file
 
 
-def run_ragas_docker(num_questions: int, seed: int):
-    """Roda RAGAS via Docker (sem problemas de dependência local)"""
-    print("🔍 Rodando RAGAS COM/SEM ontologia via Docker...\n")
+def run_ragas_docker(selected_questions_file: Path, seed: int):
+    """Roda RAGAS via Docker com lista específica de questões"""
+    print(f"🔍 Rodando RAGAS COM/SEM ontologia via Docker...")
+    print(f"   📍 Questões: {selected_questions_file.name}\n")
 
-    # Comando dentro do container
+    # Converter para path absoluto dentro do container (/app/)
+    # selected_questions_file é algo como: api/tools/data/processed/evaluation/questoes_*.json
+    # Dentro do container, fica: /app/tools/data/processed/evaluation/questoes_*.json
+    path_str = str(selected_questions_file).replace("\\", "/")  # Normalizar para forward slash
+    container_path = "/app/" + path_str.replace("api/", "") if "api/" in path_str else "/app/" + path_str
+
+    # Comando dentro do container (rodar de /app para que imports funcionem)
     cmd = [
-        "docker", "exec", "allercheck-api-1",
-        "python", "evaluate_with_ontology_robust.py",
+        "docker", "exec", "-w", "/app", "-e", "PYTHONPATH=/app", "allercheck-api-1",
+        "python", "scripts/evaluate_with_ontology_robust.py",
         "tools/data/raw/evaluation/filtred_alergia_medicamentos.xlsx",
-        str(num_questions),
+        container_path,
         str(seed)
     ]
 
-    result = subprocess.run(cmd, timeout=600)
+    result = subprocess.run(cmd, timeout=3600)  # 1 hora para 262 questões com 2 condições
 
     if result.returncode != 0:
         print(f"\n❌ RAGAS falhou")
@@ -112,11 +133,18 @@ def run_ragas_docker(num_questions: int, seed: int):
     return True
 
 
-def run_llm_judge(num_questions: int):
-    """Roda LLM-as-Judge"""
-    print(f"\n⚖️  Rodando LLM-as-Judge ({num_questions} questões)...\n")
+def run_llm_judge(selected_questions_file: Path, ragas_output_file: Path):
+    """Roda LLM-as-Judge com as mesmas questões do RAGAS"""
+    print(f"\n⚖️  Rodando LLM-as-Judge...")
+    print(f"   📍 Questões: {selected_questions_file.name}")
+    print(f"   📍 RAGAS output: {ragas_output_file.name}\n")
 
-    cmd = [sys.executable, "llm_as_judge_test_local.py", str(num_questions)]
+    cmd = [
+        sys.executable,
+        "api/scripts/llm_as_judge_test_local.py",
+        str(selected_questions_file),
+        str(ragas_output_file)
+    ]
     result = subprocess.run(cmd)
 
     if result.returncode != 0:
@@ -376,7 +404,7 @@ def consolidate_report(num_questions: int):
 
 
 def main(num_questions: int = 262, seed: int = 42):
-    """Executa pipeline completo"""
+    """Executa pipeline completo com seleção + RAGAS + Judge sincronizados"""
     banner("🚀 PIPELINE COMPLETO: Questões → RAGAS → LLM-as-Judge → Consolidação")
 
     # 0. Verificar Docker
@@ -403,17 +431,29 @@ def main(num_questions: int = 262, seed: int = 42):
     if len(questions) > 3:
         print(f"   ... + {len(questions) - 3} mais")
 
-    # 2. Salvar questões
-    save_questions_json(questions, "selecionadas")
+    # 2. Salvar questões em JSON
+    selected_file = save_questions_json(questions, "selecionadas")
 
-    # 3. Rodar RAGAS
-    ragas_ok = run_ragas_docker(num_questions=num_questions, seed=seed)
+    # 3. Rodar RAGAS (passa o arquivo JSON!)
+    ragas_ok = run_ragas_docker(selected_questions_file=selected_file, seed=seed)
     if not ragas_ok:
         print("\n❌ Pipeline interrompido: RAGAS falhou")
         sys.exit(1)
 
-    # 4. Rodar LLM-as-Judge
-    judge_ok = run_llm_judge(num_questions=num_questions)
+    # Encontrar arquivo RAGAS gerado
+    ragas_dir = Path("api/tools/data/processed/evaluation/unified")
+    ragas_files = sorted(ragas_dir.glob("evaluation_*.json"))
+    if not ragas_files:
+        print("\n❌ Pipeline interrompido: RAGAS não gerou output")
+        sys.exit(1)
+    ragas_output_file = ragas_files[-1]
+    print(f"   ✅ RAGAS output: {ragas_output_file.name}\n")
+
+    # 4. Rodar LLM-as-Judge (passa tanto arquivo de questões quanto RAGAS output!)
+    judge_ok = run_llm_judge(
+        selected_questions_file=selected_file,
+        ragas_output_file=ragas_output_file
+    )
     if not judge_ok:
         print("\n❌ Pipeline interrompido: LLM-as-Judge falhou")
         sys.exit(1)
@@ -442,9 +482,10 @@ def main(num_questions: int = 262, seed: int = 42):
     print(f"   Preferem ground_truth: {scores.get('ground_truth', 0)} questões")
 
     print(f"\n📁 ARQUIVOS GERADOS:")
-    print(f"   Relatório consolidado: {report_file}")
-    print(f"   RAGAS: api/tools/data/processed/evaluation/unified/")
-    print(f"   LLM-Judge: api/tools/data/processed/llm_judge/")
+    print(f"   Questões selecionadas: {selected_file.name}")
+    print(f"   RAGAS output: {ragas_output_file.name}")
+    print(f"   Relatório consolidado: {report_file.name}")
+    print(f"   📍 Pasta: api/tools/data/processed/")
 
     print("\n" + "=" * 75 + "\n")
 
