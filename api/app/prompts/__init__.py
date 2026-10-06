@@ -7,6 +7,7 @@ CLASSIFY_RISK      = get_prompt(PromptKey.CLASSIFY_RISK)
 SAFETY_GATE        = get_prompt(PromptKey.SAFETY_GATE)
 GROUNDING_CHECK    = get_prompt(PromptKey.GROUNDING_CHECK)
 EMERGENCY_RESPONSE = get_prompt(PromptKey.EMERGENCY_RESPONSE)
+HYDE_PROMPT        = get_prompt(PromptKey.HYDE_PROMPT)
 
 __all__ = [
     "PromptKey",
@@ -18,4 +19,5 @@ __all__ = [
     "SAFETY_GATE",
     "GROUNDING_CHECK",
     "EMERGENCY_RESPONSE",
+    "HYDE_PROMPT",
 ]

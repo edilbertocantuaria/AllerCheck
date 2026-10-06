@@ -15,9 +15,7 @@ COPY app/ ./app/
 COPY ingestion/ ./ingestion/
 COPY tools/ ./tools/
 COPY tests/ ./tests
-COPY evaluate_with_ontology.py .
-COPY evaluate_with_ontology_robust.py .
-COPY llm_as_judge_test.py .
+COPY scripts/ ./scripts/
 RUN mkdir -p logs docs
 
 EXPOSE 8000

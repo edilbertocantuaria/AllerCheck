@@ -172,8 +172,8 @@ async def evaluate_detailed(payload: ChatRequest):
                     PromptUsed(name="QUESTION_INIT", template=QUESTION_INIT),
                 ]
                 if payload.use_hyde:
-                    from app.services.rag_service import _HYDE_PROMPT
-                    prompts_used.insert(1, PromptUsed(name="HYDE", template=_HYDE_PROMPT))
+                    from app.prompts import HYDE_PROMPT
+                    prompts_used.insert(1, PromptUsed(name="HYDE", template=HYDE_PROMPT))
 
                 if not is_emergency:
                     answer_raw = rag_service.answer_llm.invoke(chain_input).content
