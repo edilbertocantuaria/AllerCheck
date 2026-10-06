@@ -95,7 +95,7 @@ def run_ragas_docker(num_questions: int, seed: int):
 
     # Comando dentro do container
     cmd = [
-        "docker", "exec", "allercheck-api",
+        "docker", "exec", "allercheck-api-1",
         "python", "api/evaluate_with_ontology_robust.py",
         "tools/data/raw/evaluation/filtred_alergia_medicamentos.xlsx",
         str(num_questions),
