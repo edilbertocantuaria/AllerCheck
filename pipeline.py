@@ -208,46 +208,122 @@ def consolidate_report(num_questions: int):
     divergences = len(consolidated_items) - agreements
     consensus_scores = judge_data.get("summary", {}).get("consensus_scores", {})
 
-    # Calcular estatísticas descritivas por métrica RAGAS
+    # Calcular estatísticas descritivas por métrica RAGAS (COM vs SEM)
     metrics_stats = {}
     metric_names = ["faithfulness", "answer_relevancy", "context_precision", "context_recall", "context_entity_recall"]
 
     for metric in metric_names:
-        all_values = []
+        values_com = []
+        values_sem = []
 
-        for item in consolidated_items:
-            ragas_results = item.get("ragas", {}).get("results", {})
+        # Extrair valores das condições RAGAS
+        ragas_conditions_com = ragas_data.get("conditions", [{}])[0].get("items", [])
+        ragas_conditions_sem = ragas_data.get("conditions", [{}])[1].get("items", []) if len(ragas_data.get("conditions", [])) > 1 else []
+
+        # Valores COM ontologia
+        for item in ragas_conditions_com:
+            ragas_results = item.get("results", {})
             for evaluator, metrics_dict in ragas_results.items():
                 if metric in metrics_dict and metrics_dict[metric] is not None:
-                    all_values.append(float(metrics_dict[metric]))
+                    values_com.append(float(metrics_dict[metric]))
 
-        if all_values:
-            metrics_stats[metric] = {
-                "count": len(all_values),
-                "mean": round(statistics.mean(all_values), 6),
-                "median": round(statistics.median(all_values), 6),
-                "stdev": round(statistics.stdev(all_values), 6) if len(all_values) > 1 else 0.0,
-                "min": round(min(all_values), 6),
-                "max": round(max(all_values), 6),
+        # Valores SEM ontologia
+        for item in ragas_conditions_sem:
+            ragas_results = item.get("results", {})
+            for evaluator, metrics_dict in ragas_results.items():
+                if metric in metrics_dict and metrics_dict[metric] is not None:
+                    values_sem.append(float(metrics_dict[metric]))
+
+        metrics_stats[metric] = {}
+
+        # Estatísticas COM ontologia
+        if values_com:
+            metrics_stats[metric]["com_ontologia"] = {
+                "count": len(values_com),
+                "mean": round(statistics.mean(values_com), 6),
+                "median": round(statistics.median(values_com), 6),
+                "stdev": round(statistics.stdev(values_com), 6) if len(values_com) > 1 else 0.0,
+                "min": round(min(values_com), 6),
+                "max": round(max(values_com), 6),
             }
 
-    # Estatísticas de confiança dos juízes
-    judge_confidence_values = []
+        # Estatísticas SEM ontologia
+        if values_sem:
+            metrics_stats[metric]["sem_ontologia"] = {
+                "count": len(values_sem),
+                "mean": round(statistics.mean(values_sem), 6),
+                "median": round(statistics.median(values_sem), 6),
+                "stdev": round(statistics.stdev(values_sem), 6) if len(values_sem) > 1 else 0.0,
+                "min": round(min(values_sem), 6),
+                "max": round(max(values_sem), 6),
+            }
+
+        # Calcular delta (diferença: SEM - COM)
+        if values_com and values_sem:
+            delta_mean = round(statistics.mean(values_sem) - statistics.mean(values_com), 6)
+            delta_median = round(statistics.median(values_sem) - statistics.median(values_com), 6)
+            metrics_stats[metric]["delta"] = {
+                "mean_diff": delta_mean,
+                "median_diff": delta_median,
+                "winner": "sem_ontologia" if delta_mean > 0 else "com_ontologia" if delta_mean < 0 else "empate"
+            }
+
+    # Estatísticas de confiança dos juízes (COM vs SEM vs Ground Truth)
+    judge_confidence_com = []
+    judge_confidence_sem = []
+    judge_confidence_gt = []
+
     for item in consolidated_items:
         votes = item.get("llm_judge", {}).get("votes", [])
+        mapping = item.get("llm_judge", {}).get("mapping", {})
+
         for vote in votes:
             if "confidence" in vote and vote["confidence"] is not None:
-                judge_confidence_values.append(float(vote["confidence"]))
+                choice = vote.get("choice")
+                choice_source = mapping.get(choice, "unknown")
+                confidence = float(vote["confidence"])
 
-    judge_confidence_stats = {}
-    if judge_confidence_values:
-        judge_confidence_stats = {
-            "count": len(judge_confidence_values),
-            "mean": round(statistics.mean(judge_confidence_values), 6),
-            "median": round(statistics.median(judge_confidence_values), 6),
-            "stdev": round(statistics.stdev(judge_confidence_values), 6) if len(judge_confidence_values) > 1 else 0.0,
-            "min": round(min(judge_confidence_values), 6),
-            "max": round(max(judge_confidence_values), 6),
+                if choice_source == "com_ontologia":
+                    judge_confidence_com.append(confidence)
+                elif choice_source == "sem_ontologia":
+                    judge_confidence_sem.append(confidence)
+                elif choice_source == "ground_truth":
+                    judge_confidence_gt.append(confidence)
+
+    judge_confidence_stats = {
+        "com_ontologia": {},
+        "sem_ontologia": {},
+        "ground_truth": {}
+    }
+
+    if judge_confidence_com:
+        judge_confidence_stats["com_ontologia"] = {
+            "count": len(judge_confidence_com),
+            "mean": round(statistics.mean(judge_confidence_com), 6),
+            "median": round(statistics.median(judge_confidence_com), 6),
+            "stdev": round(statistics.stdev(judge_confidence_com), 6) if len(judge_confidence_com) > 1 else 0.0,
+            "min": round(min(judge_confidence_com), 6),
+            "max": round(max(judge_confidence_com), 6),
+        }
+
+    if judge_confidence_sem:
+        judge_confidence_stats["sem_ontologia"] = {
+            "count": len(judge_confidence_sem),
+            "mean": round(statistics.mean(judge_confidence_sem), 6),
+            "median": round(statistics.median(judge_confidence_sem), 6),
+            "stdev": round(statistics.stdev(judge_confidence_sem), 6) if len(judge_confidence_sem) > 1 else 0.0,
+            "min": round(min(judge_confidence_sem), 6),
+            "max": round(max(judge_confidence_sem), 6),
+        }
+
+    if judge_confidence_gt:
+        judge_confidence_stats["ground_truth"] = {
+            "count": len(judge_confidence_gt),
+            "mean": round(statistics.mean(judge_confidence_gt), 6),
+            "median": round(statistics.median(judge_confidence_gt), 6),
+            "stdev": round(statistics.stdev(judge_confidence_gt), 6) if len(judge_confidence_gt) > 1 else 0.0,
+            "min": round(min(judge_confidence_gt), 6),
+            "max": round(max(judge_confidence_gt), 6),
         }
 
     report = {
