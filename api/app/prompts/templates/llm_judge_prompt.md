@@ -26,9 +26,9 @@ Justifique sua escolha em 1-2 frases focando em:
 
 Responda em JSON:
 ```json
-{
+{{
   "choice": "A" ou "B" ou "C",
   "confidence": 0.0 a 1.0,
   "reasoning": "sua justificativa"
-}
+}}
 ```
