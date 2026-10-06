@@ -51,7 +51,7 @@ def run_ragas(num_questions: int = 3, seed: int = 42):
         f"--seed={seed}"
     ]
 
-    result = subprocess.run(cmd, cwd=Path(__file__).parent)
+    result = subprocess.run(cmd)
 
     if result.returncode != 0:
         print(f"   ❌ RAGAS falhou com código {result.returncode}")
@@ -70,7 +70,7 @@ def run_llm_judge(num_questions: int = 3):
         str(num_questions)
     ]
 
-    result = subprocess.run(cmd, cwd=Path(__file__).parent)
+    result = subprocess.run(cmd)
 
     if result.returncode != 0:
         print(f"   ❌ LLM-as-Judge falhou com código {result.returncode}")
