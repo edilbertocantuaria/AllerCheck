@@ -22,7 +22,9 @@ def load_dataset(xlsx_path: str, num_samples: int = 3, seed: int = 42) -> list[d
     """Carrega dataset e seleciona N questões aleatórias"""
     print(f"\n📊 Carregando dataset: {xlsx_path}")
 
-    df = pd.read_excel(xlsx_path)
+    # Usar path relativo a partir da raiz do projeto
+    full_path = Path(__file__).parent.parent / xlsx_path
+    df = pd.read_excel(full_path)
     print(f"   Total disponível: {len(df)} questões")
 
     random.seed(seed)
