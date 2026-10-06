@@ -8,15 +8,17 @@ Garante que no final temos o MESMO número de questões avaliadas em ambas condi
 import asyncio
 import json
 import os
+import sys
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 from dotenv import load_dotenv
 
-api_root = Path(__file__).resolve().parent
+api_root = Path(__file__).resolve().parent.parent
 project_root = api_root.parent
 load_dotenv(project_root / ".env")
 
 os.chdir(str(api_root))
+sys.path.insert(0, str(api_root))
 
 from tools.evaluation.ragas.evaluator import collect_api_responses, RagasEvaluator, _parse_answer
 from tools.evaluation.ragas.helpers import (
@@ -118,7 +120,7 @@ async def _evaluate_item(idx, total, item, evaluator, semaphore, active_evaluato
         "ground_truth": ground_truth,
         "answer": answer_rag,
         "contexts": contexts,
-        "ontology_expansion": item.get("ontology_expansion", []),  # ← NOVO: Salvar expansão
+        "ontology_expansion": item.get("ontology_expansion", []),
         "results": {},
         "errors": [],
     }

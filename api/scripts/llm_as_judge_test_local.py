@@ -187,6 +187,11 @@ async def main(selected_questions_file: str = None, ragas_output_file: str = Non
 
     print(f"🎯 Avaliando {len(test_questions)} questões sincronizadas\n")
 
+    if not test_questions:
+        print("❌ Nenhuma questão sincronizada entre selecionadas e RAGAS results")
+        print(f"   IDs esperados: {[q.get('question_id') for q in selected_questions]}")
+        sys.exit(1)
+
     llm_judge_results = []
 
     for pos, test_q in enumerate(test_questions, 1):

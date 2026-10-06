@@ -123,7 +123,7 @@ def run_ragas_docker(selected_questions_file: Path, seed: int):
         str(seed)
     ]
 
-    result = subprocess.run(cmd, timeout=3600)  # 1 hora para 262 questões com 2 condições
+    result = subprocess.run(cmd, timeout=3600)
 
     if result.returncode != 0:
         print(f"\n❌ RAGAS falhou")
@@ -194,10 +194,13 @@ def consolidate_report(num_questions: int):
     with open(judge_file, encoding="utf-8") as f:
         judge_data = json.load(f)
 
-    # Consolidar questão por questão
     consolidated_items = []
     ragas_items = ragas_data.get("conditions", [{}])[0].get("items", [])
     judge_items = judge_data.get("results", [])
+
+    if not judge_items:
+        print("❌ Judge retornou 0 questões")
+        return None
 
     for j_item in judge_items:
         q_id = j_item.get("question_id")
@@ -440,14 +443,36 @@ def main(num_questions: int = 262, seed: int = 42):
         print("\n❌ Pipeline interrompido: RAGAS falhou")
         sys.exit(1)
 
-    # Encontrar arquivo RAGAS gerado
     ragas_dir = Path("api/tools/data/processed/evaluation/unified")
-    ragas_files = sorted(ragas_dir.glob("evaluation_*.json"))
+    ragas_files = [f for f in ragas_dir.glob("evaluation_*.json") if f.name != "evaluation_latest.json"]
     if not ragas_files:
         print("\n❌ Pipeline interrompido: RAGAS não gerou output")
         sys.exit(1)
-    ragas_output_file = ragas_files[-1]
+    ragas_output_file = max(ragas_files, key=lambda f: f.stat().st_mtime)
     print(f"   ✅ RAGAS output: {ragas_output_file.name}\n")
+
+    with open(ragas_output_file, 'r', encoding='utf-8') as f:
+        ragas_data = json.load(f)
+
+    selected_ids = set()
+    with open(selected_file, 'r', encoding='utf-8') as f:
+        selected_data = json.load(f)
+        for q in selected_data.get("questions", []):
+            selected_ids.add(q.get("question_id"))
+
+    ragas_ids = set()
+    for condition in ragas_data.get("conditions", []):
+        for item in condition.get("items", []):
+            if not item.get("errors"):
+                ragas_ids.add(item.get("question_id"))
+
+    missing_ids = selected_ids - ragas_ids
+    if missing_ids:
+        print(f"\n❌ Pipeline interrompido: questões faltam em RAGAS")
+        print(f"   IDs esperados: {sorted(selected_ids)}")
+        print(f"   IDs obtidos: {sorted(ragas_ids)}")
+        print(f"   IDs faltantes: {sorted(missing_ids)}\n")
+        sys.exit(1)
 
     # 4. Rodar LLM-as-Judge (passa tanto arquivo de questões quanto RAGAS output!)
     judge_ok = run_llm_judge(
