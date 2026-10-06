@@ -39,24 +39,24 @@ PROMPT_TEMPLATE = PROMPT_TEMPLATE_FILE.read_text(encoding="utf-8")
 async def judge_responses(question: str, responses: dict, judge_name: str, judge_config: dict) -> dict:
     """Envia para um juiz avaliar as 3 respostas"""
 
+    # Construir prompt
+    prompt_content = PROMPT_TEMPLATE.format(
+        question=question,
+        response_a=responses["A"],
+        response_b=responses["B"],
+        response_c=responses["C"],
+    )
+
     if judge_config["provider"] == "openai":
         try:
             client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         except Exception as e:
             print(f"   ⚠️  OpenAI falhou: {e}")
-            return {"judge": judge_name, "choice": "A", "confidence": 0.0, "reasoning": "API error"}
+            return {"judge": judge_name, "choice": "A", "confidence": 0.0, "reasoning": "API error", "raw_response": str(e)}
 
         response = await client.chat.completions.create(
             model=judge_config["model"],
-            messages=[{
-                "role": "user",
-                "content": PROMPT_TEMPLATE.format(
-                    question=question,
-                    response_a=responses["A"],
-                    response_b=responses["B"],
-                    response_c=responses["C"],
-                )
-            }],
+            messages=[{"role": "user", "content": prompt_content}],
             temperature=0.7,
         )
         text = response.choices[0].message.content
@@ -66,18 +66,13 @@ async def judge_responses(question: str, responses: dict, judge_name: str, judge
             import google.generativeai as genai
         except ImportError:
             print(f"   ⚠️  Gemini SDK não instalado - pulando juiz Gemini")
-            return {"judge": judge_name, "choice": "A", "confidence": 0.0, "reasoning": "SDK não disponível"}
+            return {"judge": judge_name, "choice": "A", "confidence": 0.0, "reasoning": "SDK não disponível", "raw_response": "SDK not available"}
 
         genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
         model = genai.GenerativeModel(judge_config["model"])
         response = await asyncio.to_thread(
             model.generate_content,
-            PROMPT_TEMPLATE.format(
-                question=question,
-                response_a=responses["A"],
-                response_b=responses["B"],
-                response_c=responses["C"],
-            )
+            prompt_content
         )
         text = response.text
 
@@ -86,22 +81,14 @@ async def judge_responses(question: str, responses: dict, judge_name: str, judge
             from anthropic import Anthropic
         except ImportError:
             print(f"   ⚠️  Anthropic SDK não instalado - pulando juiz Claude")
-            return {"judge": judge_name, "choice": "A", "confidence": 0.0, "reasoning": "SDK não disponível"}
+            return {"judge": judge_name, "choice": "A", "confidence": 0.0, "reasoning": "SDK não disponível", "raw_response": "SDK not available"}
 
         client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
         response = await asyncio.to_thread(
             client.messages.create,
             model=judge_config["model"],
             max_tokens=500,
-            messages=[{
-                "role": "user",
-                "content": PROMPT_TEMPLATE.format(
-                    question=question,
-                    response_a=responses["A"],
-                    response_b=responses["B"],
-                    response_c=responses["C"],
-                )
-            }]
+            messages=[{"role": "user", "content": prompt_content}]
         )
         text = response.content[0].text
 
@@ -118,6 +105,8 @@ async def judge_responses(question: str, responses: dict, judge_name: str, judge
 
     return {
         "judge": judge_name,
+        "prompt_sent": prompt_content,
+        "raw_response": text,
         **result
     }
 
