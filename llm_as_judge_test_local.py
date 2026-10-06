@@ -224,6 +224,11 @@ async def main(num_questions: int = 3):
         llm_judge_results.append({
             "question_id": idx + 1,
             "question": question,
+            "responses": {
+                "ground_truth": ground_truth,
+                "com_ontologia": answer_com,
+                "sem_ontologia": answer_sem,
+            },
             "mapping": mapping,
             "votes": votes,
             "consensus": consensus,
@@ -248,8 +253,8 @@ async def main(num_questions: int = 3):
         }
     }
 
-    # Criar subpasta llm_judge no projeto root
-    output_dir = project_root / "llm_judge_results"
+    # Criar subpasta llm_judge em api/tools/data/processed/
+    output_dir = project_root / "api" / "tools" / "data" / "processed" / "llm_judge"
     output_dir.mkdir(parents=True, exist_ok=True)
 
     output_file = output_dir / f"llm_judge_{timestamp_file}.json"
