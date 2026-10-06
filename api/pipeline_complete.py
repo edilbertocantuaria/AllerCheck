@@ -16,6 +16,11 @@ from datetime import datetime, timezone, timedelta
 import random
 import pandas as pd
 
+# Force UTF-8 on Windows
+if sys.platform == "win32":
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+
 _BRT = timezone(timedelta(hours=-3))
 
 def load_dataset(xlsx_path: str, num_samples: int = 3, seed: int = 42) -> list[dict]:

@@ -10,6 +10,11 @@ import subprocess
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
+# Force UTF-8 on Windows
+if sys.platform == "win32":
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+
 _BRT = timezone(timedelta(hours=-3))
 
 
