@@ -49,6 +49,59 @@ def _result_to_dict(result):
     }
 
 
+def _calculate_divergences(eval_com, eval_sem):
+    """Calcula divergências de métricas entre COM vs SEM ontologia"""
+    from collections import defaultdict
+
+    metrics_by_eval = defaultdict(lambda: defaultdict(lambda: {'com_ontologia': [], 'sem_ontologia': []}))
+
+    # Agregar métricas COM ontologia
+    for item in eval_com:
+        if item.get('errors'):
+            continue
+        for eval_name, metrics in item.get('results', {}).items():
+            for metric_name, value in metrics.items():
+                if value is not None:
+                    metrics_by_eval[eval_name][metric_name]['com_ontologia'].append(value)
+
+    # Agregar métricas SEM ontologia
+    for item in eval_sem:
+        if item.get('errors'):
+            continue
+        for eval_name, metrics in item.get('results', {}).items():
+            for metric_name, value in metrics.items():
+                if value is not None:
+                    metrics_by_eval[eval_name][metric_name]['sem_ontologia'].append(value)
+
+    # Calcular averages e deltas
+    divergences = {
+        "description": "Comparação das métricas entre condições (com vs sem ontologia). Delta positivo = sem ontologia melhor. Calculado apenas sobre questões avaliadas.",
+        "by_evaluator": {}
+    }
+
+    for eval_name in sorted(metrics_by_eval.keys()):
+        eval_metrics = {}
+        for metric_name in sorted(metrics_by_eval[eval_name].keys()):
+            com_values = metrics_by_eval[eval_name][metric_name]['com_ontologia']
+            sem_values = metrics_by_eval[eval_name][metric_name]['sem_ontologia']
+
+            com_avg = sum(com_values) / len(com_values) if com_values else 0
+            sem_avg = sum(sem_values) / len(sem_values) if sem_values else 0
+            delta = sem_avg - com_avg
+            winner = "sem_ontologia" if delta > 0 else "com_ontologia" if delta < 0 else "empate"
+
+            eval_metrics[metric_name] = {
+                "com_ontologia": round(com_avg, 6),
+                "sem_ontologia": round(sem_avg, 6),
+                "delta": round(delta, 6),
+                "winner": winner
+            }
+
+        divergences["by_evaluator"][eval_name] = eval_metrics
+
+    return divergences
+
+
 async def _evaluate_item(idx, total, item, evaluator, semaphore, active_evaluators):
     """Avalia um item com tratamento de erro"""
     import click
@@ -286,6 +339,7 @@ async def main(
                 "items": eval_sem,
             },
         ],
+        "divergences": _calculate_divergences(eval_com, eval_sem),
     }
 
     output_dir = Path("tools/data/processed/evaluation/unified")
