@@ -79,30 +79,120 @@ def run_llm_judge(num_questions: int = 3):
     print(f"   ✅ LLM-as-Judge completado")
     return True
 
+def find_latest_files():
+    """Encontra os arquivos mais recentes de RAGAS e LLM-as-Judge"""
+    ragas_dir = Path("api/tools/data/processed/evaluation/unified")
+    judge_dir = Path("api/tools/data/processed/llm_judge")
+
+    ragas_file = None
+    judge_file = None
+
+    if ragas_dir.exists():
+        files = sorted(ragas_dir.glob("evaluation_*.json"))
+        if files:
+            ragas_file = files[-1]
+
+    if judge_dir.exists():
+        files = sorted(judge_dir.glob("llm_judge_*.json"))
+        if files:
+            judge_file = files[-1]
+
+    return ragas_file, judge_file
+
 def consolidate_report(num_questions: int = 3):
-    """Consolida relatório com dados do RAGAS e LLM-as-Judge"""
-    print(f"\n📋 Consolidando relatório...")
+    """Consolida relatório COMPLETO com dados do RAGAS e LLM-as-Judge"""
+    print(f"\n📋 Consolidando relatório completo...")
 
     timestamp = datetime.now(_BRT).strftime("%Y%m%d_%H%M%S")
 
+    # Encontrar arquivos
+    ragas_file, judge_file = find_latest_files()
+
+    if not ragas_file or not judge_file:
+        print(f"   ❌ Arquivos não encontrados!")
+        print(f"      RAGAS: {ragas_file}")
+        print(f"      Judge: {judge_file}")
+        return None
+
+    # Carregar dados
+    with open(ragas_file) as f:
+        ragas_data = json.load(f)
+
+    with open(judge_file) as f:
+        judge_data = json.load(f)
+
+    # Consolidar por questão
+    consolidated_items = []
+    ragas_items = ragas_data.get("conditions", [{}])[0].get("items", [])  # COM ontologia
+    judge_items = judge_data.get("results", [])
+
+    for j_item in judge_items:
+        q_id = j_item.get("question_id")
+
+        # Encontrar item RAGAS correspondente
+        r_item = None
+        for r in ragas_items:
+            if r.get("question_id") == q_id:
+                r_item = r
+                break
+
+        consolidated = {
+            "question_id": q_id,
+            "question": j_item.get("question", ""),
+            "responses": j_item.get("responses", {}),
+            "ragas": {
+                "results": r_item.get("results", {}) if r_item else {}
+            },
+            "llm_judge": {
+                "votes": j_item.get("votes", []),
+                "consensus": j_item.get("consensus"),
+                "mapping": j_item.get("mapping", {}),
+            },
+            "analysis": {
+                "judges_consensus": j_item.get("consensus"),
+                "agreement": j_item.get("agreement", False)
+            }
+        }
+
+        consolidated_items.append(consolidated)
+
+    # Calcular estatísticas
+    agreements = sum(1 for item in consolidated_items if item["analysis"]["agreement"])
+    divergences = len(consolidated_items) - agreements
+
+    # Placar de consensos
+    consensus_scores = judge_data.get("summary", {}).get("consensus_scores", {})
+
     report = {
         "timestamp": datetime.now(_BRT).isoformat(),
-        "pipeline": "RAGAS + LLM-as-Judge",
-        "num_questions": num_questions,
-        "status": "em_construção",
-        "files": {
-            "ragas": "api/tools/data/processed/evaluation/unified/evaluation_*.json",
-            "llm_judge": "api/tools/data/processed/llm_judge/llm_judge_*.json"
+        "pipeline": "RAGAS + LLM-as-Judge Consolidado",
+        "num_questions": len(consolidated_items),
+        "source_files": {
+            "ragas": str(ragas_file),
+            "llm_judge": str(judge_file)
+        },
+        "questions": consolidated_items,
+        "summary": {
+            "total_questions": len(consolidated_items),
+            "agreements": agreements,
+            "divergences": divergences,
+            "agreement_rate": agreements / len(consolidated_items) if consolidated_items else 0,
+            "consensus_scores": consensus_scores,
+            "judges": judge_data.get("judges", [])
         }
     }
 
     output_dir = Path("api/tools/data/processed/pipeline")
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    output_file = output_dir / f"pipeline_report_{timestamp}.json"
+    output_file = output_dir / f"pipeline_consolidated_{timestamp}.json"
     output_file.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    print(f"   📄 Relatório: {output_file}")
+    print(f"   ✅ Relatório consolidado gerado!")
+    print(f"   📄 Arquivo: {output_file}")
+    print(f"   📊 Questões: {len(consolidated_items)}")
+    print(f"   ✅ Acordos: {agreements} | ❌ Divergências: {divergences}")
+
     return output_file
 
 def main(num_questions: int = 3, seed: int = 42):
