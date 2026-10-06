@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Pipeline Completo: RAGAS + LLM-as-Judge
-1. Lê dataset (filtred_alergia_medicamentos.xlsx)
-2. Seleciona N questões aleatórias (seed fixo = reproducível)
-3. Roda RAGAS (COM + SEM ontologia)
+Pipeline Completo: RAGAS + LLM-as-Judge (Sincronizado via JSON)
+1. Lê dataset e seleciona N questões aleatórias (seed fixo)
+2. Salva questões selecionadas em JSON
+3. Roda RAGAS (COM + SEM ontologia) nessas questões
 4. Roda LLM-as-Judge nas mesmas questões
 5. Consolida relatório com todas as métricas
 """
@@ -36,22 +36,37 @@ def load_dataset(xlsx_path: str, num_samples: int = 3, seed: int = 42) -> list[d
         row = df.iloc[idx]
         questions.append({
             "question_id": idx + 1,
+            "index": idx,
             "question": row.get("question", "") if "question" in df.columns else str(row),
         })
 
     return questions, selected_indices
 
+def save_selected_questions(questions: list[dict], output_dir: Path = None):
+    """Salva questões selecionadas em JSON para sincronização"""
+    if output_dir is None:
+        output_dir = Path(__file__).parent / "tools" / "data" / "processed" / "pipeline"
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    timestamp = datetime.now(_BRT).strftime("%Y%m%d_%H%M%S")
+    output_file = output_dir / f"selected_questions_{timestamp}.json"
+
+    output_file.write_text(json.dumps(questions, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"\n💾 Questões selecionadas salvas em: {output_file}")
+
+    return output_file
+
 def run_ragas(num_questions: int = 3, seed: int = 42):
     """Roda RAGAS COM/SEM ontologia com essas questões específicas"""
     print(f"\n🔍 Rodando RAGAS com {num_questions} questões...")
 
-    # Roda script RAGAS existente com argumentos posicionais
+    # Usa wrapper que sincroniza com selected_questions.json
     cmd = [
         sys.executable,
-        "api/evaluate_with_ontology_robust.py",
-        "tools/data/raw/evaluation/filtred_alergia_medicamentos.xlsx",
-        str(num_questions),
-        str(seed)
+        "api/ragas_with_selected_questions.py",
+        f"--num-questions={num_questions}",
+        f"--seed={seed}"
     ]
 
     result = subprocess.run(cmd)
@@ -201,7 +216,7 @@ def consolidate_report(num_questions: int = 3):
 def main(num_questions: int = 3, seed: int = 42):
     """Executa pipeline completo"""
     print("=" * 70)
-    print("🚀 PIPELINE COMPLETO: RAGAS + LLM-as-Judge")
+    print("🚀 PIPELINE COMPLETO: RAGAS + LLM-as-Judge (Sincronizado)")
     print("=" * 70)
 
     # 1. Carregar dataset
@@ -212,30 +227,35 @@ def main(num_questions: int = 3, seed: int = 42):
     for q in questions:
         print(f"   Q{q['question_id']}: {q['question'][:60]}...")
 
-    # 2. Rodar RAGAS
+    # 2. Salvar questões selecionadas
+    print(f"\n💾 Salvando questões selecionadas...")
+    selected_file = save_selected_questions(questions)
+
+    # 3. Rodar RAGAS
     ragas_ok = run_ragas(num_questions=num_questions, seed=seed)
 
     if not ragas_ok:
         print("\n❌ Pipeline interrompido: RAGAS falhou")
         return
 
-    # 3. Rodar LLM-as-Judge
+    # 4. Rodar LLM-as-Judge
     judge_ok = run_llm_judge(num_questions=num_questions)
 
     if not judge_ok:
         print("\n❌ Pipeline interrompido: LLM-as-Judge falhou")
         return
 
-    # 4. Consolidar relatório
+    # 5. Consolidar relatório
     report_file = consolidate_report(num_questions=num_questions)
 
     print("\n" + "=" * 70)
     print("✅ PIPELINE COMPLETO!")
     print("=" * 70)
-    print(f"\nResultados:")
-    print(f"  RAGAS:       api/tools/data/processed/evaluation/unified/")
-    print(f"  LLM-Judge:   api/tools/data/processed/llm_judge/")
-    print(f"  Relatório:   {report_file}")
+    print(f"\nArquivos gerados:")
+    print(f"  Questões selecionadas: {selected_file}")
+    print(f"  RAGAS:                 tools/data/processed/evaluation/unified/")
+    print(f"  LLM-Judge:             tools/data/processed/llm_judge/")
+    print(f"  Relatório consolidado: {report_file}")
     print("\n")
 
 if __name__ == "__main__":
