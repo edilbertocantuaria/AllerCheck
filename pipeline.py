@@ -268,63 +268,82 @@ def consolidate_report(num_questions: int):
                 "winner": "sem_ontologia" if delta_mean > 0 else "com_ontologia" if delta_mean < 0 else "empate"
             }
 
-    # Estatísticas de confiança dos juízes (COM vs SEM vs Ground Truth)
-    judge_confidence_com = []
-    judge_confidence_sem = []
-    judge_confidence_gt = []
+    # Estatísticas de confiança dos juízes (separadas por LLM para detectar viés)
+    judge_stats_by_llm = {}
+    judge_votes_by_llm = {}
 
     for item in consolidated_items:
         votes = item.get("llm_judge", {}).get("votes", [])
         mapping = item.get("llm_judge", {}).get("mapping", {})
 
         for vote in votes:
-            if "confidence" in vote and vote["confidence"] is not None:
-                choice = vote.get("choice")
-                choice_source = mapping.get(choice, "unknown")
-                confidence = float(vote["confidence"])
+            judge_name = vote.get("judge")
+            confidence = float(vote.get("confidence", 0)) if vote.get("confidence") is not None else 0
+            choice = vote.get("choice")
+            choice_source = mapping.get(choice, "unknown")
 
-                if choice_source == "com_ontologia":
-                    judge_confidence_com.append(confidence)
-                elif choice_source == "sem_ontologia":
-                    judge_confidence_sem.append(confidence)
-                elif choice_source == "ground_truth":
-                    judge_confidence_gt.append(confidence)
+            if judge_name not in judge_stats_by_llm:
+                judge_stats_by_llm[judge_name] = {
+                    "com_ontologia": [],
+                    "sem_ontologia": [],
+                    "ground_truth": []
+                }
+                judge_votes_by_llm[judge_name] = {
+                    "com_ontologia": 0,
+                    "sem_ontologia": 0,
+                    "ground_truth": 0
+                }
 
-    judge_confidence_stats = {
-        "com_ontologia": {},
-        "sem_ontologia": {},
-        "ground_truth": {}
+            if choice_source in judge_stats_by_llm[judge_name]:
+                judge_stats_by_llm[judge_name][choice_source].append(confidence)
+
+            if choice_source in judge_votes_by_llm[judge_name]:
+                judge_votes_by_llm[judge_name][choice_source] += 1
+
+    # Converter em estatísticas descritivas POR LLM
+    judge_confidence_stats = {}
+
+    for judge_name in sorted(judge_stats_by_llm.keys()):
+        conditions_data = judge_stats_by_llm[judge_name]
+        judge_confidence_stats[judge_name] = {
+            "votes_distribution": judge_votes_by_llm[judge_name],
+            "confidence_by_condition": {}
+        }
+
+        for condition in ["com_ontologia", "sem_ontologia", "ground_truth"]:
+            values = conditions_data[condition]
+            if values:
+                judge_confidence_stats[judge_name]["confidence_by_condition"][condition] = {
+                    "count": len(values),
+                    "mean": round(statistics.mean(values), 6),
+                    "median": round(statistics.median(values), 6),
+                    "stdev": round(statistics.stdev(values), 6) if len(values) > 1 else 0.0,
+                    "min": round(min(values), 6),
+                    "max": round(max(values), 6),
+                }
+
+    # Adicionar estatísticas agregadas (todos os juízes juntos)
+    all_judge_stats = {
+        "com_ontologia": [],
+        "sem_ontologia": [],
+        "ground_truth": []
     }
 
-    if judge_confidence_com:
-        judge_confidence_stats["com_ontologia"] = {
-            "count": len(judge_confidence_com),
-            "mean": round(statistics.mean(judge_confidence_com), 6),
-            "median": round(statistics.median(judge_confidence_com), 6),
-            "stdev": round(statistics.stdev(judge_confidence_com), 6) if len(judge_confidence_com) > 1 else 0.0,
-            "min": round(min(judge_confidence_com), 6),
-            "max": round(max(judge_confidence_com), 6),
-        }
+    for judge_name, conditions_data in judge_stats_by_llm.items():
+        for condition, values in conditions_data.items():
+            all_judge_stats[condition].extend(values)
 
-    if judge_confidence_sem:
-        judge_confidence_stats["sem_ontologia"] = {
-            "count": len(judge_confidence_sem),
-            "mean": round(statistics.mean(judge_confidence_sem), 6),
-            "median": round(statistics.median(judge_confidence_sem), 6),
-            "stdev": round(statistics.stdev(judge_confidence_sem), 6) if len(judge_confidence_sem) > 1 else 0.0,
-            "min": round(min(judge_confidence_sem), 6),
-            "max": round(max(judge_confidence_sem), 6),
-        }
-
-    if judge_confidence_gt:
-        judge_confidence_stats["ground_truth"] = {
-            "count": len(judge_confidence_gt),
-            "mean": round(statistics.mean(judge_confidence_gt), 6),
-            "median": round(statistics.median(judge_confidence_gt), 6),
-            "stdev": round(statistics.stdev(judge_confidence_gt), 6) if len(judge_confidence_gt) > 1 else 0.0,
-            "min": round(min(judge_confidence_gt), 6),
-            "max": round(max(judge_confidence_gt), 6),
-        }
+    judge_confidence_stats["_aggregated"] = {}
+    for condition, values in all_judge_stats.items():
+        if values:
+            judge_confidence_stats["_aggregated"][condition] = {
+                "count": len(values),
+                "mean": round(statistics.mean(values), 6),
+                "median": round(statistics.median(values), 6),
+                "stdev": round(statistics.stdev(values), 6) if len(values) > 1 else 0.0,
+                "min": round(min(values), 6),
+                "max": round(max(values), 6),
+            }
 
     report = {
         "timestamp": datetime.now(_BRT).isoformat(),
