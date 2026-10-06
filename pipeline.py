@@ -202,9 +202,53 @@ def consolidate_report(num_questions: int):
         consolidated_items.append(consolidated)
 
     # Estatísticas
+    import statistics
+
     agreements = sum(1 for item in consolidated_items if item["analysis"]["agreement"])
     divergences = len(consolidated_items) - agreements
     consensus_scores = judge_data.get("summary", {}).get("consensus_scores", {})
+
+    # Calcular estatísticas descritivas por métrica RAGAS
+    metrics_stats = {}
+    metric_names = ["faithfulness", "answer_relevancy", "context_precision", "context_recall", "context_entity_recall"]
+
+    for metric in metric_names:
+        all_values = []
+
+        for item in consolidated_items:
+            ragas_results = item.get("ragas", {}).get("results", {})
+            for evaluator, metrics_dict in ragas_results.items():
+                if metric in metrics_dict and metrics_dict[metric] is not None:
+                    all_values.append(float(metrics_dict[metric]))
+
+        if all_values:
+            metrics_stats[metric] = {
+                "count": len(all_values),
+                "mean": round(statistics.mean(all_values), 6),
+                "median": round(statistics.median(all_values), 6),
+                "stdev": round(statistics.stdev(all_values), 6) if len(all_values) > 1 else 0.0,
+                "min": round(min(all_values), 6),
+                "max": round(max(all_values), 6),
+            }
+
+    # Estatísticas de confiança dos juízes
+    judge_confidence_values = []
+    for item in consolidated_items:
+        votes = item.get("llm_judge", {}).get("votes", [])
+        for vote in votes:
+            if "confidence" in vote and vote["confidence"] is not None:
+                judge_confidence_values.append(float(vote["confidence"]))
+
+    judge_confidence_stats = {}
+    if judge_confidence_values:
+        judge_confidence_stats = {
+            "count": len(judge_confidence_values),
+            "mean": round(statistics.mean(judge_confidence_values), 6),
+            "median": round(statistics.median(judge_confidence_values), 6),
+            "stdev": round(statistics.stdev(judge_confidence_values), 6) if len(judge_confidence_values) > 1 else 0.0,
+            "min": round(min(judge_confidence_values), 6),
+            "max": round(max(judge_confidence_values), 6),
+        }
 
     report = {
         "timestamp": datetime.now(_BRT).isoformat(),
@@ -219,10 +263,12 @@ def consolidate_report(num_questions: int):
             "total_questions": len(consolidated_items),
             "agreements": agreements,
             "divergences": divergences,
-            "agreement_rate": agreements / len(consolidated_items) if consolidated_items else 0,
+            "agreement_rate": round(agreements / len(consolidated_items), 4) if consolidated_items else 0,
             "consensus_scores": consensus_scores,
             "judges": judge_data.get("judges", [])
-        }
+        },
+        "summary_metrics": metrics_stats,
+        "judge_confidence_statistics": judge_confidence_stats
     }
 
     output_dir = Path("api/tools/data/processed/pipeline")
