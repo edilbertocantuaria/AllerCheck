@@ -229,6 +229,13 @@ async def main(num_questions: int = 3):
     timestamp_iso = datetime.now(_BRT).isoformat()
     timestamp_file = datetime.now(_BRT).strftime("%Y%m%d_%H%M%S")
 
+    # Contar consensos por tipo
+    consensus_scores = {
+        "com_ontologia": sum(1 for r in llm_judge_results if r["consensus"] == "com_ontologia"),
+        "sem_ontologia": sum(1 for r in llm_judge_results if r["consensus"] == "sem_ontologia"),
+        "ground_truth": sum(1 for r in llm_judge_results if r["consensus"] == "ground_truth"),
+    }
+
     output = {
         "timestamp": timestamp_iso,
         "test_type": f"LLM-as-Judge ({len(test_indices)} questões aleatórias)",
@@ -239,6 +246,7 @@ async def main(num_questions: int = 3):
             "total_questions": len(llm_judge_results),
             "agreements": sum(1 for r in llm_judge_results if r["agreement"]),
             "divergences": sum(1 for r in llm_judge_results if not r["agreement"]),
+            "consensus_scores": consensus_scores,
         }
     }
 
