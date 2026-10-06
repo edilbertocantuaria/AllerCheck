@@ -45,12 +45,13 @@ def run_ragas(num_questions: int = 3, seed: int = 42):
     """Roda RAGAS COM/SEM ontologia com essas questões específicas"""
     print(f"\n🔍 Rodando RAGAS com {num_questions} questões...")
 
-    # Roda script RAGAS existente com seed
+    # Roda script RAGAS existente com argumentos posicionais
     cmd = [
         sys.executable,
         "api/evaluate_with_ontology_robust.py",
-        f"--num-samples={num_questions}",
-        f"--seed={seed}"
+        "tools/data/raw/evaluation/filtred_alergia_medicamentos.xlsx",
+        str(num_questions),
+        str(seed)
     ]
 
     result = subprocess.run(cmd)
