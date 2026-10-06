@@ -12,6 +12,11 @@ from pathlib import Path
 from datetime import datetime, timezone, timedelta
 from dotenv import load_dotenv
 
+# Force UTF-8 on Windows
+if sys.platform == "win32":
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+
 # Load .env from project root
 project_root = Path(__file__).resolve().parent
 load_dotenv(project_root / ".env")
@@ -35,7 +40,12 @@ async def judge_responses(question: str, responses: dict, judge_name: str, judge
     """Envia para um juiz avaliar as 3 respostas"""
 
     if judge_config["provider"] == "openai":
-        client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        try:
+            client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        except Exception as e:
+            print(f"   ⚠️  OpenAI falhou: {e}")
+            return {"judge": judge_name, "choice": "A", "confidence": 0.0, "reasoning": "API error"}
+
         response = await client.chat.completions.create(
             model=judge_config["model"],
             messages=[{
@@ -52,7 +62,12 @@ async def judge_responses(question: str, responses: dict, judge_name: str, judge
         text = response.choices[0].message.content
 
     elif judge_config["provider"] == "gemini":
-        import google.generativeai as genai
+        try:
+            import google.generativeai as genai
+        except ImportError:
+            print(f"   ⚠️  Gemini SDK não instalado - pulando juiz Gemini")
+            return {"judge": judge_name, "choice": "A", "confidence": 0.0, "reasoning": "SDK não disponível"}
+
         genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
         model = genai.GenerativeModel(judge_config["model"])
         response = await asyncio.to_thread(
@@ -67,7 +82,12 @@ async def judge_responses(question: str, responses: dict, judge_name: str, judge
         text = response.text
 
     elif judge_config["provider"] == "anthropic":
-        from anthropic import Anthropic
+        try:
+            from anthropic import Anthropic
+        except ImportError:
+            print(f"   ⚠️  Anthropic SDK não instalado - pulando juiz Claude")
+            return {"judge": judge_name, "choice": "A", "confidence": 0.0, "reasoning": "SDK não disponível"}
+
         client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
         response = await asyncio.to_thread(
             client.messages.create,
