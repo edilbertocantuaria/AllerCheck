@@ -21,6 +21,12 @@ api/config.yaml
 api/.env
 web/.env
 
+
+*.orig
+_bak_*/
+.env*
+!.env.example
+
 # =========================
 # Logs
 # =========================
