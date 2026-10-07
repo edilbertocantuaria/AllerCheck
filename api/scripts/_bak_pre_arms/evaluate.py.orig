@@ -1,11 +1,10 @@
-import asyncio
 import os
 import time
 from fastapi import APIRouter, Depends
 
 from app.schemas import (
     ChatRequest, EvaluateChunksResponse, DetailedEvaluationResponse,
-    PromptUsed, LLMInfo, ComparisonEvaluationResponse, ComparisonResult, ArmsRequest
+    PromptUsed, LLMInfo, ComparisonEvaluationResponse, ComparisonResult
 )
 from app.services.chat import select_sources, format_sources_block, _CITATION_FLAG_RE
 from app.services.rag_service import get_rag_service
@@ -611,85 +610,3 @@ async def debug_rxnorm_properties(rxcui: str):
             }
     except Exception as e:
         return {"error": str(e), "rxcui": rxcui}
-
-
-_ARMS_LLM_CACHE: dict[tuple[str, str], object] = {}
-
-
-def _answer_llm_for(rag_service, provider: str | None, model: str | None):
-    """LLM de resposta: o padrão do serviço, ou um provedor/modelo específico (matriz de geradores)."""
-    if not provider:
-        return rag_service.answer_llm, os.getenv("ANSWER_PROVIDER", "openai").lower(), os.getenv("ANSWER_MODEL", "gpt-4o")
-    from app.services.rag_service import build_answer_llm_for
-
-    provider = provider.lower()
-    if not model:
-        model = os.environ["CLAUDE_MODEL"] if provider in ("anthropic", "claude") else os.environ["GEMINI_LLM_MODEL"] if provider == "gemini" else os.environ["ANSWER_MODEL"]
-    key = (provider, model)
-    if key not in _ARMS_LLM_CACHE:
-        _ARMS_LLM_CACHE[key] = build_answer_llm_for(provider, model, float(os.environ["ANSWER_TEMPERATURE"]))
-    return _ARMS_LLM_CACHE[key], provider, model
-
-
-@router.post("/arms")
-async def evaluate_arms(payload: ArmsRequest):
-    """Uma recuperação por pergunta, contextos compartilhados entre os braços (sem/com/h5), e todas as
-    respostas pedidas geradas EXATAMENTE a partir dos contextos devolvidos (sem segunda recuperação)."""
-    rag_service = get_rag_service(use_hyde=payload.use_hyde)
-    arms = tuple(dict.fromkeys(payload.arms))
-    for spec in payload.generations:
-        if spec.arm not in arms:
-            return {"error": f"generation '{spec.key}' usa o braço '{spec.arm}', que não está em arms={list(arms)}"}
-
-    result = await rag_service.build_eval_arms(
-        question=payload.question,
-        history=[h.model_dump() for h in payload.history] if payload.history else None,
-        arms=arms,
-    )
-    if result.get("emergency"):
-        return {"question": payload.question, "emergency": True, "emergency_content": result.get("emergency_content")}
-
-    gate = asyncio.Semaphore(3)
-
-    async def _generate(spec):
-        arm = result["arms"][spec.arm]
-        try:
-            llm, provider, model = _answer_llm_for(rag_service, spec.provider, spec.model)
-            async with gate:
-                resp = await llm.ainvoke(arm["chain_input"])
-            raw = resp.content
-            formatted = _CITATION_FLAG_RE.sub("", raw).lstrip("\n").rstrip()
-            block = format_sources_block(select_sources(formatted, arm["sources"]))
-            return spec.key, {
-                "arm": spec.arm, "provider": provider, "model": model,
-                "answer_raw": raw,
-                "answer_eval": formatted,
-                "answer_formatted": formatted + ("\n\n" + block if block else ""),
-                "error": None,
-            }
-        except Exception as e:
-            return spec.key, {
-                "arm": spec.arm, "provider": spec.provider, "model": spec.model,
-                "answer_raw": None, "answer_eval": None, "answer_formatted": None,
-                "error": f"{type(e).__name__}: {str(e)[:500]}",
-            }
-
-    answers = dict(await asyncio.gather(*[_generate(s) for s in payload.generations]))
-
-    return {
-        "question": payload.question,
-        "emergency": False,
-        "is_in_scope": result["is_in_scope"],
-        "question_rewrite": result["question_rewrite"],
-        "hyde_reformulation": result["hyde_reformulation"],
-        "ontology_expansion": result["ontology_expansion"],
-        "arms": {
-            name: {
-                "chunks": a["chunks"],
-                "total_chunks": len(a["chunks"]),
-                "ontology_chunks_added": a["ontology_chunks_added"],
-            }
-            for name, a in result["arms"].items()
-        },
-        "answers": answers,
-    }

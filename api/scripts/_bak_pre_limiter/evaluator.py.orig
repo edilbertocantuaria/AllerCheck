@@ -20,11 +20,6 @@ from openai import AsyncOpenAI
 from openai.types.chat import ChatCompletion
 from ragas.embeddings.base import embedding_factory
 from ragas.llms import llm_factory
-
-try:
-    from .rate_limit import get_limiter, wrap_anthropic_client, wrap_openai_client
-except ImportError:  # executado como script, fora do pacote
-    from rate_limit import get_limiter, wrap_anthropic_client, wrap_openai_client
 from ragas.metrics.collections import (
     AnswerRelevancy,
     ContextEntityRecall,
@@ -325,11 +320,9 @@ class RagasEvaluator:
         SLM_MODEL = SLM_MODEL or os.getenv("SLM_MODEL", "mistral")
         SLM_BASE_URL = SLM_BASE_URL or _SLM_BASE_URL
         evaluator_temperature = float(os.environ["EVALUATOR_TEMPERATURE"])
-        # timeout por requisição: chamada pendurada falha rápido e o limitador refaz (o padrão do SDK é 10 min)
-        _REQ_TIMEOUT = float(os.environ["RATE_REQUEST_TIMEOUT_S"])
 
         _oai_key    = openai_api_key or os.getenv("OPENAI_API_KEY")
-        _oai_client = wrap_openai_client(AsyncOpenAI(api_key=_oai_key, max_retries=0, timeout=_REQ_TIMEOUT), get_limiter("openai"))
+        _oai_client = AsyncOpenAI(api_key=_oai_key)
         _gpt_llm    = llm_factory(openai_llm_model, client=_oai_client, max_tokens=4096, temperature=evaluator_temperature)
 
         try:
@@ -349,14 +342,12 @@ class RagasEvaluator:
                 )
 
         _gem_key    = gemini_api_key or os.getenv("GEMINI_API_KEY")
-        _gem_client = wrap_openai_client(
-            _GeminiAsyncOpenAI(api_key=_gem_key, base_url=_GEMINI_BASE_URL, max_retries=0, timeout=_REQ_TIMEOUT), get_limiter("gemini")
-        )
+        _gem_client = _GeminiAsyncOpenAI(api_key=_gem_key, base_url=_GEMINI_BASE_URL)
         _gemini_llm = llm_factory(gemini_model, client=_gem_client, max_tokens=4096, temperature=evaluator_temperature)
 
         _ant_key    = anthropic_api_key or os.getenv("ANTHROPIC_API_KEY")
         import anthropic
-        _ant_client = wrap_anthropic_client(anthropic.AsyncAnthropic(api_key=_ant_key, max_retries=0, timeout=_REQ_TIMEOUT), get_limiter("anthropic"))
+        _ant_client = anthropic.AsyncAnthropic(api_key=_ant_key)
         _claude_llm = llm_factory(
             claude_model,
             provider="anthropic",

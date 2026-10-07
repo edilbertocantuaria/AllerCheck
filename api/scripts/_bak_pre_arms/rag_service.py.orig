@@ -1,5 +1,4 @@
 import asyncio
-import copy
 import functools
 import logging
 import os
@@ -135,63 +134,6 @@ def _build_answer_llm():
         return ChatOpenAI(model=oai_model, temperature=temperature, streaming=True)
 
 
-class _AnthropicAnswerLLM:
-    """Adaptador mínimo (ainvoke -> .content) para gerar respostas com Claude na matriz de geradores."""
-
-    def __init__(self, model: str, temperature: float, api_key: str, max_tokens: int = 1024) -> None:
-        import anthropic
-
-        self._client = anthropic.AsyncAnthropic(api_key=api_key, max_retries=4)
-        self._model = model
-        self._temperature = temperature
-        self._max_tokens = max_tokens
-
-    async def ainvoke(self, prompt_value: Any):
-        from types import SimpleNamespace
-
-        messages = prompt_value.to_messages() if hasattr(prompt_value, "to_messages") else []
-        system_parts: list[str] = []
-        chat: list[dict[str, str]] = []
-        for m in messages:
-            kind = getattr(m, "type", "human")
-            text = m.content if isinstance(m.content, str) else str(m.content)
-            if kind == "system":
-                system_parts.append(text)
-            else:
-                chat.append({"role": "assistant" if kind == "ai" else "user", "content": text})
-        if not chat:
-            chat = [{"role": "user", "content": str(prompt_value)}]
-        kwargs: dict[str, Any] = {
-            "model": self._model,
-            "max_tokens": self._max_tokens,
-            "temperature": self._temperature,
-            "messages": chat,
-        }
-        if system_parts:
-            kwargs["system"] = "\n\n".join(system_parts)
-        resp = await self._client.messages.create(**kwargs)
-        text = "".join(b.text for b in resp.content if getattr(b, "type", "") == "text")
-        return SimpleNamespace(content=text)
-
-
-def build_answer_llm_for(provider: str, model: str, temperature: float):
-    """LLM de resposta para a matriz de geradores (gpt, gemini, claude), com a mesma temperatura."""
-    provider = provider.lower()
-    if provider == "openai":
-        return ChatOpenAI(model=model, temperature=temperature, max_retries=4)
-    if provider == "gemini":
-        return ChatOpenAI(
-            model=model,
-            temperature=temperature,
-            openai_api_key=os.environ["GEMINI_API_KEY"],
-            openai_api_base=_GEMINI_BASE_URL,
-            max_retries=4,
-        )
-    if provider in ("anthropic", "claude"):
-        return _AnthropicAnswerLLM(model, temperature, os.environ["ANTHROPIC_API_KEY"])
-    raise ValueError(f"Provedor de resposta desconhecido: {provider}")
-
-
 class RagService:
     def __init__(self, use_hyde: bool = True) -> None:
         self.use_hyde = use_hyde
@@ -303,54 +245,49 @@ class RagService:
             return match.group(1).strip()
         return response
 
-    async def _search_docs(self, q: str, k: int, threshold: float) -> list[Any]:
-        """Executa busca síncrona no executor customizado (não bloqueia event loop)."""
-        loop = asyncio.get_running_loop()
-        func = functools.partial(
-            self._vectorstore.similarity_search_with_relevance_scores,
-            q, k=k, score_threshold=threshold
-        )
-        results = await loop.run_in_executor(_executor, func)
-        thread_name = threading.current_thread().name
-        logger.debug(f"[EXECUTOR] Busca executada na thread: {thread_name}")
-        docs = []
-        for doc, score in results:
-            doc.metadata["score"] = round(score, 4)
-            docs.append(doc)
-        return docs
-
-    async def _gather_candidates(
-        self,
-        query: str,
-        ontology_terms_pt: list[str] | None = None,
-        hypothetical: str | None = None,
-        retrieval_k: int | None = None,
-    ) -> dict[str, Any] | None:
-        """Buscas vetoriais (query original, termos de ontologia e HyDE), SEM rerank e SEM montagem.
-
-        Separado de `_assemble` para que uma avaliação possa fazer UMA recuperação por pergunta
-        e montar, a partir dela, os contextos de cada braço (SEM, COM, H5).
-
-        `hypothetical=None` => gera o texto HyDE aqui (caminho de produção);
-        `hypothetical=""`   => não usa HyDE (a avaliação gera uma vez e repassa).
-        Retorna None se as buscas principais falharem (como o `_retrieve` original, que devolvia [], 0).
-        """
-        if retrieval_k is None:
-            retrieval_k = int(os.getenv("RETRIEVAL_K", "8"))
+    async def _retrieve(self, query: str, ontology_expansion: list[str] | None = None) -> tuple[list[Any], int]:
+        retrieval_k = int(os.getenv("RETRIEVAL_K", "8"))
         retrieval_threshold = float(os.getenv("RETRIEVAL_SCORE_THRESHOLD", "0.60"))
 
-        _search = self._search_docs
+        async def _search(q: str, k: int, threshold: float) -> list[Any]:
+            """Executa busca síncrona no executor customizado (não bloqueia event loop)."""
+            loop = asyncio.get_running_loop()
+            func = functools.partial(
+                self._vectorstore.similarity_search_with_relevance_scores,
+                q, k=k, score_threshold=threshold
+            )
+            results = await loop.run_in_executor(_executor, func)
+            thread_name = threading.current_thread().name
+            logger.debug(f"[EXECUTOR] Busca executada na thread: {thread_name}")
+            docs = []
+            for doc, score in results:
+                doc.metadata["score"] = round(score, 4)
+                docs.append(doc)
+            return docs
 
         # Busca 1 (query original) e Busca 2 (ontologia) em PARALELO
-        query_docs: list[Any] = []
-        ontology_docs: list[Any] = []
+        query_docs = []
+        ontology_docs = []
+        ontology_chunks_added = 0
 
         try:
-            terms = [t for t in (ontology_terms_pt or []) if t]
-            if terms:
-                expanded_query = " ".join(terms)
+            if ontology_expansion and len(ontology_expansion) > 0:
+                # Extract Portuguese terms from ontology expansion
+                ontology_terms_pt = []
+                for term in ontology_expansion:
+                    if isinstance(term, dict):
+                        # Portuguese translation from RxNorm expansion
+                        pt_term = term.get("pt", term.get("en", ""))
+                    else:
+                        # Fallback: use English term as-is
+                        pt_term = term
+
+                    if pt_term:
+                        ontology_terms_pt.append(pt_term)
+
+                expanded_query = " ".join(ontology_terms_pt)
                 print(f"[MULTI-QUERY] Paralelizando: query original + termos expandidos (PT-BR)")
-                print(f"[MULTI-QUERY] Termos ontologia (PT): {terms}")
+                print(f"[MULTI-QUERY] Termos ontologia (PT): {ontology_terms_pt}")
 
                 query_docs, ontology_docs = await asyncio.gather(
                     _search(query, retrieval_k, retrieval_threshold),
@@ -363,45 +300,7 @@ class RagService:
                 ontology_docs = []
         except Exception as exc:
             logger.error("Pinecone retrieval falhou para query '%s': %s", query[:80], exc)
-            return None
-
-        # HyDE: sempre aplicar à query original (não aos termos expandidos)
-        hyde_docs: list[Any] = []
-        if self.use_hyde:
-            if hypothetical is None:
-                hypothetical = self._generate_hypothetical_answer(query)
-            if hypothetical:
-                try:
-                    hyde_docs = await _search(hypothetical, 4, 0.62)
-                except Exception as exc:
-                    logger.warning("HyDE retrieval falhou (%s) — continuando com merged docs.", exc)
-                    hyde_docs = []
-
-        return {
-            "query_docs": query_docs,
-            "ontology_docs": ontology_docs,
-            "hyde_docs": hyde_docs,
-            "hypothetical": hypothetical or "",
-        }
-
-    async def _assemble(
-        self,
-        query: str,
-        gathered: dict[str, Any],
-        use_ontology: bool,
-        rerank,
-        core_top_k: int = 8,
-    ) -> tuple[list[Any], int]:
-        """Monta a lista final de chunks a partir dos candidatos já buscados.
-
-        Mesma lógica do `_retrieve` original (merge, HyDE, separação ontologia/core, rerank do core,
-        ontologia anexada ao final). Trabalha em CÓPIAS dos documentos, então a mesma busca pode
-        alimentar vários braços sem que um altere a metadata do outro.
-        """
-        query_docs = copy.deepcopy(gathered["query_docs"])
-        ontology_docs = copy.deepcopy(gathered["ontology_docs"]) if use_ontology else []
-        hyde_docs = copy.deepcopy(gathered["hyde_docs"])
-        ontology_chunks_added = 0
+            return [], 0
 
         # Merge deduplicando por content (usando primeiras 200 chars como ID único)
         combined_dict = {}
@@ -427,10 +326,17 @@ class RagService:
 
         merged = list(combined_dict.values())
 
-        if hyde_docs:
-            for doc in hyde_docs:
-                doc.metadata["retrieval_source"] = "hyde"
-            merged = _deduplicate_docs(merged + hyde_docs)
+        # HyDE: sempre aplicar à query original (não aos termos expandidos)
+        if self.use_hyde:
+            hypothetical = self._generate_hypothetical_answer(query)
+            if hypothetical:
+                try:
+                    hyde_docs = await _search(hypothetical, 4, 0.62)
+                    for doc in hyde_docs:
+                        doc.metadata["retrieval_source"] = "hyde"
+                    merged = _deduplicate_docs(merged + hyde_docs)
+                except Exception as exc:
+                    logger.warning("HyDE retrieval falhou (%s) — continuando com merged docs.", exc)
 
         # Separar chunks de ontologia do reranker (ontologia é "bonus knowledge")
         # Reranquear apenas chunks de original_query e hyde
@@ -445,62 +351,20 @@ class RagService:
                 core_docs_to_rerank.append(doc)
 
         # Reranquear apenas core docs (original_query + hyde)
-        reranked_core = await rerank(query=query, docs=core_docs_to_rerank, top_k=core_top_k)
+        reranked_core = await self._reranker.rerank_async(query=query, docs=core_docs_to_rerank, top_k=8)
 
         # Adicionar chunks de ontologia ao final (sem rerank)
         # Eles são conhecimento bonus que não deve ser penalizado
         reranked = reranked_core + ontology_docs_to_rerank
 
-        log_msg = (
-            f"Retrieve: {len(query_docs)} (query) + {len(ontology_docs)} (ontology) → {len(merged)} (merged)"
-        )
-        if ontology_docs:
+        log_msg = f"Retrieve: {len(query_docs)} (query) + {len(ontology_docs)} (ontology) → {len(merged)} (merged)"
+        if ontology_expansion:
             log_msg += f" → +{ontology_chunks_added} novos chunks (não-reranqueados)"
         log_msg += f" → {len(reranked_core)} (reranked) + {len(ontology_docs_to_rerank)} (ontology bonus)"
         logger.debug(log_msg)
         print(f"[MULTI-QUERY] {log_msg}")
 
         return reranked, ontology_chunks_added
-
-    def _make_cached_rerank(self, cache: dict[str, float]):
-        """Rerank que pontua cada chunk UMA vez por pergunta (o scorer é um LLM, logo estocástico).
-
-        Com o cache, SEM, COM e H5 usam exatamente as mesmas notas; o desempate é estável
-        (ordem de entrada), então o top-8 do SEM é prefixo do top-(8+N) do H5.
-        """
-        async def _cached(query: str, docs: list[Any], top_k: int = 5) -> list[Any]:
-            if not docs:
-                return docs
-            missing = [d for d in docs if d.page_content[:200] not in cache]
-            if missing:
-                scores = await asyncio.gather(*[
-                    self._reranker._score_chunk(query, d.page_content) for d in missing
-                ])
-                for d, s in zip(missing, scores):
-                    cache[d.page_content[:200]] = s
-            for d in docs:
-                d.metadata["rerank_score"] = cache[d.page_content[:200]]
-            scored = sorted(docs, key=lambda d: cache[d.page_content[:200]], reverse=True)
-            return scored[:top_k]
-        return _cached
-
-    async def _retrieve(self, query: str, ontology_expansion: list[str] | None = None) -> tuple[list[Any], int]:
-        """Caminho de produção (inalterado em comportamento): busca + montagem numa chamada."""
-        terms: list[str] = []
-        for term in (ontology_expansion or []):
-            if isinstance(term, dict):
-                pt_term = term.get("pt", term.get("en", ""))
-            else:
-                pt_term = term
-            if pt_term:
-                terms.append(pt_term)
-
-        gathered = await self._gather_candidates(query, terms)
-        if gathered is None:
-            return [], 0
-        return await self._assemble(
-            query, gathered, use_ontology=bool(terms), rerank=self._reranker.rerank_async
-        )
 
     def generate_conversation_title(self, question: str) -> str:
         normalized = " ".join(question.strip().split())
@@ -697,17 +561,32 @@ Traduções:"""
         vector_docs, _ = await self._retrieve(query, ontology_expansion)
         return self.extract_chunks_from_docs(vector_docs)
 
-    async def _compose_chain_input(
+    async def build_chain_input(
         self,
         question: str,
         history_str: str,
-        query: str,
-        is_in_scope: bool,
-        ontology_expansion: list[str] | None = None,
-        vector_docs: list[Any] | None = None,
-    ) -> tuple[Any, dict[str, list[str]]]:
-        """Monta o prompt de resposta. Se `vector_docs` vier pronto, NÃO recupera de novo
-        (usado na avaliação, para a resposta usar exatamente os contextos que serão avaliados)."""
+        use_ontology: bool = True,
+    ) -> tuple[Any, dict[str, list[str]], bool, str, list[str]]:
+        question    = _sanitize(question)
+        history_str = _sanitize(history_str)
+
+        if not self._check_safety(question):
+            emergency_content = get_prompt(PromptKey.EMERGENCY_RESPONSE)
+            return None, {"internal": [], "web": []}, True, emergency_content, []
+
+        query, is_in_scope = self._rewrite_query(question, history_str)
+
+        # Expand query with ontology if enabled (RxNorm API)
+        ontology_expansion: list[str] = []
+        if use_ontology:
+            logger.info(f"[ONTOLOGY DEBUG] use_ontology=True in build_chain_input")
+            logger.info(f"[ONTOLOGY DEBUG] query original: {query}")
+            onto_dicts = await expand_query_from_rxnorm(query, max_terms=5)
+            if onto_dicts:
+                # Extract Portuguese terms from {en, pt} dicts
+                ontology_expansion = [t.get("pt", t.get("en", "")) for t in onto_dicts if isinstance(t, dict)]
+                logger.info(f"[ONTOLOGY DEBUG] termos expandidos (PT): {ontology_expansion}")
+
         internal_ctx  = ""
         internal_src: list[str] = []
         web_ctx       = ""
@@ -723,8 +602,7 @@ Traduções:"""
             )
             logger.info("Query fora do escopo: %s", question[:80])
         else:
-            if vector_docs is None:
-                vector_docs, _ = await self._retrieve(query, ontology_expansion)
+            vector_docs, _ = await self._retrieve(query, ontology_expansion)
             internal_ctx, internal_src = self.process_internal_docs(vector_docs)
 
             if not internal_ctx:
@@ -761,130 +639,7 @@ Traduções:"""
             }
         )
 
-        return chain_input, {"internal": internal_src, "web": web_sources}
-
-    async def build_chain_input(
-        self,
-        question: str,
-        history_str: str,
-        use_ontology: bool = True,
-    ) -> tuple[Any, dict[str, list[str]], bool, str, list[str]]:
-        question    = _sanitize(question)
-        history_str = _sanitize(history_str)
-
-        if not self._check_safety(question):
-            emergency_content = get_prompt(PromptKey.EMERGENCY_RESPONSE)
-            return None, {"internal": [], "web": []}, True, emergency_content, []
-
-        query, is_in_scope = self._rewrite_query(question, history_str)
-
-        # Expand query with ontology if enabled (RxNorm API)
-        ontology_expansion: list[str] = []
-        if use_ontology:
-            logger.info(f"[ONTOLOGY DEBUG] use_ontology=True in build_chain_input")
-            logger.info(f"[ONTOLOGY DEBUG] query original: {query}")
-            onto_dicts = await expand_query_from_rxnorm(query, max_terms=5)
-            if onto_dicts:
-                # Extract Portuguese terms from {en, pt} dicts
-                ontology_expansion = [t.get("pt", t.get("en", "")) for t in onto_dicts if isinstance(t, dict)]
-                logger.info(f"[ONTOLOGY DEBUG] termos expandidos (PT): {ontology_expansion}")
-
-        chain_input, sources = await self._compose_chain_input(
-            question, history_str, query, is_in_scope, ontology_expansion=ontology_expansion
-        )
-        return chain_input, sources, False, "", ontology_expansion
-
-    async def build_eval_arms(
-        self,
-        question: str,
-        history: list[dict[str, str]] | None = None,
-        arms: tuple[str, ...] = ("sem", "com", "h5"),
-    ) -> dict[str, Any]:
-        """Avaliação: UMA recuperação por pergunta, compartilhada entre os braços.
-
-        - sem: pipeline sem ontologia (top-8 reranqueado + chunks híbridos).
-        - com: sem + chunks da expansão ontológica (anexados sem rerank, como em produção).
-        - h5 : controle de contexto. Sem ontologia, mas com top-(8+N) no rerank, onde N é quantos
-               chunks o COM tem a mais que o SEM nesta pergunta (mesmo nº total de contextos).
-        Rewrite, HyDE, tradução da ontologia, buscas e notas do rerank são feitos uma única vez;
-        os contextos devolvidos são exatamente os usados para montar o prompt de cada braço.
-        """
-        question = _sanitize(question)
-        history_str = _sanitize(self.build_history_str(history or []))
-
-        if not self._check_safety(question):
-            return {
-                "emergency": True,
-                "emergency_content": get_prompt(PromptKey.EMERGENCY_RESPONSE),
-            }
-
-        query, is_in_scope = self._rewrite_query(question, history_str)
-
-        ontology_expansion: list[dict] = []
-        terms_pt: list[str] = []
-        if "com" in arms and is_in_scope:
-            ontology_expansion = await expand_query_from_rxnorm(query, max_terms=5)
-            if ontology_expansion:
-                ontology_expansion = await self._translate_ontology_terms(ontology_expansion)
-            terms_pt = [
-                (t.get("pt", t.get("en", "")) if isinstance(t, dict) else t)
-                for t in (ontology_expansion or [])
-            ]
-            terms_pt = [t for t in terms_pt if t]
-
-        hypothetical = ""
-        docs_by_arm: dict[str, list[Any]] = {}
-        ontology_added = 0
-        if is_in_scope:
-            if self.use_hyde:
-                hypothetical = self._generate_hypothetical_answer(query) or ""
-            gathered = await self._gather_candidates(query, terms_pt, hypothetical)
-            if gathered is None:
-                raise RuntimeError("Falha na recuperação vetorial (Pinecone); abortando esta pergunta.")
-            cache: dict[str, float] = {}
-            rerank = self._make_cached_rerank(cache)
-            sem_docs, _ = await self._assemble(query, gathered, False, rerank)
-            docs_by_arm["sem"] = sem_docs
-            if "com" in arms:
-                com_docs, ontology_added = await self._assemble(query, gathered, True, rerank)
-                docs_by_arm["com"] = com_docs
-            if "h5" in arms:
-                # Controle de contexto: o pool do SEM é o top-k da busca (RETRIEVAL_K), então mais contexto
-                # sem ontologia exige buscar mais fundo. Mesmo pipeline, k maior em N = total(COM) - total(SEM).
-                base_k = int(os.getenv("RETRIEVAL_K", "8"))
-                extra = max(0, len(docs_by_arm.get("com", sem_docs)) - len(sem_docs))
-                deeper = await self._search_docs(
-                    query, base_k + extra, float(os.getenv("RETRIEVAL_SCORE_THRESHOLD", "0.60"))
-                ) if extra > 0 else gathered["query_docs"]
-                gathered_h5 = {**gathered, "query_docs": deeper, "ontology_docs": []}
-                h5_docs, _ = await self._assemble(query, gathered_h5, False, rerank, core_top_k=8 + extra)
-                docs_by_arm["h5"] = h5_docs
-        else:
-            for a in arms:
-                docs_by_arm[a] = []
-
-        out_arms: dict[str, Any] = {}
-        for arm in arms:
-            docs = docs_by_arm.get(arm, [])
-            chain_input, sources = await self._compose_chain_input(
-                question, history_str, query, is_in_scope, vector_docs=docs
-            )
-            out_arms[arm] = {
-                "docs": docs,
-                "chunks": self.extract_chunks_from_docs(docs),
-                "chain_input": chain_input,
-                "sources": sources,
-                "ontology_chunks_added": ontology_added if arm == "com" else 0,
-            }
-
-        return {
-            "emergency": False,
-            "is_in_scope": is_in_scope,
-            "question_rewrite": query,
-            "hyde_reformulation": hypothetical or None,
-            "ontology_expansion": ontology_expansion,
-            "arms": out_arms,
-        }
+        return chain_input, {"internal": internal_src, "web": web_sources}, False, "", ontology_expansion
 
 
 @lru_cache(maxsize=2)
