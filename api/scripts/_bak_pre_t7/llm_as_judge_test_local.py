@@ -97,28 +97,19 @@ async def _call_provider(prompt_content: str, judge_config: dict) -> str:
     raise ValueError(f"provider desconhecido: {provider}")
 
 
-_CHOICE_RE = re.compile(r'"choice"\s*:\s*"\s*([A-Za-z])\s*"')
-
-
 def _parse_choice(text: str):
-    """Lê a escolha do juiz. JSON malformado só é aceito se a letra de "choice" aparecer sem ambiguidade."""
-    match = re.search(r'\{[^{}]*"choice"[^{}]*\}', text or "", re.DOTALL)
-    json_error = None
-    if match:
-        try:
-            parsed = json.loads(match.group())
-        except json.JSONDecodeError as e:
-            parsed, json_error = None, f"JSON inválido: {e}"
-        if parsed is not None:
-            choice = str(parsed.get("choice", "")).strip().upper()
-            if choice not in LETTERS:
-                return None, f"choice fora de A/B/C: {parsed.get('choice')!r}"
-            parsed["choice"] = choice
-            return parsed, None
-    letters = {m.upper() for m in _CHOICE_RE.findall(text or "")}
-    if len(letters) == 1 and next(iter(letters)) in LETTERS:
-        return {"choice": next(iter(letters)), "reasoning": None, "parse_recovered": json_error or "choice extraído por regex"}, None
-    return None, json_error or "JSON com 'choice' não encontrado"
+    match = re.search(r'\{[^{}]*"choice"[^{}]*\}', text, re.DOTALL)
+    if not match:
+        return None, "JSON com 'choice' não encontrado"
+    try:
+        parsed = json.loads(match.group())
+    except json.JSONDecodeError as e:
+        return None, f"JSON inválido: {e}"
+    choice = str(parsed.get("choice", "")).strip().upper()
+    if choice not in LETTERS:
+        return None, f"choice fora de A/B/C: {parsed.get('choice')!r}"
+    parsed["choice"] = choice
+    return parsed, None
 
 
 async def judge_responses(question: str, responses: dict, judge_name: str, judge_config: dict) -> dict:
@@ -378,8 +369,7 @@ async def main(selected_questions_file: str = None, ragas_output_file: str = Non
 
     output = {
         "timestamp": timestamp_iso,
-        "test_type": ("BASELINE DE RUÍDO (SEM geração 2 vs SEM geração 1) · " if eval_data.get("baseline") else "") + f"LLM-as-Judge ({len(test_questions)} questões sincronizadas)",
-        "baseline": eval_data.get("baseline"),
+        "test_type": f"LLM-as-Judge ({len(test_questions)} questões sincronizadas)",
         "judges": list(JUDGES.keys()),
         "judge_config": judge_config,
         "source_file": str(ragas_output_file),

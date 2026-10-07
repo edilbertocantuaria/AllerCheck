@@ -17,7 +17,6 @@ Uso:
 import json
 import subprocess
 import sys
-import time
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 import random
@@ -104,20 +103,7 @@ def save_questions_json(questions, label="selecionadas"):
     return output_file
 
 
-VALID_EVALUATORS = ("gpt", "gemini", "claude")
-
-
-def validate_evaluators(evaluators: str):
-    names = [e.strip() for e in evaluators.split(",") if e.strip()]
-    invalid = [e for e in names if e not in VALID_EVALUATORS]
-    if invalid or not names:
-        print(f"❌ Avaliadores inválidos: {', '.join(invalid) or '(nenhum informado)'}")
-        print(f"   Válidos: {', '.join(VALID_EVALUATORS)}")
-        sys.exit(1)
-    return names
-
-
-def run_ragas_docker(selected_questions_file: Path, seed: int, evaluators: str = "gemini", timeout: int = None):
+def run_ragas_docker(selected_questions_file: Path, seed: int, evaluators: str = "gemini"):
     """Roda RAGAS via Docker com lista específica de questões"""
     print(f"🔍 Rodando RAGAS COM/SEM ontologia via Docker...")
     print(f"   📍 Questões: {selected_questions_file.name}\n")
@@ -137,7 +123,7 @@ def run_ragas_docker(selected_questions_file: Path, seed: int, evaluators: str =
         evaluators
     ]
 
-    result = subprocess.run(cmd, timeout=timeout)
+    result = subprocess.run(cmd, timeout=3600)
 
     if result.returncode != 0:
         print(f"\n❌ RAGAS falhou")
@@ -170,18 +156,38 @@ def run_llm_judge(selected_questions_file: Path, ragas_output_file: Path, seed: 
     return True
 
 
-def find_judge_file(started_at: float):
-    """Arquivo do juiz gerado nesta execução (mtime >= início)"""
+def find_latest_files():
+    """Encontra arquivos mais recentes gerados"""
+    ragas_dir = Path("api/tools/data/processed/evaluation/unified")
     judge_dir = Path("api/tools/data/processed/llm_judge")
-    candidates = [f for f in judge_dir.glob("llm_judge_*.json") if f.stat().st_mtime >= started_at]
-    return max(candidates, key=lambda f: f.stat().st_mtime) if candidates else None
+
+    ragas_file = None
+    judge_file = None
+
+    if ragas_dir.exists():
+        files = sorted(ragas_dir.glob("evaluation_*.json"))
+        ragas_file = files[-1] if files else None
+
+    if judge_dir.exists():
+        files = sorted(judge_dir.glob("llm_judge_*.json"))
+        judge_file = files[-1] if files else None
+
+    return ragas_file, judge_file
 
 
-def consolidate_report(ragas_file: Path, judge_file: Path):
+def consolidate_report(num_questions: int):
     """Consolida todos os dados em um relatório único"""
     print(f"\n📋 Consolidando relatório final...\n")
 
     timestamp = datetime.now(_BRT).strftime("%Y%m%d_%H%M%S")
+
+    ragas_file, judge_file = find_latest_files()
+
+    if not ragas_file or not judge_file:
+        print(f"❌ Arquivos não encontrados!")
+        print(f"   RAGAS: {ragas_file}")
+        print(f"   Judge: {judge_file}")
+        return None
 
     with open(ragas_file, encoding="utf-8") as f:
         ragas_data = json.load(f)
@@ -190,9 +196,7 @@ def consolidate_report(ragas_file: Path, judge_file: Path):
         judge_data = json.load(f)
 
     consolidated_items = []
-    ragas_by_condition = {c["name"]: c["items"] for c in ragas_data.get("conditions", [])}
-    ragas_items = ragas_by_condition.get("com_ontologia", [])
-    sem_items = ragas_by_condition.get("sem_ontologia", [])
+    ragas_items = ragas_data.get("conditions", [{}])[0].get("items", [])
     judge_items = judge_data.get("results", [])
 
     if not judge_items:
@@ -209,28 +213,21 @@ def consolidate_report(ragas_file: Path, judge_file: Path):
                 r_item = r
                 break
 
-        s_item = next((r for r in sem_items if r.get("question_id") == q_id), None)
-
         consolidated = {
             "question_id": q_id,
             "question": j_item.get("question", ""),
             "responses": j_item.get("responses", {}),
             "ragas": {
-                "com_results": r_item.get("results", {}) if r_item else {},
-                "sem_results": s_item.get("results", {}) if s_item else {},
-                "ontology_expansion": r_item.get("ontology_expansion", []) if r_item else [],
+                "results": r_item.get("results", {}) if r_item else {}
             },
             "llm_judge": {
-                "judge_votes": j_item.get("judge_votes", {}),
-                "orders": j_item.get("judge_orders", []),
+                "votes": j_item.get("votes", []),
                 "consensus": j_item.get("consensus"),
-                "consensus_strength": j_item.get("consensus_strength"),
-                "pooled": j_item.get("pooled", {}),
+                "mapping": j_item.get("mapping", {}),
             },
             "analysis": {
-                "ragas_vs_judges": j_item.get("ragas_vs_judges", {}),
-                "ragas_vs_judges_pooled": j_item.get("ragas_vs_judges_pooled", {}),
-                "legacy_agreement": j_item.get("legacy_agreement"),
+                "judges_consensus": j_item.get("consensus"),
+                "agreement": j_item.get("agreement", False)
             }
         }
 
@@ -239,6 +236,8 @@ def consolidate_report(ragas_file: Path, judge_file: Path):
     # Estatísticas
     import statistics
 
+    agreements = sum(1 for item in consolidated_items if item["analysis"]["agreement"])
+    divergences = len(consolidated_items) - agreements
     consensus_scores = judge_data.get("summary", {}).get("consensus_scores", {})
 
     # Calcular estatísticas descritivas por métrica RAGAS (COM vs SEM)
@@ -306,17 +305,14 @@ def consolidate_report(ragas_file: Path, judge_file: Path):
     judge_votes_by_llm = {}
 
     for item in consolidated_items:
-        votes = [
-            v
-            for order in item.get("llm_judge", {}).get("orders", [])
-            for v in order.get("votes", [])
-            if v.get("choice_source")
-        ]
+        votes = item.get("llm_judge", {}).get("votes", [])
+        mapping = item.get("llm_judge", {}).get("mapping", {})
 
         for vote in votes:
             judge_name = vote.get("judge")
-            confidence = float(vote["confidence"]) if vote.get("confidence") is not None else 0
-            choice_source = vote["choice_source"]
+            confidence = float(vote.get("confidence", 0)) if vote.get("confidence") is not None else 0
+            choice = vote.get("choice")
+            choice_source = mapping.get(choice, "unknown")
 
             if judge_name not in judge_stats_by_llm:
                 judge_stats_by_llm[judge_name] = {
@@ -394,19 +390,13 @@ def consolidate_report(ragas_file: Path, judge_file: Path):
         },
         "questions": consolidated_items,
         "judge_config": judge_cfg,
-        "ragas_run_config": ragas_data.get("run_config", {}),
-        "ragas_evaluators": ragas_data.get("evaluators", []),
-        "failed_questions": ragas_data.get("failed_questions", []),
         "summary": {
             "total_questions": len(consolidated_items),
+            "agreements": agreements,
+            "divergences": divergences,
+            "agreement_rate": round(agreements / len(consolidated_items), 4) if consolidated_items else 0,
             "consensus_scores": consensus_scores,
             "consensus_strength_distribution": consensus_strength_dist,
-            "judge_vote_quality": judge_data.get("summary", {}).get("judge_vote_quality", {}),
-            "ragas_vs_judges": judge_data.get("summary", {}).get("ragas_vs_judges", {}),
-            "pooled_consensus_scores": judge_data.get("summary", {}).get("pooled_consensus_scores", {}),
-            "ragas_vs_judges_pooled": judge_data.get("summary", {}).get("ragas_vs_judges_pooled", {}),
-            "legacy_agreements": judge_data.get("summary", {}).get("legacy_agreements"),
-            "legacy_divergences": judge_data.get("summary", {}).get("legacy_divergences"),
             "judges": judge_data.get("judges", [])
         },
         "summary_metrics": metrics_stats,
@@ -422,16 +412,8 @@ def consolidate_report(ragas_file: Path, judge_file: Path):
     return output_file, report
 
 
-def main(num_questions: int = 262, seed: int = 42, evaluators: str = "gemini", ragas_timeout: int = None):
+def main(num_questions: int = 262, seed: int = 42, evaluators: str = "gemini"):
     """Executa pipeline completo com seleção + RAGAS + Judge sincronizados"""
-    validate_evaluators(evaluators)
-    sys.path.insert(0, str(Path(__file__).resolve().parent))
-    import cost_guard
-    import eval_config
-    ragas_timeout = ragas_timeout or eval_config.ragas_timeout_seconds()
-    print("🔎 Checagem prévia de chaves/crédito (host)...")
-    cost_guard.preflight_or_exit()
-    started_at = time.time()
     banner("🚀 PIPELINE COMPLETO: Questões → RAGAS → LLM-as-Judge → Consolidação")
 
     # 0. Verificar Docker
@@ -462,7 +444,7 @@ def main(num_questions: int = 262, seed: int = 42, evaluators: str = "gemini", r
     selected_file = save_questions_json(questions, "selecionadas")
 
     # 3. Rodar RAGAS (passa o arquivo JSON!)
-    ragas_ok = run_ragas_docker(selected_questions_file=selected_file, seed=seed, evaluators=evaluators, timeout=ragas_timeout)
+    ragas_ok = run_ragas_docker(selected_questions_file=selected_file, seed=seed, evaluators=evaluators)
     if not ragas_ok:
         print("\n❌ Pipeline interrompido: RAGAS falhou")
         sys.exit(1)
@@ -484,25 +466,19 @@ def main(num_questions: int = 262, seed: int = 42, evaluators: str = "gemini", r
         for q in selected_data.get("questions", []):
             selected_ids.add(q.get("question_id"))
 
-    ok_by_condition = [
-        {item.get("question_id") for item in condition.get("items", []) if not item.get("errors")}
-        for condition in ragas_data.get("conditions", [])
-    ]
-    usable_ids = set.intersection(*ok_by_condition) if ok_by_condition else set()
+    ragas_ids = set()
+    for condition in ragas_data.get("conditions", []):
+        for item in condition.get("items", []):
+            if not item.get("errors"):
+                ragas_ids.add(item.get("question_id"))
 
-    if not usable_ids:
-        print("\n❌ Pipeline interrompido: nenhuma questão avaliada em ambas as condições")
-        sys.exit(1)
-
-    missing_ids = selected_ids - usable_ids
+    missing_ids = selected_ids - ragas_ids
     if missing_ids:
-        reasons = {}
-        for failure in ragas_data.get("failed_questions", []):
-            reasons.setdefault(failure["question_id"], []).append(f"{failure['condition']}/{failure['stage']}")
-        print(f"\n⚠️  {len(missing_ids)} de {len(selected_ids)} questões sem avaliação completa (seguindo com {len(usable_ids)}):")
-        for qid in sorted(missing_ids):
-            print(f"   Q{qid}: {', '.join(reasons.get(qid, ['motivo não registrado']))}")
-        print("   Os motivos ficam em failed_questions no relatório; para refazer só as de avaliação use retry_failed_ragas.py\n")
+        print(f"\n❌ Pipeline interrompido: questões faltam em RAGAS")
+        print(f"   IDs esperados: {sorted(selected_ids)}")
+        print(f"   IDs obtidos: {sorted(ragas_ids)}")
+        print(f"   IDs faltantes: {sorted(missing_ids)}\n")
+        sys.exit(1)
 
     # 4. Rodar LLM-as-Judge (passa tanto arquivo de questões quanto RAGAS output!)
     judge_ok = run_llm_judge(
@@ -515,12 +491,7 @@ def main(num_questions: int = 262, seed: int = 42, evaluators: str = "gemini", r
         sys.exit(1)
 
     # 5. Consolidar
-    judge_file = find_judge_file(started_at)
-    if not judge_file:
-        print("\n❌ Arquivo do juiz desta execução não encontrado")
-        sys.exit(1)
-
-    result = consolidate_report(ragas_output_file, judge_file)
+    result = consolidate_report(num_questions=num_questions)
     if not result:
         print("\n❌ Consolidação falhou")
         sys.exit(1)
@@ -535,57 +506,30 @@ def main(num_questions: int = 262, seed: int = 42, evaluators: str = "gemini", r
     banner("✅ PIPELINE COMPLETO!")
 
     summary = report["summary"]
-    print(f"📊 RESULTADOS: {summary['total_questions']} questões\n")
+    print(f"📊 RESULTADOS:")
+    print(f"   Total de questões: {summary['total_questions']}")
+    print(f"   ✅ Acordos (RAGAS + Juízes): {summary['agreements']} ({summary['agreement_rate']*100:.1f}%)")
+    print(f"   ❌ Divergências: {summary['divergences']} ({(1-summary['agreement_rate'])*100:.1f}%)")
 
+    print(f"\n🗳️  VOTOS DOS JUÍZES:")
     scores = summary["consensus_scores"]
-    dist = summary.get("consensus_strength_distribution", {})
-    print(f"🗳️  CONSENSO DOS JUÍZES (só votos consistentes nas 2 ordens):")
-    print(f"   COM ontologia: {scores.get('com_ontologia', 0)}  |  SEM ontologia: {scores.get('sem_ontologia', 0)}"
-          f"  |  ground_truth: {scores.get('ground_truth', 0)}  |  sem consenso: {scores.get('sem_consenso', 0)}")
-    print(f"   Força: unânime {dist.get('unanimous', 0)}, maioria {dist.get('majority', 0)}, nenhuma {dist.get('none', 0)}")
+    print(f"   Preferem COM ontologia: {scores.get('com_ontologia', 0)} questões")
+    print(f"   Preferem SEM ontologia: {scores.get('sem_ontologia', 0)} questões")
+    print(f"   Preferem ground_truth: {scores.get('ground_truth', 0)} questões")
 
-    print(f"\n🎲 QUALIDADE DOS VOTOS (viés de posição):")
-    for judge, q in summary.get("judge_vote_quality", {}).items():
-        rate = q.get("order_inconsistency_rate")
-        rate_str = "n/a" if rate is None else f"{rate*100:.0f}%"
-        print(f"   {judge:12} válidos {q['valid']}  inconsistentes {q['inconsistent']}  erros {q['error']}  (inconsistência {rate_str}, mesma letra nas 2 ordens: {q.get('same_letter_both_orders', 'n/a')})")
-
-    failed = report.get("failed_questions", [])
-    if failed:
-        print(f"\n⚠️  QUESTÕES QUE FALHARAM: {len(failed)}")
-        for f in failed[:10]:
-            print(f"   Q{f['question_id']}: {f['condition']} ({f['stage']})")
-
-    pooled_scores = summary.get("pooled_consensus_scores", {})
-    print(f"\n🧮 CONSENSO AGRUPADO (sensibilidade, soma dos 6 votos):")
-    print(f"   COM ontologia: {pooled_scores.get('com_ontologia', 0)}  |  SEM ontologia: {pooled_scores.get('sem_ontologia', 0)}"
-          f"  |  ground_truth: {pooled_scores.get('ground_truth', 0)}  |  empate: {pooled_scores.get('empate', 0)}")
-
-    print(f"\n🔀 RAGAS × JUÍZES (por avaliador e métrica)")
-    print(f"   formato: concorda/oposto/não comparável (divergência = oposto / (concorda + oposto))")
-    print(f"   estrito = só voto consistente nas 2 ordens | agrupado = soma dos 6 votos (sensibilidade)")
-
-    def _cell(c):
-        rate = c["divergence_rate"]
-        rate_str = "n/a" if rate is None else f"{rate*100:.0f}%"
-        return f"{c['agree']}/{c['opposite']}/{c['not_comparable']} ({rate_str})"
-
-    level_names = {"answer": "nível de resposta", "retrieval": "nível de recuperação"}
-    pooled_table = summary.get("ragas_vs_judges_pooled", {})
-    for evaluator, metrics in summary.get("ragas_vs_judges", {}).items():
-        print(f"\n   [{evaluator}]")
-        for level in ("answer", "retrieval"):
-            print(f"     {level_names[level]}")
-            for metric, cell in metrics.items():
-                if cell["level"] != level:
-                    continue
-                pooled_cell = pooled_table.get(evaluator, {}).get(metric)
-                pooled_str = _cell(pooled_cell) if pooled_cell else "n/a"
-                print(f"       {metric:22} estrito {_cell(cell):<18} | agrupado {pooled_str}")
+    consensus_dist = summary.get("consensus_strength_distribution", {})
+    if consensus_dist:
+        print(f"\n💪 FORÇA DO CONSENSO:")
+        print(f"   Unânime (3/3): {consensus_dist.get('unanimous', 0)} questões")
+        print(f"   Maioria (2/3): {consensus_dist.get('majority', 0)} questões")
+        print(f"   Nenhum: {consensus_dist.get('none', 0)} questões")
 
     judge_cfg = report.get("judge_config", {})
     if judge_cfg:
-        print(f"\n⚖️  JUÍZES: seed {judge_cfg.get('seed')}, {judge_cfg.get('evaluations_per_question')} ordens por questão (rotação)")
+        print(f"\n⚖️  CONFIGURAÇÃO DOS JUÍZES:")
+        print(f"   Seed: {judge_cfg.get('seed', 'N/A')}")
+        print(f"   Avaliações por questão: {judge_cfg.get('evaluations_per_question', 'N/A')}")
+        print(f"   Regra de consenso: {judge_cfg.get('consensus_rule', 'N/A')}")
 
     print(f"\n📁 ARQUIVOS GERADOS:")
     print(f"   Questões selecionadas: {selected_file.name}")
@@ -617,10 +561,8 @@ Requisito:
     parser.add_argument("--seed", type=int, default=42,
                        help="Seed para reproducibilidade (default: 42)")
     parser.add_argument("--evaluators", type=str, default="gemini",
-                       help="LLMs avaliadores RAGAS (comma-separated: gpt,gemini,claude). Default: gemini")
-    parser.add_argument("--ragas-timeout", type=int, default=None,
-                       help="Timeout em segundos da etapa RAGAS (default: RAGAS_TIMEOUT_SECONDS do .env)")
+                       help="LLMs avaliadores RAGAS (comma-separated: gemini,gpt-4o-mini,claude). Default: gemini")
 
     args = parser.parse_args()
 
-    main(num_questions=args.num_questions, seed=args.seed, evaluators=args.evaluators, ragas_timeout=args.ragas_timeout)
+    main(num_questions=args.num_questions, seed=args.seed, evaluators=args.evaluators)

@@ -121,3 +121,7 @@ docker-compose.yml
 
 api/tools/data/*
 api/api/tools/data/processed/*
+# Backups de .env (contêm chaves)
+.env.bak*
+.env.local.bak*
+api/.env.bak*

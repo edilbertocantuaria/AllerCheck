@@ -284,12 +284,11 @@ class EvalResult:
     context_entity_recall: dict[str, float] = field(default_factory=dict)
     noise_sensitivity:     dict[str, float] = field(default_factory=dict)
     answer_relevancy:      dict[str, float] = field(default_factory=dict)
-    errors:                list = field(default_factory=list)  # [{evaluator, metric, error}] quando isolate_errors=True
 
     def __repr__(self) -> str:
         lines = ["EvalResult:"]
         for metric, scores in self.__dict__.items():
-            if metric != "errors" and scores:
+            if scores:
                 row = "  |  ".join(f"{ev}: {v:.4f}" for ev, v in scores.items())
                 lines.append(f"  {metric:<26} {row}")
         return "\n".join(lines)
@@ -397,7 +396,7 @@ class RagasEvaluator:
         if evaluators:
             self._metrics = {k: v for k, v in self._metrics.items() if k in set(evaluators)}
 
-    async def _score(self, metric_name: str, _errors: list | None = None, _fatal_check=None, **kwargs) -> dict[str, float | None]:
+    async def _score(self, metric_name: str, **kwargs) -> dict[str, float | None]:
 
         async def _run_claude_with_backoff(metric_name: str, **kwargs) -> float | None:
             max_retries = 3
@@ -427,7 +426,7 @@ class RagasEvaluator:
                     else:
                         raise
 
-        async def _run_raw(evaluator: str) -> tuple[str, float | None]:
+        async def _run(evaluator: str) -> tuple[str, float | None]:
             try:
                 if evaluator == "claude":
                     return evaluator, await _run_claude_with_backoff(metric_name, **kwargs)
@@ -447,64 +446,46 @@ class RagasEvaluator:
                     return evaluator, None
                 raise
 
-        async def _run(evaluator: str) -> tuple[str, float | None]:
-            """Com _errors, a falha de um avaliador vira None + registro; erro fatal (_fatal_check) continua subindo."""
-            try:
-                return await _run_raw(evaluator)
-            except Exception as e:
-                if _errors is None:
-                    raise
-                text = f"{type(e).__name__}: {e}"
-                if _fatal_check is not None and _fatal_check(text):
-                    raise
-                _errors.append({"evaluator": evaluator, "metric": metric_name, "error": text[:600]})
-                return evaluator, None
-
         pairs = await asyncio.gather(*[_run(ev) for ev in self._metrics])
         return dict(pairs)
 
     async def evaluate_faithfulness(
         self, question: str, answer: str, contexts: list[str],
-        _errors: list | None = None, _fatal_check=None,
     ) -> dict[str, float | None]:
         return await self._score(
-            "faithfulness", _errors=_errors, _fatal_check=_fatal_check,
+            "faithfulness",
             user_input=question, response=answer, retrieved_contexts=contexts,
         )
 
     async def evaluate_context_precision(
         self, question: str, contexts: list[str], ground_truth: str,
-        _errors: list | None = None, _fatal_check=None,
     ) -> dict[str, float | None]:
         return await self._score(
-            "context_precision", _errors=_errors, _fatal_check=_fatal_check,
+            "context_precision",
             user_input=question, reference=ground_truth, retrieved_contexts=contexts,
         )
 
     async def evaluate_context_recall(
         self, question: str, contexts: list[str], ground_truth: str,
-        _errors: list | None = None, _fatal_check=None,
     ) -> dict[str, float | None]:
         return await self._score(
-            "context_recall", _errors=_errors, _fatal_check=_fatal_check,
+            "context_recall",
             user_input=question, retrieved_contexts=contexts, reference=ground_truth,
         )
 
     async def evaluate_context_entity_recall(
         self, contexts: list[str], ground_truth: str,
-        _errors: list | None = None, _fatal_check=None,
     ) -> dict[str, float | None]:
         return await self._score(
-            "context_entity_recall", _errors=_errors, _fatal_check=_fatal_check,
+            "context_entity_recall",
             reference=ground_truth, retrieved_contexts=contexts,
         )
 
     async def evaluate_answer_relevancy(
         self, question: str, answer: str,
-        _errors: list | None = None, _fatal_check=None,
     ) -> dict[str, float | None]:
         return await self._score(
-            "answer_relevancy", _errors=_errors, _fatal_check=_fatal_check,
+            "answer_relevancy",
             user_input=question, response=answer,
         )
 
@@ -519,37 +500,30 @@ class RagasEvaluator:
         contexts: list[str],
         ground_truth: str,
         log_prefix: str = "",
-        isolate_errors: bool = False,
-        fatal_check=None,
     ) -> EvalResult:
         question     = self._sanitize(question)
         answer       = self._sanitize(answer)
         ground_truth = self._sanitize(ground_truth)
         contexts     = [self._sanitize(c) for c in contexts]
 
-        errors: list | None = [] if isolate_errors else None
-        kw = {"_errors": errors, "_fatal_check": fatal_check}
-
         async def _timed(coro, label: str):
             import click
             result = await coro
             if log_prefix:
-                failed = [ev for ev, value in result.items() if value is None]
-                mark = "✓" if not failed else f"⚠ falhou: {','.join(failed)}"
-                click.echo(f"{log_prefix} {mark} {label}")
+                click.echo(f"{log_prefix} ✓ {label}")
             return result
 
         evaluators = "/".join(self._metrics.keys())
         faith, cp, cr, cer, ar = await asyncio.gather(
-            _timed(self.evaluate_faithfulness(question, answer, contexts, **kw),
+            _timed(self.evaluate_faithfulness(question, answer, contexts),
                    f"faithfulness          [{evaluators}]"),
-            _timed(self.evaluate_context_precision(question, contexts, ground_truth, **kw),
+            _timed(self.evaluate_context_precision(question, contexts, ground_truth),
                    f"context_precision      [{evaluators}]"),
-            _timed(self.evaluate_context_recall(question, contexts, ground_truth, **kw),
+            _timed(self.evaluate_context_recall(question, contexts, ground_truth),
                    f"context_recall         [{evaluators}]"),
-            _timed(self.evaluate_context_entity_recall(contexts, ground_truth, **kw),
+            _timed(self.evaluate_context_entity_recall(contexts, ground_truth),
                    f"context_entity_recall  [{evaluators}]"),
-            _timed(self.evaluate_answer_relevancy(question, answer, **kw),
+            _timed(self.evaluate_answer_relevancy(question, answer),
                    f"answer_relevancy       [{evaluators}]"),
         )
         return EvalResult(
@@ -559,7 +533,6 @@ class RagasEvaluator:
             context_entity_recall=cer,
             noise_sensitivity={},
             answer_relevancy=ar,
-            errors=errors or [],
         )
 
 

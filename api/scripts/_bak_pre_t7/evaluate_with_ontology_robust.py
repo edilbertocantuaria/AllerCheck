@@ -12,8 +12,7 @@ import sys
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 import eval_config
-from checkpoint import Checkpoint, CheckpointMismatch
-from cost_guard import ABORT, check_budget_or_exit, fatal_reason
+from cost_guard import ABORT, fatal_reason
 from dotenv import load_dotenv
 
 api_root = Path(__file__).resolve().parent.parent
@@ -110,7 +109,7 @@ def _calculate_divergences(eval_com, eval_sem):
     return divergences
 
 
-async def _evaluate_item(idx, total, item, evaluator, semaphore, active_evaluators, checkpoint=None, cond=None):
+async def _evaluate_item(idx, total, item, evaluator, semaphore, active_evaluators):
     """Avalia um item com tratamento de erro"""
     import click
 
@@ -120,11 +119,6 @@ async def _evaluate_item(idx, total, item, evaluator, semaphore, active_evaluato
     contexts = item.get("contexts", [])
     question_id = item.get("question_id")
 
-    cached = checkpoint.get_evaluated(cond, question_id) if checkpoint else None
-    if cached is not None:
-        click.echo(f"      [{idx:>3}/{total}] Q{question_id} reaproveitada do checkpoint")
-        return cached
-
     score_item = {
         "question_id": question_id,
         "question": question,
@@ -133,7 +127,6 @@ async def _evaluate_item(idx, total, item, evaluator, semaphore, active_evaluato
         "contexts": contexts,
         "ontology_expansion": item.get("ontology_expansion", []),
         "results": {},
-        "evaluator_errors": [],
         "errors": [],
     }
 
@@ -162,14 +155,8 @@ async def _evaluate_item(idx, total, item, evaluator, semaphore, active_evaluato
                 contexts=contexts,
                 ground_truth=ground_truth,
                 log_prefix=f"      [{idx:>3}/{total}]",
-                isolate_errors=True,
-                fatal_check=fatal_reason,
             )
             score_item["results"] = _result_to_dict(result)
-            score_item["evaluator_errors"] = result.errors
-            if not any(v is not None for metrics in score_item["results"].values() for v in metrics.values()):
-                score_item["errors"].append("nenhum avaliador retornou valor: " + "; ".join(
-                    f"{e['evaluator']}/{e['metric']}: {e['error'][:120]}" for e in result.errors[:3]))
         except Exception as e:
             full = f"{type(e).__name__}: {e}"
             marker = fatal_reason(full)
@@ -178,12 +165,6 @@ async def _evaluate_item(idx, total, item, evaluator, semaphore, active_evaluato
             msg = full[:600]
             score_item["errors"].append(msg)
             click.echo(f"      [{idx:>3}/{total}] [ERRO] Q{question_id}: {msg}", err=True)
-
-    if score_item["evaluator_errors"]:
-        who = ", ".join(sorted({f"{e['evaluator']}/{e['metric']}" for e in score_item["evaluator_errors"]}))
-        click.echo(f"      [{idx:>3}/{total}] [PARCIAL] Q{question_id}: falhou {who}", err=True)
-    if checkpoint and not score_item["errors"]:
-        checkpoint.record_evaluated(cond, score_item)
 
     return score_item
 
@@ -194,7 +175,6 @@ async def main(
     seed: int = 42,
     selected_questions_file: str = None,
     evaluators: list = None,
-    resume_file: str = None,
 ):
     """
     Avalia COM e SEM ontologia com fallback automático.
@@ -250,96 +230,62 @@ async def main(
     responses_sem = []
     failed_questions = []
 
-    if evaluators is None:
-        evaluators = ["gemini"]
-
-    cp_params = {
-        "seed": seed,
-        "evaluators": sorted(evaluators),
-        "question_ids": [q.get("question_id", i + 1) for i, q in enumerate(questions)],
-        "models": {ev: RAGAS_MODELS[ev] for ev in sorted(evaluators)},
-    }
-    cp_dir = Path("tools/data/processed/evaluation/unified")
-    try:
-        if resume_file:
-            checkpoint = Checkpoint.resume(resume_file, cp_params)
-            click.echo(f"      ♻️  Retomando {Path(resume_file).name}: {checkpoint.counts()}\n")
-        else:
-            checkpoint = Checkpoint.create(cp_dir / f"checkpoint_{datetime.now(_BRT).strftime('%Y%m%d_%H%M%S')}.json", cp_params)
-            click.echo(f"      💾 Checkpoint: {checkpoint.path.name} (para retomar: passe este arquivo como 5º argumento)\n")
-    except (CheckpointMismatch, OSError, ValueError) as e:
-        _abort(f"Checkpoint inválido: {e}")
-
-    pending_items = sum(
-        1 for q_id in cp_params["question_ids"] for cond in ("com_ontologia", "sem_ontologia")
-        if checkpoint.get_evaluated(cond, q_id) is None
-    )
-    check_budget_or_exit(pending_items, evaluators)
-
     for idx, q in enumerate(questions):
         question_id = q.get("question_id", idx + 1)
         question_text = q.get("question", "")[:50]
 
-        cached = checkpoint.get_collected(question_id)
-        if cached:
-            item_com, item_sem = cached
-            error_com = error_sem = None
-            click.echo(f"      [{idx+1}/{len(questions)}] Q{question_id}: reaproveitada do checkpoint", nl=False)
-        else:
-            # Tentar coletar COM ontologia
-            click.echo(f"      [{idx+1}/{len(questions)}] Q{question_id}: Coletando COM ontologia...", nl=False)
-            error_com = None
-            error_sem = None
-            try:
-                collected_com = await collect_api_responses(
-                    questions=[q],
-                    api_base_url=api_url,
-                    timeout=COLLECTION_TIMEOUT,
-                    use_hyde=False,
-                    use_ontology=True,
-                )
-                item_com = None
-                if collected_com and len(collected_com) > 0:
-                    item_com = collected_com[0]
-                    if not (item_com.get("answer") and item_com.get("contexts")):
-                        error_com = "resposta vazia" if not item_com.get("answer") else "contextos vazios"
-                        item_com = None
-                else:
-                    error_com = "coleta não retornou itens"
-            except Exception as e:
-                click.echo(f" [ERRO: {type(e).__name__}]")
-                item_com = None
-                error_com = f"{type(e).__name__}: {e}"
+        # Tentar coletar COM ontologia
+        click.echo(f"      [{idx+1}/{len(questions)}] Q{question_id}: Coletando COM ontologia...", nl=False)
+        error_com = None
+        error_sem = None
+        try:
+            collected_com = await collect_api_responses(
+                questions=[q],
+                api_base_url=api_url,
+                timeout=COLLECTION_TIMEOUT,
+                use_hyde=False,
+                use_ontology=True,
+            )
+            item_com = None
+            if collected_com and len(collected_com) > 0:
+                item_com = collected_com[0]
+                if not (item_com.get("answer") and item_com.get("contexts")):
+                    error_com = "resposta vazia" if not item_com.get("answer") else "contextos vazios"
+                    item_com = None
+            else:
+                error_com = "coleta não retornou itens"
+        except Exception as e:
+            click.echo(f" [ERRO: {type(e).__name__}]")
+            item_com = None
+            error_com = f"{type(e).__name__}: {e}"
 
-            # Tentar coletar SEM ontologia
-            click.echo(f" SEM ontologia...", nl=False)
-            try:
-                collected_sem = await collect_api_responses(
-                    questions=[q],
-                    api_base_url=api_url,
-                    timeout=COLLECTION_TIMEOUT,
-                    use_hyde=False,
-                    use_ontology=False,
-                )
-                item_sem = None
-                if collected_sem and len(collected_sem) > 0:
-                    item_sem = collected_sem[0]
-                    if not (item_sem.get("answer") and item_sem.get("contexts")):
-                        error_sem = "resposta vazia" if not item_sem.get("answer") else "contextos vazios"
-                        item_sem = None
-                else:
-                    error_sem = "coleta não retornou itens"
-            except Exception as e:
-                click.echo(f" [ERRO: {type(e).__name__}]")
-                item_sem = None
-                error_sem = f"{type(e).__name__}: {e}"
+        # Tentar coletar SEM ontologia
+        click.echo(f" SEM ontologia...", nl=False)
+        try:
+            collected_sem = await collect_api_responses(
+                questions=[q],
+                api_base_url=api_url,
+                timeout=COLLECTION_TIMEOUT,
+                use_hyde=False,
+                use_ontology=False,
+            )
+            item_sem = None
+            if collected_sem and len(collected_sem) > 0:
+                item_sem = collected_sem[0]
+                if not (item_sem.get("answer") and item_sem.get("contexts")):
+                    error_sem = "resposta vazia" if not item_sem.get("answer") else "contextos vazios"
+                    item_sem = None
+            else:
+                error_sem = "coleta não retornou itens"
+        except Exception as e:
+            click.echo(f" [ERRO: {type(e).__name__}]")
+            item_sem = None
+            error_sem = f"{type(e).__name__}: {e}"
 
         # Registrar resultado
         if item_com and item_sem:
             responses_com.append(item_com)
             responses_sem.append(item_sem)
-            if not cached:
-                checkpoint.record_collected(question_id, item_com, item_sem)
             click.echo(f" [OK]\n")
         else:
             reason = []
@@ -372,6 +318,9 @@ async def main(
 
     _step("5/6", "EVAL", f"AVALIANDO {min_count} questões (concorrência: 5)")
 
+    if evaluators is None:
+        evaluators = ["gemini"]
+
     evaluator = RagasEvaluator(
         openai_llm_model=RAGAS_MODELS["gpt"],
         gemini_model=RAGAS_MODELS["gemini"],
@@ -385,14 +334,14 @@ async def main(
     active_evaluators = set()
 
     eval_com = await asyncio.gather(*[
-        _evaluate_item(i+1, min_count, item, evaluator, semaphore, active_evaluators, checkpoint, "com_ontologia")
+        _evaluate_item(i+1, min_count, item, evaluator, semaphore, active_evaluators)
         for i, item in enumerate(responses_com)
     ])
 
     # Avaliar SEM ontologia
     click.echo("\nAvaliando SEM ONTOLOGIA:\n")
     eval_sem = await asyncio.gather(*[
-        _evaluate_item(i+1, min_count, item, evaluator, semaphore, active_evaluators, checkpoint, "sem_ontologia")
+        _evaluate_item(i+1, min_count, item, evaluator, semaphore, active_evaluators)
         for i, item in enumerate(responses_sem)
     ])
 
@@ -419,13 +368,6 @@ async def main(
                     "condition": condition_name,
                     "stage": "evaluation",
                     "error": "; ".join(ev_item["errors"]),
-                })
-            elif ev_item.get("evaluator_errors"):
-                failed_questions_detail.append({
-                    "question_id": ev_item.get("question_id"),
-                    "condition": condition_name,
-                    "stage": "evaluation_partial",
-                    "error": "; ".join(f"{e['evaluator']}/{e['metric']}: {e['error'][:200]}" for e in ev_item["evaluator_errors"]),
                 })
 
     result = {
@@ -488,7 +430,7 @@ async def main(
     click.echo(f"  SEM ontologia: {len(responses_sem)} coletadas → {eval_sem_ok} avaliadas\n")
 
     if ABORT.tripped:
-        click.echo(f"❌ ABORTADO: {ABORT.reason}. Resultado parcial salvo. Para retomar sem refazer o que já foi pago, rode de novo passando o checkpoint como 5º argumento: {checkpoint.path}", err=True)
+        click.echo(f"❌ ABORTADO: {ABORT.reason}. Resultado parcial salvo; corrija chave/crédito e use retry_failed_ragas.py.", err=True)
         sys.exit(2)
 
 
@@ -500,7 +442,6 @@ if __name__ == "__main__":
     seed = int(sys.argv[3]) if len(sys.argv) > 3 else 42
     evaluators_str = sys.argv[4] if len(sys.argv) > 4 else "gemini"
     evaluators_list = [e.strip() for e in evaluators_str.split(",")]
-    resume_file = sys.argv[5] if len(sys.argv) > 5 else None
 
     valid_evaluators = {"gpt", "gemini", "claude"}
     invalid = [e for e in evaluators_list if e not in valid_evaluators]
@@ -514,4 +455,4 @@ if __name__ == "__main__":
     else:
         target_samples = 30
 
-    asyncio.run(main(input_file=input_file, target_samples=target_samples, seed=seed, selected_questions_file=selected_questions_file, evaluators=evaluators_list, resume_file=resume_file))
+    asyncio.run(main(input_file=input_file, target_samples=target_samples, seed=seed, selected_questions_file=selected_questions_file, evaluators=evaluators_list))
