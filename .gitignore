@@ -85,6 +85,9 @@ api/docs/ingested/*.pdf
 # =========================
 api/experiments/
 api/results/
+# resultados finais do TCC2 (copias versionadas)
+!api/results/
+!api/results/**/*.jsonl
 api/ragas_evaluation/data/
 
 # =========================

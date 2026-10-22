@@ -1,0 +1,2922 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-07T00:20:25.549432-03:00",
+    "total_questions": 262,
+    "seed": 42,
+    "method": "random.seed(42); random.sample(range(N_total), 262)",
+    "cochran": {
+      "N": 821,
+      "z": 1.96,
+      "p": 0.5,
+      "e": 0.05
+    },
+    "subsets": {
+      "pilot_20": 20,
+      "sub_60": 60,
+      "sub_100": 100
+    },
+    "dataset_source": "filtred_alergia_medicamentos.xlsx"
+  },
+  "questions": [
+    {
+      "question_id": 655,
+      "index": 654,
+      "sample_order": 1,
+      "question": "Sou alérgica ao grupo AINES, farei uma cirurgia de correção de uma prótese, neste caso poderei tomar anti-inflamatório?",
+      "answer": "Boa tarde, como você disse tem reações a múltiplos anti-inflamatórios, procure um médico alergologista e imunologista que irá colher uma boa anamnese ( a historia de cada reação com cada anti-inflamatório) e irá indicar teste para liberação de medicamentos. Não vá tomar sem antes passar em consulta e ser examinado detalhadamente, seria um risco que irá correr. O ideal e ir em consulta antes de sua cirurgia, para que o ortopedista tenha uma opção de medicação. Espero que tenha tirado a sua duvida ????",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 654,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 115,
+      "index": 114,
+      "sample_order": 2,
+      "question": "Meu pai é alérgico a dipirona ele pode tomar ibuprofeno",
+      "answer": "Depende. Se ele toma outros antinflamatórios e só reage à dipirona é bem provável que seja uma alergia isolada. Se ele faz reação a mais de um analgésico ou antinflamatório não convém usar. Precisa passar na consulta médica.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 114,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 26,
+      "index": 25,
+      "sample_order": 3,
+      "question": "Boa noite!!! Tenho alergia a dipirona posso tomar Nimesulida?",
+      "answer": "Olá.Para responder com segurança à esta pergunta, você deve informar ao seu Alergista quais foram os sintomas que você apresentou após o uso da Dipirona, assim como após quanto tempo do uso os sintomas iniciarão, dose, medicações usadas concomitantes, motivo do uso, se já fez uso sem reação após... Estas informações irão contribuir muito para avaliar se foi de fato uma Reação de Hiperssensibilidade e assim definir se podemos liberar Nimesulida ou se é necessário um Teste e ainda, qual opção segura de analgésico no seu caso.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 25,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 760,
+      "index": 759,
+      "sample_order": 4,
+      "question": "Eu usei uma pomada para anestesiar um incômodo do dente e ao redor do dente ficou muito inchado, fui ao dentista e ele disse que eu era alérgica. Queria saber se tenho restrições a outros medicamentos e caso eu usar quais são as reações ?",
+      "answer": "Marque uma consulta com um alergista, não esqueça de levar a pomada que usou e teve reação, antes de ir a consulta escreva em um papel como foi a reação, quanto tempo após ter passado a pomada iniciaram os sintomas, pois isso ajudará muito para que seja orientada adequadamente.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 759,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 282,
+      "index": 281,
+      "sample_order": 5,
+      "question": "Minha mulher é alergica a anti-inflamatorios não esteróides, dipironas e aspirina. E lhe foi receitado NORFLOXACINO 400. Ela pode tomar ou pode dar reação alérgica também? Muito obrigado",
+      "answer": "A reação aos antiinflamatorios ocorrem por inibição da enzima COX, em pessoas predispostas, a inibição da COX leva a uma alteração no metabolismo que resulta em urticaria, angioedema ou anafilaxia.Os antibióticos (norfloxacino) agem de forma diferente no organismo, nao tendo relação com a enzima COX, ou seja, ela pode fazer uso de antibióticos.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 281,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 251,
+      "index": 250,
+      "sample_order": 6,
+      "question": "Sou alérgica a, amoxicilina, Tylenol e amoxil. Posso tomar azitromicina??",
+      "answer": "Pode, a amoxicilina é um antibiótico da classe dos beta lactamos, o Paracetamol é um anti inflamatório e a Azitromicina é um antibiótico da classe dos macrolideos. Não existindo assim reatividade cruzada entre eles. O seu risco de desenvolver reação alérgica, é igual ao da população no geral.Procure um especialista para investigar as suas reações alérgicas.Abraços",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 250,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 229,
+      "index": 228,
+      "sample_order": 7,
+      "question": "Sou alérgico à cataflan. Posso me vacinar com a Coronavac?",
+      "answer": "até o momento não há nenhuma relação entre alergia a medicamentos e reação à vacina coronavac",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 228,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 143,
+      "index": 142,
+      "sample_order": 8,
+      "question": "Sou alergica a penicilina.Posso tomar azitromicina",
+      "answer": "Ola, seu risco de reação alérgica é igual ao da população geral no caso da azitromicina. Abraços",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 142,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 755,
+      "index": 754,
+      "sample_order": 9,
+      "question": "Sou alérgica a diclofenaco e a ibuprofeno. Qual analgésico e anti-inflamatório posso tomar?",
+      "answer": "Os Anti-inflamatorios nao estereoides (AINES) podem provocar reacoes tipo anafilactoides que sao alergias provocadas por produtos quimicos com estrutura quimica assemelhada.A substancia de escolha deve recair no cloridrato de lisina",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 754,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 105,
+      "index": 104,
+      "sample_order": 10,
+      "question": "Tomei lisador e tive alergia na pele ? O que faço? Estou com muita coçeira e bolinhas vermelhas",
+      "answer": "Caríssimo, você teve uma reação alérgica medicamentosa ao produto. Recomendo que após ir ao hospital para tratamento, procure um colega ALERGISTA e faça uma bateria de testes de contato para ter um laudo do seu problema e o tratamento eficaz receitado. Desejo saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 104,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 693,
+      "index": 692,
+      "sample_order": 11,
+      "question": "É possível ter qualidade de vida e envelhecer com saúde tendo alergia a medicamentos?",
+      "answer": "Quanto mais a pessoa se adaptar às restrições que são orientava-se seguir o tratamento melhor ficara a cada dia e seguirá com saúde e qualidade de vida ! Sempre acompanhando com o especialista",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 692,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 759,
+      "index": 758,
+      "sample_order": 12,
+      "question": "Eu usei uma pomada para anestesiar um incômodo do dente e ao redor do dente ficou muito inchado, fui ao dentista e ele disse que eu era alérgica. Queria saber se tenho restrições a outros medicamentos e caso eu usar quais são as reações ?",
+      "answer": "Alergia a medicamento é um fato único e não existem reações por outros a naõ ser em casos de medicamentos de ação cruzada. Não existe um exame ou teste para medicamentos. A única orientação aqui é evitar outras pomadas anestésicas e mais nada.Também não significa que vai ter reação a anestésicos cirúrgicos.Pode usar outros medicamentos sem receio algum.Não vai adiantar consultar alergista pois não há solução para este tipo de problema.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 758,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 559,
+      "index": 558,
+      "sample_order": 13,
+      "question": "Meu marido é alergico a Dipirona e ibuprofeno. Mas foi receitado a ele tomar Mionevrix. Pelo Ortopedista sobre diagnostico de problemas nervo ciático. Sera q pode msm tomar???",
+      "answer": "Boa noite !Seu esposo tolera outros anti-inflamatórios ? Se sim pode ser que não tenha alergia a dipirona e ibuprofeno. Saber exatamente como foram estas reações com tais medicações é essencial para determinar se ele pode ou não ingerir outras da mesma classe. O mionevrix possui dipirona em sua fórmula por isso caso ele realmente tenha alergia a dipirona e ibuprofeno não poderá usar mionevrix.AttTe convidamos para uma consulta: Consulta alergia e imunologia - R 380Você pode reservar uma consulta através do site Doctoralia, clicando no botão agendar consulta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 558,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 90,
+      "index": 89,
+      "sample_order": 14,
+      "question": "Olá,Por favor, me tirem esse dúvida..Sou alérgica ao paracetamol e também a dipirona. O que devo tomar? Se houver dores e febre.",
+      "answer": "Voce deve procurar um alergista para ser avaliada e fazer um teste de provocação medicamentosa com outro analgesico. Uma opção para dor por exemplo é a codeina que não costuma ter reação com dipirona e paracetamol. Porem o mais seguro é fazer um teste de provocação com o medicamento primeiro",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 89,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 605,
+      "index": 604,
+      "sample_order": 15,
+      "question": "Tenho alergia a Ibuprofeno e a Nimesulida, posso tomar Azitromicina?",
+      "answer": "Boa tarde,Pelo seu relato tens reação aos Anti-inflamatórios Não Esteroidais. Estes não possuem reação cruzada com os Antibióticos, pois são outra classe medicamentosa.Vale observar se não fará uso também de algum medicamento para dor eou febre. Devendo este sim ser observado.Caso dúvidas, contate um colega Alergista.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 604,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 433,
+      "index": 432,
+      "sample_order": 16,
+      "question": "Sou alérgica a dipirona, diclofenato e ibupofenoPosso tomar nimesuluda?",
+      "answer": "Não deve tomar. Nimesulida e diclofenaco são muito semelhantes e geralmente quem tem alergia a um também tem ao outro.Grande abraço.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 432,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 33,
+      "index": 32,
+      "sample_order": 17,
+      "question": "Tenho alergia a dipirona.Posso tomar AAS infantil?",
+      "answer": "Os alérgicos à dipirona têm uma chance maior de também serem alérgicos ao AAS.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 32,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 31,
+      "index": 30,
+      "sample_order": 18,
+      "question": "Boa noite. Sou alérgica a penicilina, posso usar a pomada mupirocina?Obrigada!!",
+      "answer": "Olá. A mupirocina é um antibiótico tópico que não é da mesma classe da penicilina e, portanto, pode ser utilizada por pacientes com alergia a penicilina, sempre com prescrição médica.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 30,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 96,
+      "index": 95,
+      "sample_order": 19,
+      "question": "Bom dia Doutor, sou alérgica a dipirona eu posso tomar Dalton 1000, pra circulação sanguínea?",
+      "answer": "Na composição do Daflon não contém a dipirona, portanto não há contra indicação ao uso para pessoas alérgicas a Dipirona.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 95,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 224,
+      "index": 223,
+      "sample_order": 20,
+      "question": "extração dentaria,alergia a dipirona, paracetamol e quadros de gastrite, é melhor utilizar tramadol ou corticoides",
+      "answer": "Corticoide não é medicação para dor.Tramadol é um anlagésico utilizado para dores moderadas a graves, cujo efeito colateral mais comum é náusea e também tontura ,que ocorre em 10 dos pacientes ..",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 223,
+      "subsets": [
+        "pilot_20",
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 239,
+      "index": 238,
+      "sample_order": 21,
+      "question": "Gentileza esclarecer dúvida: Tenho alergia de thimerosal, existe alguma contra indicação da vacina covid 19?",
+      "answer": "Não. A orientação atual é tomar a vacina normalmente",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 238,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 518,
+      "index": 517,
+      "sample_order": 22,
+      "question": "Sou alérgica ao Ibuprofeno, posso tomar flurbiprofeno?",
+      "answer": "Boa noite. Os dois medicamentos são da mesma classe: os anti inflamatórios não esteroidais (AINEs), portanto, se você é alérgica ao ibuprofeno, você não deve usar nenhuma medicação desta classe.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 517,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 617,
+      "index": 616,
+      "sample_order": 23,
+      "question": "Pessoas alergicas a Benzetacil podem tomar Azitromicina?",
+      "answer": "Podem sim, é uma das opções. Geralmente, não há risco de reação cruzada.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 616,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 28,
+      "index": 27,
+      "sample_order": 24,
+      "question": "Tenho alergia a dipirona e nimesulida, posso tomar arcoxia?",
+      "answer": "Olá.Para responder com segurança à esta pergunta, você deve informar ao seu Alergista quais foram os sintomas que você apresentou após o uso da Dipirona e da Nimesulida, assim como após quanto tempo do uso os sintomas iniciarão, dose, medicações usadas concomitantes, motivo do uso, se já fez uso sem reação após... Estas informações irão contribuir muito para avaliar se foi de fato uma Reação de Hiperssensibilidade e assim definir se podemos liberar Arcoxia ou se é necessário um Teste e ainda, qual opção segura de analgésico no seu caso.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 27,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 575,
+      "index": 574,
+      "sample_order": 25,
+      "question": "Sou alergica a Diclofenaco sodico, posso tomar Nimesulida?",
+      "answer": "Somente essa pergunta daria origem a uma consulta. Qdo apresentou a alergia? Como ela se apresenta? Já tomou outros antiinflamatórios? Estava tomando alguma outra medicação do apresentou a alergia? Será q é somente ao diclofenaco sodico? Mas não indicaria q tomasse por enquanto",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 574,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 204,
+      "index": 203,
+      "sample_order": 26,
+      "question": "Boa tarde, sou alergica ao AAS e o corante tartrazina posso tomar allegra?",
+      "answer": "Caso seja indicado o Allegra não há contra-indicação por ser alérgica a AAS e Tartrazina .",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 203,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 734,
+      "index": 733,
+      "sample_order": 27,
+      "question": "Minha filha tem 1 ano e 11 meses. Teve reação ao profenid e agora ao allivium. Será que não posso usar nenhum analgésico mais?",
+      "answer": "Caríssima, seu bebê apresenta reaçāo alérgica a anti-inflamatórios. Geralmente quem apresenta este tipo de reação, apresenta também a AAS, Antitérmicos e Analgésicos. Como por exemplo: Dipirona e similares. Recomendo que leve seu bebê ao médico Alergista para realizar uma Bateria de Testes de Contato onde testará os medicamentos citados. A resposta é em 4872h. Sei que é pequeno, porém há necessidade do exame. Saúde",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 733,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 666,
+      "index": 665,
+      "sample_order": 28,
+      "question": "Sou alérgica ao acidoacetilsalisilico e à dipirona, posso tomar ibuprofeno e diclofenaco potássico? ?",
+      "answer": "Carissimo, recomendo veementemente que procure um Médico Alergista e peça uma Bateria de Testes de Contato para verificar se você apresenta outras alergias cruzadas. Concordo com a fala dos colegas. Siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 665,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 719,
+      "index": 718,
+      "sample_order": 29,
+      "question": "Boa tarde! Meu filho tem 7 anos e irá realizar uma ressonância magnética de hipófise com contraste....ele tem rinite alérgica....como posso saber se ele é alérgico ao contraste?",
+      "answer": "Caríssimo, pode sim. Basta solicitar ao Médico Alergista para realizar uma Bateria de Testes de Contato. Saberá a resposta de sua pergunta. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 718,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 809,
+      "index": 808,
+      "sample_order": 30,
+      "question": "Tenho alergia a antibioticos. O q fazer em casos d infecção por bactéria?",
+      "answer": "Não existe alergia antibióticos. Existe alergia a um grupo de antibiótico. Basta evitá-lo e usar outro grupo. Não existem exames ou testes disponíveis em nosso meio para estudar qual grupo pode e qual grupo não pode.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 808,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 430,
+      "index": 429,
+      "sample_order": 31,
+      "question": "Sou alergico a dipirona , aspirina e sorrisal.. Posso tomar Azitromicina?",
+      "answer": "Olá. Sempre siga as orientações do seu médico. Agende a sua consulta de reavaliação e esclareça suas dúvidas.Nunca inicie uma medicação sem a ajuda do seu médico. Evite a automedicação.A sua avaliação clínica através da sua história clínica, suas queixas e exame físico é fundamental para o diagnóstico e tratamento corretos.Converse com o seu médico. Esclareça suas dúvidas. Agende a sua consulta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 429,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 226,
+      "index": 225,
+      "sample_order": 32,
+      "question": "Sou alérgica a dipirona, diclofenaco, AS infantil a ibuprofeno e a todos os medicamentos que contém eles, fiz uma cirurgia e gostaria de saber se posso tomar nimesulida?",
+      "answer": "É interessante que você seja avaliado pelo especialista para que ele entenda como foi a reação, quais as medicações envolvidas,quanto tempo depois da exposição se deu a reação, dentre outros aspectos para que se possa orientar um opção segura de medicação, bem como orientar as medicações que devem ser evitadas.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 225,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 460,
+      "index": 459,
+      "sample_order": 33,
+      "question": "Tenho alergia a dipirona, será que posso tomar paracetamol?",
+      "answer": "Paciente com Alergia a Dipirona deve procurar o especialista para avaliar o tipo de reação, os possíveis substitutos, e orientar sobre reação cruzada entre analgésicos e anti-inflamatórios.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 459,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 604,
+      "index": 603,
+      "sample_order": 34,
+      "question": "Tenho alergia a Ibuprofeno e a Nimesulida, posso tomar Azitromicina?",
+      "answer": "Caríssimo, sua alergia medicamentosa é da triade: AAS, DIPIRONA, ANTI-INFLAMATÓRIOS. Recomendo veementemente que procure um Médico Alergista e peça uma Bateria de Testes de Contato. Com o laudo médico nas mãos faça a Imunoterapia específica para seus males alérgicos se for indicado. Siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 603,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 285,
+      "index": 284,
+      "sample_order": 35,
+      "question": "Já tomei anestesia peridural no parto, mesmo assim posso ter alergia a anestesia geral ou são usadas mesma substâncias?",
+      "answer": "Acidentes alérgicos com anestesia geral são muitíssimo raros e na anestesia peridural usa-se anestésicos locais, não gerais.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 284,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 7,
+      "index": 6,
+      "sample_order": 36,
+      "question": "Boa tarde, sou alérgica a amoxicilina e ao Sulfa, quais outros antibióticos posso tomar?",
+      "answer": "Olá. Esta é uma resposta difícil, pois envolve saber qual o tipo de alergia medicamentosa você tem. A depender do caso, poderiam ser realizados testes para definir melhor. Procure um alergista.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 6,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 778,
+      "index": 777,
+      "sample_order": 37,
+      "question": "Dessensibilização para utilização de contraste iodado. Vou fazer uma angiografia e uma angioplastia de veias cerebrais, Sou uma paciente alérgica. Como dessenssibilizar para usar o contraste de iodo. É seguro após o uso de corticoides e antialérgicos fazer o uso do contraste?",
+      "answer": "Se a indicação médica do exame contrastado supera a contraindicação pelo problema geral de alergia, neste caso, a utilização de corticoides e antialérgicos, desde que prescritos pelo médico assistente para esta finalidade, pode ser interessante e útil sim. Em outras palavras, se a melhor opção for a realização do exame, o uso de corticoides e antialérgicos ajudam a prevenção de possíveis reações adversas. Ademais, o tratamento homeopático também pode, de forma adjuvante, atuar na prevenção dessas reações indesejáveis. Quer dizer, além dessas prescrições, a homeopatia também pode ser uma boa auxiliar nesse procedimento médico.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 777,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 164,
+      "index": 163,
+      "sample_order": 38,
+      "question": "Sou alérgico a iodo e eritromicina posso tomar vacina da covid 19",
+      "answer": "Si, Alergia a antibioticos e degermantes não é contra-indicação para a vacina do covid",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 163,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 715,
+      "index": 714,
+      "sample_order": 39,
+      "question": "Sou alérgico a dipirona. Queria saber se posso tomar paracetamol? E se contém dipirona no paracetamol?",
+      "answer": "Realmente , existe diferenca estrutural entre os dois compostos assim como a atividade intrinseca de cada um. Desta forma, pode-se estabelecer uma gradacao de efeito entre os dois produtos. Para alguns , na realidade a maioria dos alergicos , dipirona e assemelhados eh mais alergizante que o paracetamol. Ha que investigar.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 714,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 806,
+      "index": 805,
+      "sample_order": 40,
+      "question": "Sou professora 41 anos, e há 1 ano venho apresentando reações e medicações antinflamatórias, corticóides e opióides, tudo para dor...tenho sofrido muito por não ter opção ao que tomar, e sem um diagnóstico fechado.Quem pode me atender e ajudar ?",
+      "answer": "Na homeopatia as medicações prescritas por médico(a) homeopata não causam alergia e são úteis ao tratamento dos quadros dolorosos, inflamatórios e febris.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 805,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 349,
+      "index": 348,
+      "sample_order": 41,
+      "question": "Quem tem alergia a acetilsalicílico pode tomar loratadina para combater a rinite?",
+      "answer": "Quem tem alergia a AAS pode tomar loratadina sem associações como nos antigripais. Boa tarde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 348,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 787,
+      "index": 786,
+      "sample_order": 42,
+      "question": "meu filho tem 8 anos ele tem alergia a dipirona, iboprofeno, nimesilida, aes infantil e até paracetamol se ele estiver com febre e alem disso tem um cançaso respiratório terrivel quando estar resfriado, qual profissional devo procurar para tratar do meu filho?",
+      "answer": "Sugiro procurar um Alergista para avaliar a alergia a anti-inflamatórios e também ao cansaço em vigência de infecções respiratórias.Atenciosamente, dra Jessica",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 786,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 160,
+      "index": 159,
+      "sample_order": 43,
+      "question": "Quem tem alergia a dipirona , pode toma levofloxacino?",
+      "answer": "Intolerância a Dipirona nada tem a ver com alergia a Antibióticos como a Levofloxacina. Converse com seu Alergista sobre possiveis reações com Anti-inflamatórios (esses sim de maior risco), e nunca tome medicamentos por auto-medicação, pois todos podem causar reação adversa, por vários mecanismos diferentes.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 159,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 221,
+      "index": 220,
+      "sample_order": 44,
+      "question": "Ibuprofeno tem acido acetilico?ou seja contem componentes do ASS?",
+      "answer": "Olá. O AAS e o ibuprofeno são substância diferentes. Porém, ambos são anti-inflamatórios e podem dar alergia cruzada. Procure um alergista para definir qual o melhor para o seu caso.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 220,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 345,
+      "index": 344,
+      "sample_order": 45,
+      "question": "Alergia forte à crustáceos é, por si só, circunstância de contraindicação ao exame de TC com contraste? Há algum tipo de cuidado que deve ser tomado em relação aos componentes do contraste?",
+      "answer": "Oi! Muita gente associa a alergia a crustáceos com alergia aos contrastes, mas isso é um mito! se o paciente teve uma reação alérgica ao uso de constraste em algum procedimento prévio, deve procurar um alergista para melhor avaliação e devidas orientações.boa semana a todos",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 344,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 812,
+      "index": 811,
+      "sample_order": 46,
+      "question": "Tenho alergia a AS, Dipirona , Tylenol , Ibuprofeno e não posso tomar nenhum anti térmico ou analgésico. Tem tratamento para isso, ou existe algum remédio para estas ações que não me causem alergia?",
+      "answer": "Os remédios homeopáticos prescritos por médico(a) homeopata não causam alergia e são úteis ao tratamento de dores, inflamações e febre.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 811,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 95,
+      "index": 94,
+      "sample_order": 47,
+      "question": "Sou alérgica à penicilina, tomei Azitromicina e Amoxicilina e passado 1hora, sofri carga intestinal e manchas rosadas no corpo. Devo interromper?",
+      "answer": "Sim. se voce é alergica a penicilina não pode tomar amoxicilina. São antibióticos da mesma família e geralmente têm reação cruzada.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 94,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 390,
+      "index": 389,
+      "sample_order": 48,
+      "question": "Sou alergico a dipirona, ácido acetilsalicílico, posso tomar azitromicina ?",
+      "answer": "Bom dia. A azitrominacina não costuma causar alergia em pessoas que tem alergia a dipirona e AAS. Precisamos entender o risco e o beneficio de cada medicação antes decidir prescrever ou tomar. Então sugiro que passe em consulta médica para esclarecer suas dúvidas e tomar a decisão de tomar ou não.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 389,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 100,
+      "index": 99,
+      "sample_order": 49,
+      "question": "Sou alergica ao paracetamol o ibuprofeno e a tudo que contem o acetilsalicilico, o que tomar quando estiver com dor ???",
+      "answer": "Olá! Voce tem alergia ao grupo de Anti-inflamatórios, quando estiver com dor podera tomar paracetamol 500mg. Mas oriento uma consulta com alergista para poder receber a listagem dos medicamentos permitidos e proibidos ;)Te convidamos para uma consulta: Teleconsulta - R 300Você pode reservar uma consulta através do site Doctoralia, clicando no botão agendar consulta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 99,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 368,
+      "index": 367,
+      "sample_order": 50,
+      "question": "Sou alérgica a dipirona, e queria saber se posso tomar Benzetacil?",
+      "answer": "Boa noite!! Tudo bem? Lembrando que é importante ser uma indicação médica, mas são medicações com princípios diferentes e não há contraindicação! A disposição. Abraços",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 367,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 353,
+      "index": 352,
+      "sample_order": 51,
+      "question": "Sou alérgico a Ácido Acetilsalicílico posso tomar Azitromicina?",
+      "answer": "Olá. Sempre siga as orientações do seu médico. Agende a sua consulta de reavaliação e esclareça suas dúvidas.Nunca inicie uma medicação sem a ajuda do seu médico. Evite a automedicação. Siga a prescrição do seu médico.A sua avaliação clínica através da sua história clínica, suas queixas e exame físico é fundamental para o diagnóstico e tratamento corretos.Converse com o seu médico. Esclareça suas dúvidas. Agende a sua consulta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 352,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 619,
+      "index": 618,
+      "sample_order": 52,
+      "question": "Pessoas alergicas a Benzetacil podem tomar Azitromicina?",
+      "answer": "Em geral sim. A não ser que tenha alergia também a azitromicina.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 618,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 271,
+      "index": 270,
+      "sample_order": 53,
+      "question": "sou alérgica a Buscopan posso tomar flanax? Buscopan tem Dipirona?",
+      "answer": "BUSCOPAN E FLANAX NÃO TÊM REAÇÃO CRUZADA. A REAÇÃO DO BUSCOPAN PODE SER DO COMPOSTO QUE TEM DIPIRONA E NÃO DO BUSCOPAN SIMPLES.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 270,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 45,
+      "index": 44,
+      "sample_order": 54,
+      "question": "Tenho alergia a Claritromicina, o médico me receitou Azitromicina, mesmo eu avisando da alergia.Posso tomar o Azitromicina?",
+      "answer": "Claritromicina e Azitromicina são antibióticos da mesma classe, os Macrolídeos. Uma avaliação detalhada é importante para saber sobre a possibilidade do uso da medicação. Abraços Ana",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 44,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 748,
+      "index": 747,
+      "sample_order": 55,
+      "question": "Tenho alergia a Salicilatos, Derivados do Pirazolom, Indometacina, Fenamatos, Derivados do ácido mefenamico, derivados do acido propionico, piroxicam, diclofenacos,Meu dentista receitou Azitomacina, Posso tomar?",
+      "answer": "Não há relação entre a alergia a Azitromicina é alergia a anti-inflamatórios. Pode fazer uso .",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 747,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 471,
+      "index": 470,
+      "sample_order": 56,
+      "question": "Tenho alergia a dipirona e diclofenaco quais os antflamatorio eu posso tomar?",
+      "answer": "Se realmente tem alergia a estes medicamentos, provavelmente terá a qualquer outro antiinflamatório.Sugiro que consulte um médico pois muitas pessoas acham ter alergia a alguns medicamentos e na realidade tem efeitos colaterais e não alergia. Nestes casos vai poder usá-los sem problemas.AbraçoDr Rubens Cat",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 470,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 550,
+      "index": 549,
+      "sample_order": 57,
+      "question": "Boa noite!Sou alérgica a Dipirona, ibuprofeno, dorflex, acetildor, advil, buscofen, sonridor, neolsaldina entre vários outros.Só tomo paracetamol e Buscopan simples... E ainda assim procuro evitar por medo!Fico me perguntando, como seria se tivesse que fazer algum tipo de cirurgia, cesariana ou cirurgia plástica que tenho vontade, existe algum remédio pro pós que poderia tomar? Fico extremamente preocupada.",
+      "answer": "Existem testes de provocação, que podem ser realizados, de acordo com a indicação de cada paciente, para determinação de medicamentos seguros para uso, no caso de alergias medicamentosas.Esses testes são realizados em ambientes controlados, com médicos, monitorização contínua e medicações de emergência.Consulte um especialista para melhor orientação e avaliação do seu caso.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 549,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 128,
+      "index": 127,
+      "sample_order": 58,
+      "question": "Sou alérgica a sulfaO paracetamol contém alguma molécula de sulfa em sua composição ?Tenho tido algumas reações de coceira e dor de cabeça ao tomar",
+      "answer": "Não, o paracetamol não contem sulfa. Mas você pode ter reações a outros medicamentos eou alimentos eou conservantes de alimentos. Procure um alergologista.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 127,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 388,
+      "index": 387,
+      "sample_order": 59,
+      "question": "Quem tem alergia a dipirona poder tomar torsilax??",
+      "answer": "Existem dois tipos de peossoas que reagem aos Anti-Inflamatórios Não Esteroidais (AINEs), os que reagem somente a um ou ao seus semelhantes eo que reagem a todos de potência maior.A maioria das pessoas tem Hipesensibilidade Não Seletiva ao AINEs, ou seja, reagem a todos AINEs de potência maior. O torsilax tem em sua composição o Diclofenaco de Sodio, que é um AINE de potência alta, logo há chance de você reagir se pertencer ao grupo comentado acima. É ideal que passe em consulta com o Alergista para o diagnóstico correto. A disposição.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 387,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 81,
+      "index": 80,
+      "sample_order": 60,
+      "question": "LevofloxacinoPode causar muito enjouo e tontura após o seu uso?",
+      "answer": "Boa tarde,Sou Dr Manoel Victor Ferreira SIlva Residente do Segundo ano de Medicina de Familia e ComunidadeSegue alguns dos efeitos colaterais do levofloxacino (de acordo com o pebmed)- Monilíase;- Insônia;- Cefaleia, tontura;- Dispneia;- Náusea, diarreia, constipação, dor abdominal, vômitos, dispepsia;- Erupção cutânea, prurido;- Vaginite;- Edema;- Reação no local da administração;- Dor torácica.Os riscos de apresentar cada um dos efeitos colaterais variam de pessoa para pessoa. Sempre importante dizer que os benefícios (no caso a melhora da infecção), superam os malefícios. Importante não interromper o tratamento sem orientação médica e, caso esteja realmente difícil suportar os efeitos colaterais, procurar novo atendimento para reavaliação do quadro.Grande abraço,Desejo melhoras do quadro infeccioso",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 80,
+      "subsets": [
+        "sub_60",
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 566,
+      "index": 565,
+      "sample_order": 61,
+      "question": "Sou alérgica a dipirona, posso tomar paracetamol?",
+      "answer": "boa tarde.paracetamol é diferente da dipirona, então se a alergia é apenas a dipirona você pode usar o paracetamol sem problema.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 565,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 301,
+      "index": 300,
+      "sample_order": 62,
+      "question": "Tenho alergia a ampicilin....posso tomar paracetamol?",
+      "answer": "São medicações de classes diferentes, não há uma correlação",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 300,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 644,
+      "index": 643,
+      "sample_order": 63,
+      "question": "Tenho alergia a Diclofenaco, qual antiinflamatorio posso tomar? Posso tomar Nimesulida?",
+      "answer": "Depende da reação que vc teve ao diclofenaco pois há reação específica imediata a um determinado medicamento e há, em outros casos, risco de reação a todos os anti inflamatorios. Definitivamente vc precisa ser avaliada por medico alergista!",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 643,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 634,
+      "index": 633,
+      "sample_order": 64,
+      "question": "Sou alérgica a AAS e Dipirona. Me receitaramMetronidazolazitromicina di-hidrata 500mg, posso tomar?",
+      "answer": "Boa tardeAs medicações que lhe foram prescritas não terão reação cruzada com os antinflamatórios que mencionou. O que não impede que os mesmos apresentem reações adversas.Em caso de qualquer sintoma que lhe cause dúvidas pós início das medicações, por favor procure o médico que os prescreveu.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 633,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 371,
+      "index": 370,
+      "sample_order": 65,
+      "question": "Quem tem alergia a Azitromicina pode tomar Amoxicilina?",
+      "answer": "Não são iguais, então poderia tomar. Mas infelizmente vc pode ter alergia tb. Abraço.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 370,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 592,
+      "index": 591,
+      "sample_order": 66,
+      "question": "Oi!! Gostaria de saber se ibuprofeno tem a mesma formula do Profenid? Pois tenho alergia a profenid",
+      "answer": "Os dois medicamentos são antiinflamatórios não hormonais. Provavelmente vc pode ter alergia sim.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 591,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 197,
+      "index": 196,
+      "sample_order": 67,
+      "question": "Por favor tenho urgência nessa resposta me ajude. Eu sou alérgica a àcido acetilsalicílico e já fui pararbno pronto socorro, posso tomar a vacina da AstraZeneca. Obrigada",
+      "answer": "Sim! Não existe relação entre alergia ao AAS e efeitos adversos pós vacinação para covid qualquer que seja a vacina. Apenas evite o uso do referido medicamento.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 196,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 722,
+      "index": 721,
+      "sample_order": 68,
+      "question": "O que fazer quando uma pessoa tem hipersensibilidade ou alergia aos excipientes de medicamentos?",
+      "answer": "Caríssimo, procure um Médico Alergista para realizar uma Bateria de Testes de Contato e descobrir quais substâncias que você tem alergia. Há tratamento imunoterápico para determinados produtos . Para outros , há a troca para semelhantes em desempenho farmacológico porém com outra base química. Escute e faça tudo que o colega Alergista orientar em relação ao seu caso. Tenha uma ótima qualidade de vida. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 721,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 72,
+      "index": 71,
+      "sample_order": 69,
+      "question": "Sou alérgica thimerosal,quando tomo a vacina da gripe encho de ingua debaixo dos braços sinto febre,posso continuar tomando a vacina ou não.",
+      "answer": "As vacinas Influenza AH1N1 contém timerosal como conservante e cada fabricante da vacina estipula um valor diferente da concentração do timerosal na sua produção. No Brasil, a legislação não especifica o limite do teor de timerosal nas vacinas Influenza AH1N1.As pessoas comprovadamente alérgicas ao Timerosal devem evitar a aplicação.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 71,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 47,
+      "index": 46,
+      "sample_order": 70,
+      "question": "Sou alérgico a AAS, posso tomar ACETILCISTEINA-600MG.???",
+      "answer": "o AAS é a sigla para o medicamento acido acetil salicilico. A acetilcisteina não apresenta reação cruzada com o AAS, não havendo contraindicação a seu uso nos pacientes alergicos à primeira substancia.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 46,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 678,
+      "index": 677,
+      "sample_order": 71,
+      "question": "Sou alérgica aos medicamentos que contem aas posso tomar antibioticos?",
+      "answer": "A reação medicamentosa ao analgésico AAS não apresenta reação cruzada com antibióticos. Pode apresentar a outros analgésicos e também a antiinflamtórios, mas a antibióticos não;.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 677,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 234,
+      "index": 233,
+      "sample_order": 72,
+      "question": "Bom diaGostaria de saber quem tem alergia à dipirona aspirina e sulfa pode tomar a vacina contra covid 19. aguardo sua resposta obrigado e um bom dia",
+      "answer": "A vacina de coronavirus não é contra-indicada em pacientes com alergia a antibióticos ou antiinflamatorios. Então sim, pode tomar.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 233,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 297,
+      "index": 296,
+      "sample_order": 73,
+      "question": "Bom dia, sou alérgica a penicilina, sulfa, AAS, dipirona, nimesulida, fernegam, clorafenicol.Eu posso tomar azitromicina?",
+      "answer": "Bom diaPacientes que tem múltiplas alergias a medicamentos precisamos avaliar de forma extremamente cuidadosa. Na avaliação com alergista avaliamos todos os pontos da sua história para avaliar a necessidade de testes de segurança antes de poder lhe dar uma lista de medicações que sejam seguras para você.Fico a disposição se tiver mais dúvidas ou marque um horário para te avaliarmos melhor.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 296,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 82,
+      "index": 81,
+      "sample_order": 74,
+      "question": "Comecei a tomar Levofloxacino por causa de uma infecção urinaria, porem uns 30 minutos depois da primeira dose, minha boca começou a formigar, é normal?",
+      "answer": "Boa Tarde, tudo bem?Espero verdadeiramente que sim!!Bom, formigamento não é um efeito colateral comum do Levofloxacino!! Portanto não é normal nem devemos pensar que possa ser a medicação. A não ser que apresentou alguma reação alérgica a compostos da medicação. A reação alérgica pode vir com formigamento, prurido e reação na pele também!! Sendo assim , devemos procurar outro motivo para esse formigamento!! Além disso, há um por que de estar em uso de levofloxacino para infecção urinária, pois há medicações melhores e mais eficazes para o tratamento dessa doença viu!Fique com Deus e conte comigo",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 81,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 801,
+      "index": 800,
+      "sample_order": 75,
+      "question": "Como diferenciar rash causado por virus daqueles causados por remédios (sintomas, características, formas etc)?!",
+      "answer": "Não existem características específicas do rash cutâneo que aponte se a lesão é causada por vírus ou medicamentos. A história clínica, exame físico e possivelmente testes cutâneos nos auxiliam a fazer essa diferenciação.Atenciosamente, dra Jessica",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 800,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 104,
+      "index": 103,
+      "sample_order": 76,
+      "question": "Tomei lisador e tive alergia na pele ? O que faço? Estou com muita coçeira e bolinhas vermelhas",
+      "answer": "Fazer uso de antialérgico do tipo desloratadina, bilastina ou fezofenadina",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 103,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 774,
+      "index": 773,
+      "sample_order": 77,
+      "question": "Meu filho qd toma dipirona ou paracetamol fica cheio de placas.Tem q ir ao hospital tomar hidrocortisona e fenergan. Que exames ele tem q fazer p saber a que mais ele tem alergia? Ele tem bronquite asmatica.",
+      "answer": "Olá. As alergias a medicamentos são diagnosticadas clinicamente, ou seja, não se utilizam exames. Considera-se a história clínica, o exame médico de avaliação física e a conduta medica realizada e o consequente resultado.Se o diagnóstico clínico foi realizado, o mais importante é evitar esses medicamentos e observar outros que possam conter o princípio ativo em sua composição.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 773,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 780,
+      "index": 779,
+      "sample_order": 78,
+      "question": "MINHA NETA TEM 18 ANOS E É MUITO ALERGICA A VARIOS MEDICAMENTOS, JA FICOU INTERNADA. O MEDICO PEDIU EXAME E DEVERA FICAR INTERNADA PARA REALIZA-LO E UTILILIZARA ATÉ ADRENALINA SE FOR O CASO, É PERIGOSO ESSE EXAME?",
+      "answer": "sua pergunta é vaga sobre qual exame, mas se é para teste de alergênico o ideal é fazer internada",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 779,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 465,
+      "index": 464,
+      "sample_order": 79,
+      "question": "Sou alérgica a penicilina, Benzetacil, amoxicilina.e por último descobre que tenho alergia ao encharc. Posso tomar Azitromicina?",
+      "answer": "Sim desde que este antibiótico tenha sido prescrito por um médico.AbraçoDr Rubens Cat",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 464,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 651,
+      "index": 650,
+      "sample_order": 80,
+      "question": "Olá, tive alergia a dapsona posso voltar a tomar em doses menores ou não devo tomar mais?",
+      "answer": "O uso da dapsona esta ligado a Hanseniase, doencas autoimunes e infecciosas , eventualmente. Ha que checar com o medico prescritor , se existe medicamento substituto a altura. Se nao for o caso, pesar o risco-beneficio de seu uso.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 650,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 374,
+      "index": 373,
+      "sample_order": 81,
+      "question": "Tenho alergia a bezetasilPosso Tomar cefalexina?",
+      "answer": "Se foi receitada por médico, simAbraço Dr Rubens Cat",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 373,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 167,
+      "index": 166,
+      "sample_order": 82,
+      "question": "Sou alérgica a sulfa e já tive hepatite grave com tratamento severo. Posso tomar a vacina da covid?",
+      "answer": "Pode. alergia a sulfa não é contra indicação a vacina do covid",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 166,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 380,
+      "index": 379,
+      "sample_order": 83,
+      "question": "Sou alérgica ao Thimerosal. Como essa substância aparece na composição?",
+      "answer": "Aparece como thimerosal mesmo. Fazia parte da formulação do merthiolate antigamente é muitas pessoas desenvolveram alergia de contato ao thimerosal. Depois substituiram ele na formula e hoje em dia já seria seguro para voce usar. É um conservante usado muito em vacinas porem isso não contraindica o uso dessas vacinas pela dose ser muita pequena.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 379,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 364,
+      "index": 363,
+      "sample_order": 84,
+      "question": "Azitromicima e ou tem algum derivada da penicilina, pq tenho alergia queria saber se posso tomar ou nn esse remedio?",
+      "answer": "Olá. Sempre siga as orientações do seu médico. Agende a sua consulta de reavaliação e esclareça suas dúvidas.Nunca inicie uma medicação sem a ajuda do seu médico. Evite a automedicação. Siga a prescrição do seu médico.A sua avaliação clínica através da sua história clínica, suas queixas e exame físico é fundamental para o diagnóstico e tratamento corretos.Converse com o seu médico. Esclareça suas dúvidas. Agende a sua consulta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 363,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 215,
+      "index": 214,
+      "sample_order": 85,
+      "question": "Bom dia meu filho começou tomar azitromicina ontem, é alérgico a dipirona amanhanheceu garganta inchada,deve continuar azitromicina?obrigada",
+      "answer": "Não existe reatividade cruzada entre Azitromicina ( antibiótico) e dipirona ( analgésico, anti térmico e anti inflamatório). Oque pode acontecer é um paciente ter alergia a duas medicações. Procure um especialista para avaliação.Abraços",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 214,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 687,
+      "index": 686,
+      "sample_order": 86,
+      "question": "Meu marido teve reação alérgica ao final do tratamento com Clavulin BD, o corpo ficou cheio de erupções vermelhas. Fomos hospital e ele tomou uma injeção de Fenergan. A vermelhidão diminui. Ele deve tomar Hixizine de 8h em 8h mas a médica não informou o intervalo entre a injeção e o 1 comprimido?",
+      "answer": "Caríssima, seu marido teve reação alérgica a penicilina!!! Recomendo que procure o mais rápido possível um Médico Alergista e peça uma Bateria de Testes de Contato, que deverá conter penicilina no procedimento. Tome o Hixizine já. Siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 686,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 274,
+      "index": 273,
+      "sample_order": 87,
+      "question": "O médico me receitou Cloridrato de Ciprofloxacino 500 Mg mas sou alérgico a sulfa, aquele componente que tem no Bactrim. Posso tomar o Ciprofloxacino?",
+      "answer": "O melhor a ser realizado, neste caso é consultar-se com um gastroenterologistahepato de sua confiança, a fim de esclarecer detalhadamente cada dúvida.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 273,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 793,
+      "index": 792,
+      "sample_order": 88,
+      "question": "Pelo sus é possivel fazer exame para dectar que tipo de alergia medicamentosa a possa tem.",
+      "answer": "O exame para detectar alergia a medicamentos só existe em centros muito especializados para tal procedimento e não me consta que exista este centro no brasil. Então na prática deve-se evitar o medicamento que deu tal reação e o exame não existe.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 792,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 700,
+      "index": 699,
+      "sample_order": 89,
+      "question": "Tenho alergia a creme dental ,já procurei dentista e alergista já fiz vários exames e não encontraram a causa da alergia , gostaria de saber qual especialista eu devo procurar? Obrigada",
+      "answer": "Prezado (a) paciente, recomendo marcar consulta. Levar todos os exames e prescrições médicas. Cordial abraço, Dra. Marta Guidacci",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 699,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 664,
+      "index": 663,
+      "sample_order": 90,
+      "question": "Sou alérgica ao acidoacetilsalisilico e à dipirona, posso tomar ibuprofeno e diclofenaco potássico? ?",
+      "answer": "O ibuprofeno e o diclofenaco, assim como a dipirona não devem sem utilizados nos pacientes com reações adversas a aspirina.Sugiro que procure um alergista para receber mais orientações e receber a listagem completa dos anti inflamatórios não hormonais que fazerem reação cruzada com a aspirina, devido ao risco da possibilidade de vir a apresentar reações graves",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 663,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 74,
+      "index": 73,
+      "sample_order": 91,
+      "question": "Minha filha está com depressão apor tomar levoflocina 750 .quanto tempo dura este efeito colateral?",
+      "answer": "A levofloxacina é um antibiótico que geralmente é usado para tratar infecções bacterianas. Não é considerado um tratamento para a depressão e nem tem a depressão como efeito adverso. Se sua filha está sofrendo com depressão, é importante que ela consulte um profissional de saúde mental para avaliar sua condição e recomendar o melhor tratamento. O tratamento para a depressão pode incluir terapia, medicamentos ou uma combinação dos dois. É importante encontrar o tratamento certo para ajudar sua filha a se sentir melhor e lidar com seus sintomas.Seguem algumas das reações adversas do Levofloxacino:Monilíase;Insônia;Cefaleia, tontura;Dispneia;Náusea, diarreia, constipação, dor abdominal, vômitos, dispepsia;Erupção cutânea, prurido;Vaginite;Edema;Reação no local da administração;Dor torácica.Te convidamos para uma consulta: Teleconsulta - R 329Você pode reservar uma consulta através do site Doctoralia, clicando no botão agendar consulta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 73,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 624,
+      "index": 623,
+      "sample_order": 92,
+      "question": "Tenho alergia a vários medicamentos, antiinflamatório, Dipirona , AAS.Gostaria de saber qual medicamento eu posso usar como anti inflamatorio?",
+      "answer": "Não estou de acordo com nenhum dos colegas acima e com suas respostas.Existem sim alguns antiinflamtórios que podem ser usados. Como não existem testes específcos para estes medicamentos, deve recorrer a experiência de um profissional Alergista para Ele te orientar quais são os que podem e os que não podem ser usados.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 623,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 742,
+      "index": 741,
+      "sample_order": 93,
+      "question": "Sou alérgica a dipirona só tomo paracetamol ampicilina gostaria de saber se tandrilax posso tomar?",
+      "answer": "O Tandrilax está contra indicado à você devido seu relato de reação com Dipirona.Aconselho que procure um especialista em sua região para que receba uma melhor orientação sobre as medicações que pode usar.Abraços",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 741,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 176,
+      "index": 175,
+      "sample_order": 94,
+      "question": "Tenho alergia a AS infantil posso tomar qualquer vacina da Covid?",
+      "answer": "Boa tardeNão há problemas, o importante é vacinar.Cuide-se",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 175,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 547,
+      "index": 546,
+      "sample_order": 95,
+      "question": "Quem tem alergia à paracetamol pode tomar Profenid?",
+      "answer": "A princípio sim, são medicamentos de categorias (famílias) farmacológicas diferentes.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 546,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 816,
+      "index": 815,
+      "sample_order": 96,
+      "question": "Sinto dificuldade de respirar quando tomo anestesia no consultório dentário. A solução encontrada foi a mudança do anestésico para citanerge. Como posso testar se sou alérgico a xilocainalidocaina?",
+      "answer": "OláExiste um teste realizado na pele através da manipulação desses anestésicos, assim é possível identificar se há ou não uma hipersensilidade ao medicamento e ao mesmo tempo testamos outros anestésicos de outras classes para poder liberar o uso em consultório dentário ou outras cirurgias se necessário.Esse teste deve ser indicado e realizado por médico especialista e experiente na área de alergia medicamentosa.Espero ter ajudado.AttDra Nádia de Melo BettiCentro de Alergia e Imunologia do Amazonas",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 815,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 168,
+      "index": 167,
+      "sample_order": 97,
+      "question": "Tenho alergia a vários tipo de medicamentos, tipo ,diporona,ácido acetilsalicitico, e todos os tipos de anti-inflamatório, gostaria de saber se posso tomar a vacina do covid19?",
+      "answer": "A sociedade de alergia e de imunização orienta tomar a vacina de covid mesmo em quem tem alergia a antiinflamatorios",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 167,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 474,
+      "index": 473,
+      "sample_order": 98,
+      "question": "Sou alérgica a Profenid, posso tomar Ibuprofeno sem correr o risco de ter alguma alergia?",
+      "answer": "Se você tem alergia a Profenid (cetoprofeno), que é um anti-inflamatório da classe dos AINEs (anti-inflamatórios não esteroides), é possível que você também tenha sensibilidade a outros medicamentos dessa mesma classe, como o Ibuprofeno. Mesmo que as substâncias sejam diferentes, pessoas com alergia a um tipo de AINE podem reagir a outros. É fundamental consultar seu médico antes de tomar qualquer outro medicamento para garantir a segurança e evitar reações alérgicas.Se preferir uma avaliação mais detalhada, agende uma consulta para discutirmos suas alergias e possíveis alternativas de tratamento!",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 473,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 389,
+      "index": 388,
+      "sample_order": 99,
+      "question": "Sou alergico a dipirona, ácido acetilsalicílico, posso tomar azitromicina ?",
+      "answer": "Olá. Sempre siga as orientações do seu médico. Agende a sua consulta de reavaliação e esclareça suas dúvidas.Nunca inicie uma medicação sem a ajuda do seu médico. Evite a automedicação.A sua avaliação clínica através da sua história clínica, suas queixas e exame físico é fundamental para o diagnóstico e tratamento corretos.Converse com o seu médico. Esclareça suas dúvidas. Agende a sua consulta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 388,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 277,
+      "index": 276,
+      "sample_order": 100,
+      "question": "Sou alérgica a penicilina, posso tomar a azitromicina?",
+      "answer": "Normalmente quem tem alergia às penicilinas toleram bem azitromicina",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 276,
+      "subsets": [
+        "sub_100"
+      ]
+    },
+    {
+      "question_id": 656,
+      "index": 655,
+      "sample_order": 101,
+      "question": "Estou usando o Xarelto já tem um tempo usei o de 15 mg e agora estou usando o de 20 mg. Percebi que começaram aparecer no meu corpo uma bolinhas vermelhas, tipo um pontinho, não são muitas, só algumas. Pode ser pelo uso do Xarelto?",
+      "answer": "Caríssimo, recomendo veementemente que procure um Médico Alergista e peça uma Bateria de Testes de Contato. Com o laudo médico nas mãos faça a Imunoterapia específica para seus males alérgicos, se for indicado. Siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 655,
+      "subsets": []
+    },
+    {
+      "question_id": 705,
+      "index": 704,
+      "sample_order": 102,
+      "question": "Olaaa ....Meu pai tem alergia a Dipirona e AAS. Ele pode tomar Paracetamol?",
+      "answer": "Caríssimo, sim só deve tomar paracetamol. Porém o paracetamol de farmácia é comercial, não é o puro por análise. Recomendaria o TYLENOL que é o fabricado pela Bayer. Espero ter ajudado ao amigo. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 704,
+      "subsets": []
+    },
+    {
+      "question_id": 571,
+      "index": 570,
+      "sample_order": 103,
+      "question": "Sou alérgica ao AAS e a Dipirona posso tomar o relaxante muscular Tandene?",
+      "answer": "O Tandene, assim como o Tandrilax não possuem AAS ou Dipirona na composição. Porém eles possuem Diclofenaco de sódio e paracetamol que também são AINEs (Anti-inflamatório Não Esteroidal). Você só deve tomar Tandene se tiver certeza que não é alérgico a nenhum destes anti-inflamatórios.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 570,
+      "subsets": []
+    },
+    {
+      "question_id": 225,
+      "index": 224,
+      "sample_order": 104,
+      "question": "Boa noite ,sou alérgica a dipirona e ibuprofeno ,qual o anti-inflamatório indicado ,para mim caso precise?Obrigado",
+      "answer": "É interessante que você seja avaliado pelo especialista para que ele entenda como foi a reação, quais as medicações envolvidas,quanto tempo depois da exposição se deu a reação, dentre outros aspectos, para que se possa orientar um opção segura de medicação, bem como orientar as medicações que devem ser evitadas.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 224,
+      "subsets": []
+    },
+    {
+      "question_id": 702,
+      "index": 701,
+      "sample_order": 105,
+      "question": "Sou alérgica a várias medicamentos como dipirona, trandrilax e outros. Posso tomar cetoconazol?",
+      "answer": "Em principio nao ha problema. Mas ha que se avaliar a alergia a compostos imidazolicos",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 701,
+      "subsets": []
+    },
+    {
+      "question_id": 333,
+      "index": 332,
+      "sample_order": 106,
+      "question": "Gostaria de saber, quem tem alergia a cefalexina pode tomar amoxilina clavunato de potássio?",
+      "answer": "Existem pacientes que podem reagir tanto a um quanto ao outro. Consulte um alergologista para um parecer seguro.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 332,
+      "subsets": []
+    },
+    {
+      "question_id": 58,
+      "index": 57,
+      "sample_order": 107,
+      "question": "Sou alérgica a Aines . Posso tomar vacina contra COVID 19 ?",
+      "answer": "Sim. Não há reação cruzada entre os antiinflamatórios e vacinas, inclusive a covid 19",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 57,
+      "subsets": []
+    },
+    {
+      "question_id": 235,
+      "index": 234,
+      "sample_order": 108,
+      "question": "Boa noite!Sou alérgica a clavulin(deu coceira é erupção cutânea) é a médica receitou benzetacil para mim.Eu falei da alergia.Sera que faz mal tomar a benzetacil injetável?",
+      "answer": "Pode fazer sim. Existe reação cruzada entre a amoxacilina e a penicilina benzatina. Seria melhor fazer um teste de provocação antes de usar.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 234,
+      "subsets": []
+    },
+    {
+      "question_id": 805,
+      "index": 804,
+      "sample_order": 109,
+      "question": "Sou professora 41 anos, e há 1 ano venho apresentando reações e medicações antinflamatórias, corticóides e opióides, tudo para dor...tenho sofrido muito por não ter opção ao que tomar, e sem um diagnóstico fechado.Quem pode me atender e ajudar ?",
+      "answer": "Caríssima, possivelmente está apresentando alergia a AAS DIPIRONA. Sugiro que procure um colega Alergista e realize a Bateria de Testes de Contato e siga rigorosamente as orientações deste médico. Se me permitir, recomendaria para dor o medicamento: TYLENOL.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 804,
+      "subsets": []
+    },
+    {
+      "question_id": 324,
+      "index": 323,
+      "sample_order": 110,
+      "question": "Tenho alergia a levofloxacino tomei duas vezes e tive uma crise alergica com desmaio posso ter alguma complicação futura ?",
+      "answer": "Olá, sim, você pode ter reação alérgica ao utilizar esta medicação (ou quinolonas) novamente. Deve evitá-las.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 323,
+      "subsets": []
+    },
+    {
+      "question_id": 411,
+      "index": 410,
+      "sample_order": 111,
+      "question": "Sou alérgico a ácido acetilsalicílico, posso tomar Dipirona?",
+      "answer": "Sim pode sem problemas.SE CUIDE FIQUE EM CASAAbraçoDr Rubens Cat",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 410,
+      "subsets": []
+    },
+    {
+      "question_id": 275,
+      "index": 274,
+      "sample_order": 112,
+      "question": "Sou alérgica a amoxicilina posso tomar torcilax?",
+      "answer": "Olá, o torcilax é um relaxante muscular e não antibiótico, portanto não faz reação cruzada com a amoxicilina. O risco de você fazer a reação alérgica a esse medicamento é igual ao da população no geral. Procure um especialista para investigação da alergia a amoxicilina. Abraços",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 274,
+      "subsets": []
+    },
+    {
+      "question_id": 68,
+      "index": 67,
+      "sample_order": 113,
+      "question": "Sou alergico a AAS, posso tomar Allegra o Loratadina?",
+      "answer": "A alergia a medicamento deve ser investigada pelo alergista. Além de confirmar a alergia a determinado medicamento, o médico alergista poderá identificar possiveis medicamentos que podem ter reação cruzada e que também deverão ser evitados.Tão importante quanto o diagnóstico é saber o que fazer no caso de uma exposição acidental: reconhecer os sintomas de uma reação grave e saber o que deverá ser feito",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 67,
+      "subsets": []
+    },
+    {
+      "question_id": 217,
+      "index": 216,
+      "sample_order": 114,
+      "question": "Sou alérgica a ass e dipirona, posso tomar Alginac 1000",
+      "answer": "NAO deve tomar pois possivelmente apresentara as mesmas reações adversas aos produtos mencionados",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 216,
+      "subsets": []
+    },
+    {
+      "question_id": 581,
+      "index": 580,
+      "sample_order": 115,
+      "question": "Sou alergica a Diclofenaco sodico, posso tomar Nimesulida?",
+      "answer": "Seria interessante consultar um alergista para fazer teste de alergia pois vc pode ter se sensibilizado a uso de antinflamatorios",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 580,
+      "subsets": []
+    },
+    {
+      "question_id": 323,
+      "index": 322,
+      "sample_order": 116,
+      "question": "Tenho alergia a dipirona, posso tomar dorflex?No dorflex contém: tem dipirona monoidrata 300mg, citrato 35mg cafeína anidrata 50mg.",
+      "answer": "Não pode. Um dos componentes do dorflex é a dipirona sódica, que pode gerar reações alérgicas em quem tem histórico como o seu.Te convidamos para uma consulta: Teleconsulta - R 150Você pode reservar uma consulta através do site Doctoralia, clicando no botão agendar consulta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 322,
+      "subsets": []
+    },
+    {
+      "question_id": 218,
+      "index": 217,
+      "sample_order": 117,
+      "question": "Meu filho é alérgico a antiinflamario tipo iboprofeno ele pode tomar dipirona",
+      "answer": "Nao deve usar qualquer anti-inflamatorio nao esteroide do grupo",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 217,
+      "subsets": []
+    },
+    {
+      "question_id": 672,
+      "index": 671,
+      "sample_order": 118,
+      "question": "Olá, tenho alergia a Profenid, Cetoprofeno. Quais medicamentos devo evitar ?????",
+      "answer": "Em geral, quem reage a um anti-inflamatório reagirá a maioria deles, de diferentes grupos químicos. Existe um numero pequeno de pessoas que tem alergia específicaexclusiva a apenas um anti-inflamatório, mas é a exceção. Só uma avaliação com o alergista poderá definir a melhor conduta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 671,
+      "subsets": []
+    },
+    {
+      "question_id": 512,
+      "index": 511,
+      "sample_order": 119,
+      "question": "Quem tem alergia a amoxilina pode tomar azitromicina?",
+      "answer": "Olá! A amoxicilina é de uma classe diferente da azitromicina (penicilina sintética x macrolideo). Então pode tomar sem problemas.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 511,
+      "subsets": []
+    },
+    {
+      "question_id": 406,
+      "index": 405,
+      "sample_order": 120,
+      "question": "Sou alérgica a antiflamattorio não hormonais. Eu posso tomar Azitromicina?",
+      "answer": "Sim pode mas desde que tenha sido prescrita por médico.SE CUIDE CONTINUE EM CASAAbraçoDr Rubens Cat",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 405,
+      "subsets": []
+    },
+    {
+      "question_id": 659,
+      "index": 658,
+      "sample_order": 121,
+      "question": "Me receitaram 1 antibiótico e 1 anti-inflamatório por 7 dias. No 3 dia comecei a sentir coceira no corpo todo, piorando no 45 dia. Creio que seja efeito colateralalergia aos medicamentos. Parando os remédios, essa suposta alergiacoceira acaba naturamente ou é necessário entrar com anti-alérgico?",
+      "answer": "Caríssimo, recomendo veementemente que procure um Médico Alergista e peça uma Bateria de Testes de Contato. Com o laudo médico nas mãos faça a Imunoterapia específica se for indicado. Siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 658,
+      "subsets": []
+    },
+    {
+      "question_id": 470,
+      "index": 469,
+      "sample_order": 122,
+      "question": "Bom dia, sou alérgica ao ibuprofeno, posso fazer uso do napronax?",
+      "answer": "Não use também este medicamento pois são dois medicamentos de mesma origem, a chance de ter os mesmos sintomas é grande.AbraçoDr Rubens Cat",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 469,
+      "subsets": []
+    },
+    {
+      "question_id": 147,
+      "index": 146,
+      "sample_order": 123,
+      "question": "Meu filho tem alergia a diclofenacoPode tomar cetoprofeno??Diclofenato é a mesma que coisa que cetoprofeno??",
+      "answer": "Olá!Precisamos de uma consulta para avaliar essas alergias. De qualquer maneira se seu filho apresentou reação ao uso de diclofenaco, ele não poderá usar nenhum anti-inflamatório.Oriento uma consulta, para melhor explicação, listagem de medicamentos permitidos e proibidos, e acompanhamento.Estou a disposição ;)Te convidamos para uma consulta: Teleconsulta - R 300Você pode reservar uma consulta através do site Doctoralia, clicando no botão agendar consulta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 146,
+      "subsets": []
+    },
+    {
+      "question_id": 272,
+      "index": 271,
+      "sample_order": 124,
+      "question": "Tenho alergia ao acido acetil salicílico, posso tomar proflan?",
+      "answer": "ALTO RISCO DE REAÇÃO CRUZADA. NÃO DEVE TOMAR.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 271,
+      "subsets": []
+    },
+    {
+      "question_id": 814,
+      "index": 813,
+      "sample_order": 125,
+      "question": "Para fazer o IGE especifico para trigo, soja, leite, clara, gema e amendoim, é preciso estar consumindo esses alimentos? Se a pessoa estiver fazendo exclusão desses alimentos o Ige pode dar um falso negativo (em caso de alergia)? qual melhor exame para identificar alergia alimentar o IGE ou teste cutâneo",
+      "answer": "Caríssimo, o exame laboratorial confiável é o RAST dos alimentos que você quer saber! O seu laboratório de confiança deve realizar. Ó Médico Alergista deve solicitar. O mais exato e específico seriai exame feito ao nível Hospitalar denominado: PRICK to PRICK . Onde se escarifica o alimento, e logo a seguir a pele do paciente. Lembre-se que só se deve realizar em ambiente hospitalar!!!",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 813,
+      "subsets": []
+    },
+    {
+      "question_id": 253,
+      "index": 252,
+      "sample_order": 126,
+      "question": "Tenho alergia à amoxilina posso tomar norfloxacino?",
+      "answer": "Não existe reação cruzada entre penicilinas (amoxacilina) e quinolonas (norfloxacina), então, a principio é seguro",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 252,
+      "subsets": []
+    },
+    {
+      "question_id": 797,
+      "index": 796,
+      "sample_order": 127,
+      "question": "Tenho Alergia a dipirona e anti-inflamatorios e estou percebendo que estou começando a ter alergia a paracetamol é possivel isso ?",
+      "answer": "Nao e incomum este tipo de ocorrencia ja que o mecanismo de açao desses analgesico-antitermicos e muito semelhante",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 796,
+      "subsets": []
+    },
+    {
+      "question_id": 552,
+      "index": 551,
+      "sample_order": 128,
+      "question": "Sou alergica a dipirona posso tomar cimelide??????????",
+      "answer": "Boa noiteOs sintomas apresentados com a Dipirona podem ocorrer com o uso de outros antinflamatórios não esteroidais, como o que citou (nimesulida).Recomendo que consulte um Alergista para que tenha a orientação adequada sobre quais são os medicamentos liberados e os proibidos para você.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 551,
+      "subsets": []
+    },
+    {
+      "question_id": 270,
+      "index": 269,
+      "sample_order": 129,
+      "question": "olá, o aparecimento de bolhas de água e bolhas vermelhas pelo corpo podem ser reações alérgicas da pomada dermosalic?",
+      "answer": "Para saber o diagnóstico preciso que você merece, é necessária consulta com especialista. Recomendo suspender a medicação e procurar ajuda médica",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 269,
+      "subsets": []
+    },
+    {
+      "question_id": 599,
+      "index": 598,
+      "sample_order": 130,
+      "question": "Ola, tudo bem? Sou alergica a antiinflamatorios não hormonais, so posso a base dd corticoides, gostaria de saber se isso interfere em antibioticos? E se posso tomar metronidazol que é derivado de imidazolicos...",
+      "answer": "A alergia a antiinflamatórios não tem o mesmo mecanismo que a alergia aos antibióticos. No entanto, é comum pacientes que têm alergia a algum tipo de composto apresentarem alergia a outro. Podem ser feitos testes cutâneos para a alergia a antibióticos, com um especialista (alergologistaimunologista). A alergia ao metronidazol é relativamente incomum, e, também, não tem relação direta com a alergia a antiinflamatórios. É muito importante, caso haja alergia, principalmente grave, que se faça uma consulta com alergologista antes de se tomar outros medicamentos.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 598,
+      "subsets": []
+    },
+    {
+      "question_id": 439,
+      "index": 438,
+      "sample_order": 131,
+      "question": "Sou alérgica a dipirona, diclofenato e ibupofenoPosso tomar nimesuluda?",
+      "answer": "Se você não for alérgica, pode.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 438,
+      "subsets": []
+    },
+    {
+      "question_id": 598,
+      "index": 597,
+      "sample_order": 132,
+      "question": "Ola, tudo bem? Sou alergica a antiinflamatorios não hormonais, so posso a base dd corticoides, gostaria de saber se isso interfere em antibioticos? E se posso tomar metronidazol que é derivado de imidazolicos...",
+      "answer": "Caríssimo, recomendo veementemente que procure um Médico Alergista e peça uma Bateria de Testes de Contato. Com o laudo médico nas mãos faça a Imunoterapia específica para seus males alérgicos se for indicado. Siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida. Saúde",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 597,
+      "subsets": []
+    },
+    {
+      "question_id": 409,
+      "index": 408,
+      "sample_order": 133,
+      "question": "Quem ter alergia a ácido acetilsalicílico, pode tomar amoxilina clavulunato de potássio e prednisona?",
+      "answer": "Sim pode, desde que prescrita por médico, não use sem prescrição médica.SE CUIDE CONTINUE EM CASAAbraçoDr Rubens Cat",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 408,
+      "subsets": []
+    },
+    {
+      "question_id": 757,
+      "index": 756,
+      "sample_order": 134,
+      "question": "Olá! meu filho é alergico a vários medicamentos, dentre eles a eritromicina. Ele pode tomar a vacina contra a febre amarela? sei que um dos componentes da vacina é a eritromicina.",
+      "answer": "A alergia a eritromicina é uma das contra-indicações a vacina da febre amarela.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 756,
+      "subsets": []
+    },
+    {
+      "question_id": 718,
+      "index": 717,
+      "sample_order": 135,
+      "question": "Boa tarde! Meu filho tem 7 anos e irá realizar uma ressonância magnética de hipófise com contraste....ele tem rinite alérgica....como posso saber se ele é alérgico ao contraste?",
+      "answer": "Não existe um teste específico para contraste que possa te dar alguma segurança. A história clínica de outros eventos similares é que norteia o médico. Quando existe suspeita é necessário uma prevenção, mas fazer algum teste que lhe garanta qualquer coisa, não existe.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 717,
+      "subsets": []
+    },
+    {
+      "question_id": 142,
+      "index": 141,
+      "sample_order": 136,
+      "question": "Sou alérgica ao AAS (inchaço testa e cabeça).Existe algum anti inflamatório que eu possa usar?",
+      "answer": "Prescrição pela internet sem avaliação presencial ou até mesmo teleconsulta não é recomendado nem permitido pelo CRM. Procure um profissional para isto.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 141,
+      "subsets": []
+    },
+    {
+      "question_id": 522,
+      "index": 521,
+      "sample_order": 137,
+      "question": "Meu namorado é alérgico a ibuprofeno e dipirona, mas toma paracetamol normalmente, tem chances de ele ser alérgico a mais alguns tipos?",
+      "answer": "Caríssima, pode SIM!!! Recomendo veementemente que procure um Médico Alergista e peça uma Bateria de Testes de Contato. Após receber o laudo médico, siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 521,
+      "subsets": []
+    },
+    {
+      "question_id": 506,
+      "index": 505,
+      "sample_order": 138,
+      "question": "Quem é alérgico a Dipirona e Ass pode tomar Ibuprofeno?",
+      "answer": "Bom dia. São classes diferentes de medicamentos. Necessariamente não é alergico ao Ibuprofeno pelo fato de ser a AAS e Dipirona. O melhor é conhecer o seu perfil de hipersensibilidade, identificando os elementos e substancias que é alérgico. Eu lhe aconselharia a procurar um Alergologista.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 505,
+      "subsets": []
+    },
+    {
+      "question_id": 94,
+      "index": 93,
+      "sample_order": 139,
+      "question": "Sou alérgica a todos os anti-inflamatório, o que posso tomar em caso de inflação? sou alérgica também a vários corantes ,como também alergia a alguns tipo de alimentos, o que devo fazer ?",
+      "answer": "Primeiro voce deve procurar um alergista para confirmar todas essas alergias. Alergia a corantes não é tão comum assim. Existem exames para comprovar alergia a alimentos que podem ser feitos no consultorio ou pelo sangue. No caso de alergia a antiinflamatórios o mais seguro é o paracetamol porem algumas pessoas tambem têm alergia a ele. Por isso indico procurar um alergista antes de usar.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 93,
+      "subsets": []
+    },
+    {
+      "question_id": 49,
+      "index": 48,
+      "sample_order": 140,
+      "question": "Minha filha tem alergia a buscopam simplescomposto e dipirona. O que devo dar para ela contra dores abdominais?",
+      "answer": "Não é provavel que sua filha tenha alergia a buscopan simples e composto. O mais provavel é alergia a dipirona e buscopan composto (que tem dipirona). Existem medicamentos analgésicos que podem ser usados em caso de alergia a dipirona porem o médico deve fazer uma anamnese detalhada da história do paciente para orientar corretamente. Procure um medico alergista especialista em alergia a medicamentos.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 48,
+      "subsets": []
+    },
+    {
+      "question_id": 113,
+      "index": 112,
+      "sample_order": 141,
+      "question": "Sou alérgico a dipirona, ácido acetilsalicilico, diclofenaco, ibuprofeno e talvez outros.Tenho fortes inflamações nos tornozelos devido entorse.Posso tomar um antialérgico antes, esperar o efeito do mesmo, para depois poder tomar diclofenaco e não ter reação alérgica?",
+      "answer": "Caríssimo, é perigoso pensar e agir dessa forma. Recomendo veementemente que procure um colega ALERGISTA e siga suas precisas recomendações médicas. Alergia a medicamento pode causar choque anafilático e morte se não combatido a tempo. Desejo saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 112,
+      "subsets": []
+    },
+    {
+      "question_id": 157,
+      "index": 156,
+      "sample_order": 142,
+      "question": "Olá! Em um período de 30 dias já fiz tratamento pra faringite, com azitromicina e corticóide, depois de uma semana tratei sinusite com Clavulin e corticóide, e como não melhorou agora tratamento com levofloxacino por 10 dias e corticóide duoflam. Hoje, no terceiro dia de antibiótico, estou sentindo mal estar, bolo na garganta e sinto cansaço pra falar. Também cansaço geral e fraqueza muscular. Pode ser reação das medicações? Devo suspender o uso do antibiótico?",
+      "answer": "Olá. Você relata sintomas que podem estar associados a processo infecciosoinflamatório ou mesmo a reação medicamentosa devido ao uso de tanto medicamentos em tão curto espaço de tempo. Sugiro procurar um médico otorrinolaringologista para fazer uma minuciosa investigação, um exame físico, e possívelmente um exame com fibra óptica para descartar infecções, processos alérgicos ou irritativos (como por refluxo gastroesofágico). A partir disso poderemos estabelecer a razão da persistência de seus sintomas para indicar tratamento adequado.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 156,
+      "subsets": []
+    },
+    {
+      "question_id": 643,
+      "index": 642,
+      "sample_order": 143,
+      "question": "Tenho alergia a Diclofenaco, qual antiinflamatorio posso tomar? Posso tomar Nimesulida?",
+      "answer": "Na reação adversa a anti inflamatórios não hormonais deve-se evitar os anti-inflamatórios inibidores de cox-1, estando liberado a princípio os inibidores específicos de cox-2. A nimesulida por ser um fraco inibidor de cox-1, pode ser liberada em determinados casos.Você precisa de atendimento com médico especialista para receber a lista dos medicamentos autorizados e informações para evitar um reação medicamentosa grave.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 642,
+      "subsets": []
+    },
+    {
+      "question_id": 784,
+      "index": 783,
+      "sample_order": 144,
+      "question": "Citirizina realmente auxilia no caso de alergia a anti-inflamatórios (nimesulida, AAS etc)? Fui diagnosticado, através de um exame de contato reação a alguns medicamentos e o médico indicou citirizina (ou um nome parecido) para tomar 1x por dia durante 3 meses. Faz sentido?",
+      "answer": "Acho que você precisa ter uma reavaliação do seu diagnóstico. Você teve alguma reação após o uso de tais medicações? Se teve, não deve usá-las e quando necessário o uso, substituir por outra medicação de classe diferente da que provocou a reação. Não tem porque você usar anti-histamínico contínuo nesse caso.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 783,
+      "subsets": []
+    },
+    {
+      "question_id": 782,
+      "index": 781,
+      "sample_order": 145,
+      "question": "MINHA NETA TEM 18 ANOS E É MUITO ALERGICA A VARIOS MEDICAMENTOS, JA FICOU INTERNADA. O MEDICO PEDIU EXAME E DEVERA FICAR INTERNADA PARA REALIZA-LO E UTILILIZARA ATÉ ADRENALINA SE FOR O CASO, É PERIGOSO ESSE EXAME?",
+      "answer": "Caríssimo, alergia a medicamentos é muito sério! O exame indicado é chamado de Bateria de Testes de Contato com varios medicamentos e outros produtos à serem testados. Procure um Médico Alergista e siga todas as suas orientações! Está alergia pode ocasionar Edema da Glote!!! O exame é muito seguro. Pode ser feito em consultório. Leitura em 4872h dependendo da Escola Médica. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 781,
+      "subsets": []
+    },
+    {
+      "question_id": 611,
+      "index": 610,
+      "sample_order": 146,
+      "question": "Minhas filhas tem alergia a AAS, ibuprofeno, Dipirona é paracetamol.Elas podem tomar Amoxicilina cluvalanato de potássio ?Atenciosamente.",
+      "answer": "Sim pode, esta medicação não tem reação cruzada com anitermicos e antiinflamatórios.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 610,
+      "subsets": []
+    },
+    {
+      "question_id": 66,
+      "index": 65,
+      "sample_order": 147,
+      "question": "Sou alergico a AAS, posso tomar Allegra o Loratadina?",
+      "answer": "Boa Tarde... o AAS é um anti-inflamatório não esteroidal (AINEs) e quem tem reação a ele na maioria das vezes apresenta reação a outros AINEs (ex. Dipirona, diclofenaco, ibuprofeno). Allegra e Loratadina são anti-histamínicos e são utilizados para tratar reações ao AINEs... logo, a princípio, não há contra indicação para o uso.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 65,
+      "subsets": []
+    },
+    {
+      "question_id": 395,
+      "index": 394,
+      "sample_order": 148,
+      "question": "Bom dia!Sou alérgica a dipirona. Posso tomar Profenid?",
+      "answer": "Sim, pode. O Profenid é cetoprofeno um anti-inflamatório que não possui composição de dipirona.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 394,
+      "subsets": []
+    },
+    {
+      "question_id": 391,
+      "index": 390,
+      "sample_order": 149,
+      "question": "Quem tem alergia a aspirina e aas pode tomar remédios anti-parasitas, existe algum risco com reações cruzadas por ser remédios de verme? Pq eu tenho uma relação de remédios que me passaram, que não posso tomar pois pode causar alergias, mais não fala de remédios para vermes como albendazol. Outro exemplo de antiflamatorios o cetoproxeno tem na minha tabela como não posso tomar, e o médico passou o loxoprofeno, tenho medo de tomar por ser da mesma família, já que remédios inflamatórios não-esteroides não posso tomar de jeito nenhum tenho reações alérgicas grave como choque anafilatico, edema de glote, edemas facial,e etc. Gostaria de saber se remédio de verme tem algum risco no meu caso que tenho problema com alergia a medicamentos que possam estar relacionados com aas, aspirinas e que sejam da derivados ou da mesma família.",
+      "answer": "Boa tarde! Não tendo alergia a remédio para tratar parasitose ( verme) não tem problema nenhum tomar a medição!Em relação aos anti-inflamatórios, como a senhora já tem sabidamente alergia, não acho prudente tomar nenhum que seja da mesma classe",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 390,
+      "subsets": []
+    },
+    {
+      "question_id": 676,
+      "index": 675,
+      "sample_order": 150,
+      "question": "Tenho alergia a dipirona só uso Tylenol e antiflamatorio arcoxia ou celebra qual antibióticos posso usar?",
+      "answer": "Caríssimo, explicando: quem tem alergia a dipirona, tem alergia cruzada com AAS, e QUALQUER anti-inflamatório. Recomendo veementemente que procure um Médico Alergista e peça uma Bateria de Testes de Contato para responder a sua dúvida. Siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 675,
+      "subsets": []
+    },
+    {
+      "question_id": 480,
+      "index": 479,
+      "sample_order": 151,
+      "question": "Sou alergica a dipirona posso tomar nitrofurantoina de 100g?",
+      "answer": "Concordo que não existe reação cruzada!!",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 479,
+      "subsets": []
+    },
+    {
+      "question_id": 542,
+      "index": 541,
+      "sample_order": 152,
+      "question": "Tomei Levoxin e me deu tremores nas maos ...Quantos dias pra desaparecer esse efeito colateral?",
+      "answer": "Não é comum esse sintoma com uso de Levotiroxina, exceto se há doses elevadas da medciação. O ideal era avaliar esse sintoma.Fico a disposição",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 541,
+      "subsets": []
+    },
+    {
+      "question_id": 258,
+      "index": 257,
+      "sample_order": 153,
+      "question": "Tenho alergia Infectrin bactrin qual antibiótico posso toma",
+      "answer": "Olá! Em casos de infecção bacteriana seu médico poderá instituir tratamento com Cefalosporinas, Macrolídeos, Beta-lactâmicos ou quinolonas, por exemplo, e deve evitar o grupo das sulfonamidas.Para que tenhas a lista das medicações que deve evitar deve realizar consulta médica com alergologistaimunologista. Abraço.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 257,
+      "subsets": []
+    },
+    {
+      "question_id": 567,
+      "index": 566,
+      "sample_order": 154,
+      "question": "Sou alérgica a dipirona, posso tomar paracetamol?",
+      "answer": "Olá! São classes diferentes de medicação. Se tem alergia a dipirona, não tem problema tomar o paracetamol. Mas claro, que há exceções. Existe pessoas que tem alergia aos dois! Essas casos são casos mais raros. E nós suspeitamos dessa possibilidade quando o paciente já tem alergia a diversas outras medicações.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 566,
+      "subsets": []
+    },
+    {
+      "question_id": 12,
+      "index": 11,
+      "sample_order": 155,
+      "question": "Sou alérgico a dipirona, ibuprofeno e tenho recomendação a evitar anti inflamatórios não hormonais, eu posso tomar a vacina de covid (Astrazeneca)?",
+      "answer": "Olá. Paciente alérgicos ao anti-inflamatórios podem tomar vacinas com segurança.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 11,
+      "subsets": []
+    },
+    {
+      "question_id": 118,
+      "index": 117,
+      "sample_order": 156,
+      "question": "Dizem que quem é alergico ao paracetamol não pode tomar ibuprofemo, mas eu sou alergica ao paracetamol e nunca tive alergia ao ibuprofemo, sempre me dei bem com ibuprofemo, como se explica isso,? eu não entendo. Boa noite",
+      "answer": "Provavelmente você tem uma alergia específica a paracetamol, do tipo IgE mediada.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 117,
+      "subsets": []
+    },
+    {
+      "question_id": 765,
+      "index": 764,
+      "sample_order": 157,
+      "question": "Eu tenho alergia a xilocaína, gostaria de saber se tenho que evitar só esse ou se tem perigo eu usar outros medicamentos ?",
+      "answer": "Por certo vai ter chances de fazer reação a outros anestésicos locais do grupo amida como a bupovacaina por exemplo.Sugiro procurar um alergologista que lhe indique um local para fazer esse teste se realmente houver indicação.Lembrando que testes com fármacos só podem ser feitos com consentimento informado do paciente e em local com equipamentos e pessoal treinado para uma reanimação em caso de parada cardiorrespiratória. Hospitais escola como da ufrj e Policlinica geral do Rio de Janeiro são os mais próximos daqui do Rio de Janeiro.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 764,
+      "subsets": []
+    },
+    {
+      "question_id": 735,
+      "index": 734,
+      "sample_order": 158,
+      "question": "Bom dia meu filho vai realizar um exame de cintilografia óssea ele tem 7 anos, gostaria de verificar se ele é alérgico ao contraste de iodo, como devo proceder?",
+      "answer": "Existem dois testes de contato , como assinalou o colega acima, que testam a alergia ao iodo, vale a pena faze-los. Todavia, se ele ja experimentou algum tipo de alergia ao camarao ou a frutos do mar , torna-se imperioso que se faca uso de medicacao preventiva mesmo que os testes tenham sido negativos.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 734,
+      "subsets": []
+    },
+    {
+      "question_id": 657,
+      "index": 656,
+      "sample_order": 159,
+      "question": "Estou usando o Xarelto já tem um tempo usei o de 15 mg e agora estou usando o de 20 mg. Percebi que começaram aparecer no meu corpo uma bolinhas vermelhas, tipo um pontinho, não são muitas, só algumas. Pode ser pelo uso do Xarelto?",
+      "answer": "Bom dia, teria que ver o tipo de lesão que está apresentando. O xarelto é um composto que age inibindo a ação de um fator da coagulação que é responsável pela formação de coágulos no sangue. Concluindo esses pontinhos pode ser um efeito colateral do medicamento, aconselho procurar um médico alergologista que irá avaliar a lesão e se for necessário pedir alguns exames complementares. Espero que tenha te ajudado . Um bom inicio de semana",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 656,
+      "subsets": []
+    },
+    {
+      "question_id": 781,
+      "index": 780,
+      "sample_order": 160,
+      "question": "MINHA NETA TEM 18 ANOS E É MUITO ALERGICA A VARIOS MEDICAMENTOS, JA FICOU INTERNADA. O MEDICO PEDIU EXAME E DEVERA FICAR INTERNADA PARA REALIZA-LO E UTILILIZARA ATÉ ADRENALINA SE FOR O CASO, É PERIGOSO ESSE EXAME?",
+      "answer": "A alergia a medicamento referida pode ser uma reacao adversa tipo anafilactoide, investigar melhor o(s) agente(s) causal (is)",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 780,
+      "subsets": []
+    },
+    {
+      "question_id": 820,
+      "index": 819,
+      "sample_order": 161,
+      "question": "Estou com infecção urinária e tive alergia a dois medicamentos, que me foram passados. São eles: TAMIRAM -levofloxacino 500mg e BACTRIN F 800MG 160 mg.Por favor, o que devo fazer ?",
+      "answer": "Caríssimo, ambos são derivados da SULFA. Procure um médico Alergista para fazer uma BATERIA DE TESTES DE CONTATO que contenha SULFA na pesquisa. Lembre-se que a CLÍNICA É SOBERANA!Procure seu Urologista ou Nefrologista e relate o problema de alergia a SULFA. Ele trocará a medicação para uma mais adequada a sua situação. Desejo saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 819,
+      "subsets": []
+    },
+    {
+      "question_id": 818,
+      "index": 817,
+      "sample_order": 162,
+      "question": "Sinto dificuldade de respirar quando tomo anestesia no consultório dentário. A solução encontrada foi a mudança do anestésico para citanerge. Como posso testar se sou alérgico a xilocainalidocaina?",
+      "answer": "É necessário a investigação se realmente é uma alergia ao anestésico e se existe a suspeita pode se testar uma outra possibilidade de anestésico .",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 817,
+      "subsets": []
+    },
+    {
+      "question_id": 446,
+      "index": 445,
+      "sample_order": 163,
+      "question": "Há como saber se tenho alergia ao contraste usado em uma angioressonancia arterial e venosa para ver suspeita de aneurisma?",
+      "answer": "Boa tarde, prezado(a). Não há indicação ou possível teste prévio para uso de contraste. Atenciosamente.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 445,
+      "subsets": []
+    },
+    {
+      "question_id": 162,
+      "index": 161,
+      "sample_order": 164,
+      "question": "Ola tenho alergia a dipirona paracetamol e outros antibióticos eu posso estar tomando a vacina do covid e qual ?",
+      "answer": "Nenhuma vacina tem relação com Dipirona ou Paracetamol, mas algumas podem conter Neomicina,Thimerosal, Látex, proteinas alimentares do leite e do ovo, entre outros conservantes.Melhor marcar uma consulta com a alergista para avaliar de maneira mais segura o seu caso.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 161,
+      "subsets": []
+    },
+    {
+      "question_id": 743,
+      "index": 742,
+      "sample_order": 165,
+      "question": "Sou alérgica a dipirona só tomo paracetamol ampicilina gostaria de saber se tandrilax posso tomar?",
+      "answer": "Os pacientes que apresentam reação alérgica à dipirona podem fazer reação alérgica a um grupo de medicamentos da classe anti-inflamatórios.nao hormonais( AINH). O tandrilax contém diclofenaco que pertence a este grupo de mecicaçao citada e portanto deve ser evitado. Procure um especialista para maior esclarecimento.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 742,
+      "subsets": []
+    },
+    {
+      "question_id": 4,
+      "index": 3,
+      "sample_order": 166,
+      "question": "Quem já tomou Benzetacil e não teve reação alérgica, pode tomar amoxicilina?",
+      "answer": "A princípio não há contraindicação para utilizar amoxicilina nesse caso. O risco de reação é o habitual como para qualquer paciente.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 3,
+      "subsets": []
+    },
+    {
+      "question_id": 811,
+      "index": 810,
+      "sample_order": 167,
+      "question": "Tenho alergia a AS, Dipirona , Tylenol , Ibuprofeno e não posso tomar nenhum anti térmico ou analgésico. Tem tratamento para isso, ou existe algum remédio para estas ações que não me causem alergia?",
+      "answer": "Bom diaSeu relato corresponde com sensibilização aos AINHs (Anti inflamatórios Não Hormonais). Procure um alergista para melhor orientação sobre o que deve ser evitado e, principalmente, o que pode usar.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 810,
+      "subsets": []
+    },
+    {
+      "question_id": 513,
+      "index": 512,
+      "sample_order": 168,
+      "question": "Quem tem alergia a amoxilina pode tomar azitromicina?",
+      "answer": "São antibióticos de classes diferentes, não há reação cruzada nesses casos. E seguro sim, fazer a Azitromicina.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 512,
+      "subsets": []
+    },
+    {
+      "question_id": 183,
+      "index": 182,
+      "sample_order": 169,
+      "question": "Sou alergica ao conservante timenosal posso tomar a vacina da covide",
+      "answer": "As vacinas contra COVID disponiveis atualmente no Brasil, não contém esse conservante. Para uma avaliação especifica do seu caso, consulte um alergista.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 182,
+      "subsets": []
+    },
+    {
+      "question_id": 520,
+      "index": 519,
+      "sample_order": 170,
+      "question": "sou alérgica ao ibuprofeno e dipirona mas não sou alérgica ao nimesulida nem ao diclofenaco de sódio , posso tomar o naproxeno?",
+      "answer": "Caríssimo, recomendo veementemente que procure um Médico Alergista e peça uma Bateria de Testes de Contato. Com o laudo médico nas mãos faça a Imunoterapia específica para seus males alérgicos e siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida. Quem apresenta alergia a AAS, tem alergia a Dipirona e à TODOS os anti-inflamatórios sem exceção!!! Cuidado.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 519,
+      "subsets": []
+    },
+    {
+      "question_id": 109,
+      "index": 108,
+      "sample_order": 171,
+      "question": "Tenho alergia a Dipirona e As,Posso tomar paracetamol 500 mg?",
+      "answer": "Caríssimo, está indicado para seu caso o paracetamol. Recomendo veementemente que procure um colega ALERGISTA para maiores orientações. A bateria de testes de contato seria muito indicada. Desejo saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 108,
+      "subsets": []
+    },
+    {
+      "question_id": 641,
+      "index": 640,
+      "sample_order": 172,
+      "question": "A dois anos me descobri alérgico a AAS, Dipirona e Ibuprofeno.Então manti distância delas, porém fui medicado com Dipirona e Ibuprofeno num pronto socorro semana passada e nada aconteceu, nenhuma alergia.Uma pessoa pode deixar de ser alérgica? A alergia pode simplesmente sumir assim?",
+      "answer": "A Reacao anterior nao foi IgE dependente, pode ter sido de hipersensibilidade tardia ou anafilactoide. Procure o especialists para entender melhor o que aconteceu antes e agora.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 640,
+      "subsets": []
+    },
+    {
+      "question_id": 306,
+      "index": 305,
+      "sample_order": 173,
+      "question": "Sou alérgica a derivados de sulfa. Gostaria de saber se o medicamento Bactrim F com sulfametoxazol trimetoprima, tem derivados da sulfa.",
+      "answer": "Pessoas alérgicas a sulfa não devem tomar qualquer derivado da sulfa como o Bactrin F.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 305,
+      "subsets": []
+    },
+    {
+      "question_id": 652,
+      "index": 651,
+      "sample_order": 174,
+      "question": "Olá, tive alergia a dapsona posso voltar a tomar em doses menores ou não devo tomar mais?",
+      "answer": "Qdo há a alergia a algum medicamento ou produto químico ou alimentos e raro não fazer reação novamente , o q acontece muito frequente e q os corantes ou diluentes conservantes de alguns medicamentos ou alimentos podem levar a essas crises alérgicas por vezes mudar a marca do medicamento; por exemplo há alguns genéricos de antialérgicos q levam a crises alérgicas por corantes",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 651,
+      "subsets": []
+    },
+    {
+      "question_id": 730,
+      "index": 729,
+      "sample_order": 175,
+      "question": "Tenho alergia a diclofenaco de sódio.Posso tomar Foxis?",
+      "answer": "Olá, quando fazemos uma reação adversa a um anti-inflamatório, geralmente fazemos a varios outros! O Celocoxibe (FOXIS) pode ser usado em pacientes com reações adversas a anti-inflamatórios com MENOR chance de apresentar reações adversas! O ideal é você procurar o médico Alergista para orientações por escrito das medicações que são permitidas no seu caso!",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 729,
+      "subsets": []
+    },
+    {
+      "question_id": 796,
+      "index": 795,
+      "sample_order": 176,
+      "question": "Tenho Alergia a dipirona e anti-inflamatorios e estou percebendo que estou começando a ter alergia a paracetamol é possivel isso ?",
+      "answer": "Sim. Apesar do paracetamol ser a droga de eleição para uso por pacientes intolerantes a outros analgésicos e anti-inflamatórios em alguns poucos casos pode também desencadear reações adversas, principalmente se usado em doses superiores a 500m mgcompvez. Converse com seu alergista. Talvez ele lhe recomende um analgésico de ação central (SNC).",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 795,
+      "subsets": []
+    },
+    {
+      "question_id": 680,
+      "index": 679,
+      "sample_order": 177,
+      "question": "Sou alergico a Dipirona posso tomar Fluoxetina?",
+      "answer": "Caríssima, teoricamente não. Porém, seria muito aconselhável fazer uma Bateria de Testes de Contato para saber de possíveis alergias cruzadas. Procure um Médico Alergista e siga todas as orientações médicas do colega. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 679,
+      "subsets": []
+    },
+    {
+      "question_id": 383,
+      "index": 382,
+      "sample_order": 178,
+      "question": "Olá, descobrir alergia a dipirona e aas ainda na infância, já na fase adulta depois de um parto cesárea descobrir alergia a um novo medicamento profenid. Eles tem a mesma composição?",
+      "answer": "Não, os três medicamentos tem composições deiferentes.SE CUIDE CONTINUE EM CASAAbraçoDr Rubens Cat",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 382,
+      "subsets": []
+    },
+    {
+      "question_id": 166,
+      "index": 165,
+      "sample_order": 179,
+      "question": "Tenho alergia a medicamentos posso torma a vacina da covid",
+      "answer": "Pode, a orientação da sociedade de alergia é que pacientes alérgicos e medicamentos podem tomar a vacina de coronavirus. Deve evitar se voce teve anafilaxia após a primeira vacina.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 165,
+      "subsets": []
+    },
+    {
+      "question_id": 553,
+      "index": 552,
+      "sample_order": 180,
+      "question": "O que fazer em caso de febre se sou alérgica a paracetamol, a.a.s, dipirona, ibuprofeno, ainh?",
+      "answer": "A melhor resposta para essa questão poderá ser dada após um Teste de Provocação. Boa parte dos pacientes que recebem o diagnóstico de alergia a medicamento, na verdade não tem essa alergia.Marque uma consulta com seu Alergologista para ver a possibilidade e se há indicação de fazer um teste de provocação com esses medicamentos que você tem a suposta alergia.Pois, não há uma boa opção de medicamento para tratar febre se realmente houver alergia a todos esses fármacos que você citou.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 552,
+      "subsets": []
+    },
+    {
+      "question_id": 544,
+      "index": 543,
+      "sample_order": 181,
+      "question": "Tenho 16 anos e tenho alergia a dipirona e todos relacionados. Preciso tomar antibiótico cefadroxila, tenho medo se ele está relacionado ao algum componente q sou alérgico?",
+      "answer": "Recomendo veementemente que procure um Médico Alergista e peça uma Bateria de Testes de Contato. Com o laudo médico nas mãos, siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 543,
+      "subsets": []
+    },
+    {
+      "question_id": 1,
+      "index": 0,
+      "sample_order": 182,
+      "question": "Olá eu sou alérgica a dipirona e o médico me passou pra eu tomar ibuprofeno tem algum problema?eu posso Tomar o ibuprofeno sendo alérgica a dipirona?",
+      "answer": "No Brasil uma causa importante de possível de crises anafiláticas são os medicamentos analgésicos e anti-inflamatórios não hormonais. No acompanhamento com o especialista é possivel realização de testes de provocação para esse medicamento.Portanto evite o uso do mesmo antes de procurar ajuda médica .",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 0,
+      "subsets": []
+    },
+    {
+      "question_id": 614,
+      "index": 613,
+      "sample_order": 183,
+      "question": "Minha filha é alérgica a AAS,paracetamol, ibuprofeno é Dipirona.Ela pode tomar amoxilina com cluvalanato de potássio?",
+      "answer": "Boa tarde, se já apresentou reação a estas medicações o quadro dela corresponde a reação de hipersenbilidade não seletiva a anti-inflamatórios não esteroidais (AINEs) e deve evitar as medicações deste grupo. O clavulonato é um antibiótico e seu mecanismo de reação é outro, logo a chance de apresentar alguma reação é igual a de qualquer pessoa. A disposição.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 613,
+      "subsets": []
+    },
+    {
+      "question_id": 332,
+      "index": 331,
+      "sample_order": 184,
+      "question": "Tenho alergia a dorflex, posso tomar nimesulida?",
+      "answer": "Sim, são medicações de classes diferentes. Vale lembrar que o uso prolongado de nimesulida pode causar problemas graves no estômago, fígado e rim. Por isso seu uso deve ser sempre recomendado por um médico.Te convidamos para uma consulta: Consulta clínica médica - R 250Você pode reservar uma consulta através do site Doctoralia, clicando no botão agendar consulta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 331,
+      "subsets": []
+    },
+    {
+      "question_id": 501,
+      "index": 500,
+      "sample_order": 185,
+      "question": "Tenho alergia a bezantacil,posso tomar Ibuprofeno? Pois não sei qual a composição desde medicamentos.",
+      "answer": "Benzetacil é um antibiótico, Ibuprofeno um antinflamatório, são medicações distintas, logo você pode fazer o uso, mas antes deve ter certeza que não alergia aos aniinflamatórios",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 500,
+      "subsets": []
+    },
+    {
+      "question_id": 20,
+      "index": 19,
+      "sample_order": 186,
+      "question": "Sou alérgica a dipirona, AAS, plasil posso fazer uso do ozempic",
+      "answer": "A alergia aos antiinflamatorios, analgésicos não determina contra-indicação ao uso de Ozempic.Toda alergia a dipirona, AAS, plasil e outros medicamentos deve ser avaliada por médico alergista para orientação especifica de indicação e contra-indicação de medicamentos semelhantes ou com risco de reação cruzada.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 19,
+      "subsets": []
+    },
+    {
+      "question_id": 661,
+      "index": 660,
+      "sample_order": 187,
+      "question": "Tomei Diclofenaco e fiquei cheio de manchas no corpo e coceira, como tratar?",
+      "answer": "Olá, cada reação alérgica deve ser tratada conforme sua gravidade. Durante um episódio agudo de reação alérgica procure um Pronto Socorro para receber o tratamento necessário. Após, procure um Médico Alergista para melhora definir o tipo de alergia ocorrido e receber as orientações adequadas.Pessoas que apresentam alergia a Diclofenaco podem também apresentar reação a outros medicamentos, sendo muito importante as orientações para evitar novos episódios.Atenciosamente.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 660,
+      "subsets": []
+    },
+    {
+      "question_id": 372,
+      "index": 371,
+      "sample_order": 188,
+      "question": "Quem tem alergia a Azitromicina pode tomar Amoxicilina?",
+      "answer": "Olá. Sempre siga as orientações do seu médico. Agende a sua consulta de reavaliação e esclareça suas dúvidas.Nunca inicie uma medicação sem a ajuda do seu médico. Evite a automedicação.A sua avaliação clínica através da sua história clínica, suas queixas e exame físico é fundamental para o diagnóstico e tratamento corretos.Converse com o seu médico. Esclareça suas dúvidas. Agende a sua consulta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 371,
+      "subsets": []
+    },
+    {
+      "question_id": 315,
+      "index": 314,
+      "sample_order": 189,
+      "question": "Quem é alérgico ao acido acetilsalicílico pode tomar Torsilax?",
+      "answer": "Depende. Muitos pacientes alérgicos ao AAS também apresentam reação a outros anti-inflamatórios como diclofenaco pro exemplo que existe no torsilax.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 314,
+      "subsets": []
+    },
+    {
+      "question_id": 246,
+      "index": 245,
+      "sample_order": 190,
+      "question": "Meu neto é alérgico a Dipirona ele pode tomar o paracetamol?",
+      "answer": "Olá. Talvez ele possa mas é necessário uma avaliação médica com especialista para saber mais informações sobre e orientar até dose de uso. Sugiro agendar consulta com especialista.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 245,
+      "subsets": []
+    },
+    {
+      "question_id": 60,
+      "index": 59,
+      "sample_order": 191,
+      "question": "Sou alérgica ao acetil salicílico , dipirona ,profenid, ibuprofeno ,buscopan ,qual medicamento poderia tomar para dor de cabeça ??",
+      "answer": "O ideal seria que marcasse uma consulta pelo doctoralia para averiguação de qual medicamento melhor se enquadra para o tratamento da sua cefaleia, se é algo que apareceu agora, ou se isso já lhe acompanha há tempos. Os sumatriptanos são uma opção de tratamento da enxaqueca, bem como outros medicamentos, como antidepressivos, beta-bloqueadores, ou até mesmo medicações mais simples, como o paracetamol. Recomendo que procure um profissional!",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 59,
+      "subsets": []
+    },
+    {
+      "question_id": 247,
+      "index": 246,
+      "sample_order": 192,
+      "question": "Sou alérgica a Benzetacil, e tomei amoxicilina e nunca tive reação, isso significa o que ???",
+      "answer": "Excelente pergunta. Pode ter diversos significados, inclusive que você não seja de fato alérgica ao benzetacil. É necessário uma consulta detalhada com especialista para melhor te orientar e quem sabe até tirar esse rótulo de alergia ao benzetacil.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 246,
+      "subsets": []
+    },
+    {
+      "question_id": 707,
+      "index": 706,
+      "sample_order": 193,
+      "question": "Quem tem alergia a AAs e Dipirona pode tomar Diclofenaco?",
+      "answer": "Quem tem reação à AAS não deve usar os anti-inflamatórios inibidores de COX 1, como o caso da dipirona e diclofenaco, pois podem apresentar reação cruzada com ele. Nesse caso, deve ser utilizado os anti inflamatórios inibidores específicos de COX 2.Procure um médico alergista para uma orientação mais aprofundada, pois o risco de reações graves pode ocorrer.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 706,
+      "subsets": []
+    },
+    {
+      "question_id": 762,
+      "index": 761,
+      "sample_order": 194,
+      "question": "Ibuprofeno tem a mesma droga de bi profenid?Minha mãe é alérgica a dipirona.Ela toma bi profenid, mas estar com dor no corpo e garganta.. posso dar ibuprofeno?",
+      "answer": "Se nao houver alternativa a consulta medica , Melhor seria administrar paracetamol.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 761,
+      "subsets": []
+    },
+    {
+      "question_id": 88,
+      "index": 87,
+      "sample_order": 195,
+      "question": "sou alérgica a dipirona e Aas posso tomar bezetacil?",
+      "answer": "Há que buscar especialista e fazer o teste diagnóstico adequado",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 87,
+      "subsets": []
+    },
+    {
+      "question_id": 498,
+      "index": 497,
+      "sample_order": 196,
+      "question": "Tenho alergia ao paracetamolTem possibilidade de ser também ao cimelide?",
+      "answer": "Existe a possibilidade sim. E o fato de já ter tomado nimesulida alguma vez sem ter reação alérgica não quer dizer que não venha a ter se continuar tomando. Portanto, quem tem alergia ao Paracetamol não deve tomar Nimesulida.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 497,
+      "subsets": []
+    },
+    {
+      "question_id": 71,
+      "index": 70,
+      "sample_order": 197,
+      "question": "Bom dia sou alérgica ao acido acetil salicílico,, qual anti-inflamatório posso tomar que não contenha o mesmo.",
+      "answer": "Quem tem reações com o AAS geralmente apresenta também reações a outros analgésicos e anti-inflamatórios, como por exemplo a DIPIRONA ou o IBUPROFENO. Melhor usar o PARACETAMOL",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 70,
+      "subsets": []
+    },
+    {
+      "question_id": 546,
+      "index": 545,
+      "sample_order": 198,
+      "question": "Quem tem alergia à paracetamol pode tomar Profenid?",
+      "answer": "Olá. Ela pode sim, desde que não tenha histórico de reação ao cetoprofeno. Mas é importante entender que alergias só são possíveis de serem avaliadas após uma primeira exposição a um medicamento. Como Paracetamol e Cetoprofeno são diferentes, não tem problema. Veja sempre o nome genérico para confirmar a presença do paracetamol na fórmula do medicamento. Muitas vezes tem 2 ou 3 medicamentos no mesmo comprimido.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 545,
+      "subsets": []
+    },
+    {
+      "question_id": 129,
+      "index": 128,
+      "sample_order": 199,
+      "question": "Sou alérgica a sulfaO paracetamol contém alguma molécula de sulfa em sua composição ?Tenho tido algumas reações de coceira e dor de cabeça ao tomar",
+      "answer": "Chama-se reação cruzada para algumas moléculas que tem a estrutura semelhante. Não eh o caso desses dois compostos mas podem disparar uma reação alérgica não Anticorpogenica, sem a formação de IgE especifica",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 128,
+      "subsets": []
+    },
+    {
+      "question_id": 132,
+      "index": 131,
+      "sample_order": 200,
+      "question": "Minha filha tem 9 anos e tem alergia a amoxilina,ela pode tomar vacina de covid?",
+      "answer": "Não teria contraindicaçao pela alergia da amoxacilina , a priori",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 131,
+      "subsets": []
+    },
+    {
+      "question_id": 487,
+      "index": 486,
+      "sample_order": 201,
+      "question": "tenho alergia a dipirona posso tomar ceftriaxona EV ?",
+      "answer": "Sim, não existe relato de alergia cruzada entre os dois. E precisa-se verificar se à dipirona é realmente alergia ou mal estar da medicação.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 486,
+      "subsets": []
+    },
+    {
+      "question_id": 563,
+      "index": 562,
+      "sample_order": 202,
+      "question": "Dexmine inchaço na boca após tomar o remédio é comum?",
+      "answer": "O inchaço na boca após o uso de qualquer medicamento pode indicar uma reação alérgica grave. Você deve se dirigir a um pronto atendimento para a avaliação e por ora, suspenda o uso até segunda ordem. Boa sorte!",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 562,
+      "subsets": []
+    },
+    {
+      "question_id": 170,
+      "index": 169,
+      "sample_order": 203,
+      "question": "Meu esposo tem alergia a medicamentos, qual vacina séria melhor pra ele tomar?",
+      "answer": "A que tiver no posto de saude. Alergia a medicamentos não é contra indicação a vacina do covid",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 169,
+      "subsets": []
+    },
+    {
+      "question_id": 698,
+      "index": 697,
+      "sample_order": 204,
+      "question": "Usei cetoprofeno varias vezes e nas ultimas vezes apresentei angioedema leve na palpebra, falta de ar e rouquidao. Tomei 100mg de hidrocortisona na veia e 25 mg de fenergan... O inchaço só desapareceu no outro dia.. O que tive foi anafilaxia ? Ou foi uma reçao alergica? Como diferenciar? Obrigada!",
+      "answer": "É aconselhável que você procure um médico alergista urgente e faça uma bateria de exames....",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 697,
+      "subsets": []
+    },
+    {
+      "question_id": 541,
+      "index": 540,
+      "sample_order": 205,
+      "question": "Tomei Levoxin e me deu tremores nas maos ...Quantos dias pra desaparecer esse efeito colateral?",
+      "answer": "Boa tarde, levotiroxina não costuma causar tremor nas mãos, apenas quando suas doses estão elevadas. Sugiro procurar o seu endocrinologista para uma avaliação.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 540,
+      "subsets": []
+    },
+    {
+      "question_id": 434,
+      "index": 433,
+      "sample_order": 206,
+      "question": "Sou alérgica a dipirona, diclofenato e ibupofenoPosso tomar nimesuluda?",
+      "answer": "Se você é alergica ou tem certas indisposições com fármacos, procure a origem de sua dor, trate a causa e não a consequência. não faça automedicação, se for fazê-lo use plantas medicinais são menos agressivas. Sugiro ainda que tente técnicas alternativas como acupuntura, aplicações de gêlo ou calor, procure um serviço de fisioterapia, seja qual for a origem, a técnica ou mesmo o farmaco topico ou oral mais apropriado vai depender de local, a profundidade de onde vem sua queixa.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 433,
+      "subsets": []
+    },
+    {
+      "question_id": 708,
+      "index": 707,
+      "sample_order": 207,
+      "question": "Quem tem alergia a AAs e Dipirona pode tomar Diclofenaco?",
+      "answer": "Dipirona e AAS são anti-inflamatorios de estrutura diferente, se apresenta reação aos dois o quadro provável é de uma hipersensibilidade não seletiva a anti-inflamatórios e por isso não deve utilizar outras medicações dessa classe devido ao risco de reação. Resumindo, não seria aconselhável utilizar o diclofenaco sem consultar o médico Alergista. A disposição.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 707,
+      "subsets": []
+    },
+    {
+      "question_id": 642,
+      "index": 641,
+      "sample_order": 208,
+      "question": "Tenho alergia a Diclofenaco, qual antiinflamatorio posso tomar? Posso tomar Nimesulida?",
+      "answer": "Caríssimo , quem tem alergia a anti-inflamatórios tem alergia a qualquer um da lista!!! Além disso tem alergia cruzada à AAS e DIPIRONA!!! Recomendo veementemente que procure um Médico Alergista e peça uma Bateria de Testes de Contato. Com o laudo médico nas mãos faça a Imunoterapia específica para seus males alérgicos se for indicado. Siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 641,
+      "subsets": []
+    },
+    {
+      "question_id": 206,
+      "index": 205,
+      "sample_order": 209,
+      "question": "Sou alergica a dipirona, a sabutamol e As ,posso tomar invermectina?",
+      "answer": "A principio sim, não são medicamentos com reação cruzada",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 205,
+      "subsets": []
+    },
+    {
+      "question_id": 320,
+      "index": 319,
+      "sample_order": 210,
+      "question": "Quem é alérgico a paracetamol pode tomar nimesulida?",
+      "answer": "Boa tarde, pode sim, sem problema algum. São medicamente de classes distintas.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 319,
+      "subsets": []
+    },
+    {
+      "question_id": 689,
+      "index": 688,
+      "sample_order": 211,
+      "question": "Sou alérgica à ibuprofeno, posso tomar ponstan?",
+      "answer": "Nao deve, use um antinflamatorio nao esteroide.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 688,
+      "subsets": []
+    },
+    {
+      "question_id": 810,
+      "index": 809,
+      "sample_order": 212,
+      "question": "Tenho alergia a AS, Dipirona , Tylenol , Ibuprofeno e não posso tomar nenhum anti térmico ou analgésico. Tem tratamento para isso, ou existe algum remédio para estas ações que não me causem alergia?",
+      "answer": "Existem os medicamentos com menor incidencia de reacoes alergicas e que tem propriedades analgesicas mas nao antitermicas",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 809,
+      "subsets": []
+    },
+    {
+      "question_id": 449,
+      "index": 448,
+      "sample_order": 213,
+      "question": "Quem tem alergia a amoxicilina pode tomar clindamicina ?",
+      "answer": "Sim. Desde que tenha sido indicada e prescrita pelo médicoFique sempre bem.Att. Sérgio Feitosa.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 448,
+      "subsets": []
+    },
+    {
+      "question_id": 530,
+      "index": 529,
+      "sample_order": 214,
+      "question": "Gostaria de saber sobre a vacina contra febre amarela. Sou alérgica a antibioticos e a vacina contra febre amarela contém eritromicina. Existe tal vacina sem este antibiotico? Como vou viajar e o país onde irei exige a vacina em questão como poderei fazer?",
+      "answer": "É importante você saber quais antibióticos você é alérgica. Se não for a eritromicina não tem problema. Você também pode fazer a vacina em ambiente seguro, como dentro de um hospital. Pacientes alérgicos a ovo e que tem indicação de fazer a vacina de F amarela, que contem ovo, fazem isso. Procure um alergista para orientar quando a sua alergia a antibióticos",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 529,
+      "subsets": []
+    },
+    {
+      "question_id": 463,
+      "index": 462,
+      "sample_order": 215,
+      "question": "Posso tomar paracetamol 750mg sendo alérgica a dipirona?",
+      "answer": "geralmente sim, lembrando que existe um limite na quantidade de doses entao evitar repetir com menos de 6 horas o paracetamol e em casos de febre persistente mais de 24h precisa consultar um médico ou procurar a emergência de um hospital.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 462,
+      "subsets": []
+    },
+    {
+      "question_id": 124,
+      "index": 123,
+      "sample_order": 216,
+      "question": "Minha filha tem alergia a dipirona ela pode tomar diclofenaco de sodio?",
+      "answer": "Se a alergia foi especificamente e apenas à dipirona, sim. Diclofenaco sódico é uma substância diferente. Mas existem alguns casos de reações a múltiplos anti-inflamatórios, nesse caso busque uma avaliação e orientação com o especialista.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 123,
+      "subsets": []
+    },
+    {
+      "question_id": 254,
+      "index": 253,
+      "sample_order": 217,
+      "question": "Boa noite! Sou alérgica a penicilina, ampicilina, posso tomar ivermectina e azitromicina?",
+      "answer": "Preventivamente nao e desejável, particularmente sem prescrição. Se prescrito nao ha incompatibilidade na ingestao em doses posologicas",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 253,
+      "subsets": []
+    },
+    {
+      "question_id": 231,
+      "index": 230,
+      "sample_order": 218,
+      "question": "Se tenho alérgia ao meloxicam tbem terei ao piraxicam?",
+      "answer": "A probabilidade de reação cruzada com anti-inflamatórios é muito grande, portanto, se há alergia a um anti-inflamatório não hormonal (AINH) todos devem ser evitados.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 230,
+      "subsets": []
+    },
+    {
+      "question_id": 675,
+      "index": 674,
+      "sample_order": 219,
+      "question": "Tenho alergia a dipirona só uso Tylenol e antiflamatorio arcoxia ou celebra qual antibióticos posso usar?",
+      "answer": "Pelo descrito no seu relato você possui alergiahipersensibilidade aos Anti-inflamatórios Não Esteroidais..Este tipo de sensibilidade se restringe a este grupo, não se estendendo aos antibióticos e outras classes de medicamentos.Procure um Alergista para maiores esclarecimentos e dúvidas.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 674,
+      "subsets": []
+    },
+    {
+      "question_id": 347,
+      "index": 346,
+      "sample_order": 220,
+      "question": "Boa noite. Sou alérgico a penicilina , posso tomar azitromicina ??",
+      "answer": "Olá. Sempre siga as orientações do seu médico. Agende a sua consulta de reavaliação e esclareça suas dúvidas.Nunca inicie uma medicação sem a ajuda do seu médico. Evite a auto-medicação.A sua avaliação clínica através da sua história clínica, suas queixas e exame físico é fundamental para o diagnóstico e tratamento corretos.Converse com o seu médico. Esclareça suas dúvidas. Agende a sua consulta.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 346,
+      "subsets": []
+    },
+    {
+      "question_id": 22,
+      "index": 21,
+      "sample_order": 221,
+      "question": "Boa noite sou alérgica a dipirona eu posso tomar nimesulida?",
+      "answer": "Você precisa passar em consulta com um Alergista pra que seja avaliado se o seu caso se trata de uma Alergia seletiva a Dipirona ou se você tem reação aos Anti-inflamatórios como um todo. Dessa forma o médico alergista conseguirá te orientar quais as medicações podem ser utilizadas com segurança e quais devem ser evitadas. Sem passar por essa avaliação e esclarecer o seu caso não há como garantir a segurança na utilização da Nimesulida.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 21,
+      "subsets": []
+    },
+    {
+      "question_id": 568,
+      "index": 567,
+      "sample_order": 222,
+      "question": "Sou alergica a Cataflam, posso tomar Ibuprofeno e Nimesulida?",
+      "answer": "A alergia verdadeira aos analgésicos e anti-inflamatórios é rara. O que nos deparamos com frequência é a intolerância a estes fármacos. Os intolerantes apresentam uma idiossincrasia, isto é, um comportamento fora do normal do seu metabolismo em relação a população em geral, que faz com que ao ingerirem tais medicamentos haja a formação de uma substância chamada leucotrieno que provoca reações muito parecidas aquelas das verdadeiras alergias: urticárias, inchações, podendo chegar até ao temível edema de glote! Por isso é muito comum que intolerantes ao diclofenaco sódico também o sejam ao ibuprofeno e à outros fármacos da mesma classe. Consulte um alergista para orientação!",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 567,
+      "subsets": []
+    },
+    {
+      "question_id": 236,
+      "index": 235,
+      "sample_order": 223,
+      "question": "Pessoa alérgica à Histamina podem tomar ácido acetilsalicílico? Ou remédios que contém ácido acetilsalicílico?",
+      "answer": "Alérgico a histamina? Acho que voce deve estar enganado. Não existe um remédio histamina. Não seria alérgico a anti-histaminico?",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 235,
+      "subsets": []
+    },
+    {
+      "question_id": 790,
+      "index": 789,
+      "sample_order": 224,
+      "question": "O sistema unico de saude ofereçe consulta com especialistas alegistas",
+      "answer": "Que eu saiba NÃO. Procure um Médico Alergista na sua região. Alergia a medicamentos pode ser fatal.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 789,
+      "subsets": []
+    },
+    {
+      "question_id": 8,
+      "index": 7,
+      "sample_order": 225,
+      "question": "Tenho elegia Dipirona é paretamol posso tomar vacina da covid",
+      "answer": "Sim, não há contraindicação para vacina de COVID no caso de alergia a esses medicamentos.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 7,
+      "subsets": []
+    },
+    {
+      "question_id": 73,
+      "index": 72,
+      "sample_order": 226,
+      "question": "Sou alérgica amoxilina mas o clindamicina me causou uma diarréia por 15 dias e irritação no rosto o antibiótico podia ter causado um efeito ao contrário em meu organismo?",
+      "answer": "Você pode ter alergia a clindamicina.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 72,
+      "subsets": []
+    },
+    {
+      "question_id": 61,
+      "index": 60,
+      "sample_order": 227,
+      "question": "Sou alérgica ao acetil salicílico , dipirona ,profenid, ibuprofeno ,buscopan ,qual medicamento poderia tomar para dor de cabeça ??",
+      "answer": "O paracetamol poderia ser indicado no caso, entretanto é importante investigação de qual a origem e quais sintomas associados para indicação de outras medicações eficazes. Além de investigar se a cefaleia é secundária a outras patologias, para isso indico marcar consulta médica.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 60,
+      "subsets": []
+    },
+    {
+      "question_id": 714,
+      "index": 713,
+      "sample_order": 228,
+      "question": "Sou alérgica a dipirona. Posso tomar dramavit?",
+      "answer": "Caríssima, de acordo com a literatura pesquisada este produto é anti-histamínico indicado para enjoos. Porém se eu fosse você pediria para o Médico Alergista de sua confiança uma Bateria de Testes de Contato incluindo AAS, DIPIRONA. E tenha uma excelente qualidade de vida. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 713,
+      "subsets": []
+    },
+    {
+      "question_id": 70,
+      "index": 69,
+      "sample_order": 229,
+      "question": "Tenho alergia a dipirona, Profenid, ácido acetilsalicílico, Benegripe , eu posso tomar foxis?",
+      "answer": "Olá! O medicamento Foxis também é um anti-inflamatório não esteroidal como o Profenid, AAS e Dipirona, mas ele atua de uma maneira diferente no bloqueio da inflamação. Por também ser um anti-inflamatório, o risco de reação existe e o ideal seria realizar um teste de provocação oral com esse medicamento para saber se você tolera. Na dúvida, é sempre importante consultar um alergista.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 69,
+      "subsets": []
+    },
+    {
+      "question_id": 713,
+      "index": 712,
+      "sample_order": 230,
+      "question": "Sou alérgica a dipirona. Posso tomar dramavit?",
+      "answer": "Prezada Paciente, segundo a bula do medicamento, você não deve tomar Dramavit se tiver alergia a Dimenidrinato ou aos componentes da fórmula. Quanto à alergia a Dipirona recomendo marcar consulta para avaliação.Cordial abraço, Dra. Marta Guidacci",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 712,
+      "subsets": []
+    },
+    {
+      "question_id": 339,
+      "index": 338,
+      "sample_order": 231,
+      "question": "Alérgicos aos AINES podem fazer uso do Dramin B6 ??",
+      "answer": "São medicamentos diferentes. Aconselho que use medicamentos prescritos por médicos pois somente ele avaliará os efeitos colaterais caso existam.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 338,
+      "subsets": []
+    },
+    {
+      "question_id": 596,
+      "index": 595,
+      "sample_order": 232,
+      "question": "Fui ao médico para olhar um zumbido no ouvido. Usei cerumim e depois fiz lavagem. Vou observado tipo uma pequena infecção nos dois ouvidos. Não no tímpano. O médico me passou Sinot Clav. Após tomar esse antibiótico a temperatura do meu corpo subiu assustadoramente. Como se tivesse febre interna e também passei por calafrios intensos. Tive uma reação alérgica? O remédio pode ter sido passado em dose muito alta. Senti vários sintomas normais de quem toma antibiótico mas febre foi a primeira vez.Observação: não medi a temperatura do meu corpo mas a sensação foi de febre alta com calafrios.Obrigado.",
+      "answer": "Olá. Esse tipo de sintoma que você teve não é habitual como reação alérgica , mas não é impossível. O melhor seria você insitir na medicação mais uma dose, mas se te der esses mesmos sintomas deve interromper o uso e relatar ao médico para troca por outra medicação",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 595,
+      "subsets": []
+    },
+    {
+      "question_id": 527,
+      "index": 526,
+      "sample_order": 233,
+      "question": "Boa noite eu estou muito.preocupada vou fazer uma Angio.tomografia do abdomem e seus ramos. Só q sou alergica ao iodo.Nunca usei o.contraste sou muito alergica.Já é amanhã às 8hs.O q devo fazer me ajudem!",
+      "answer": "Boa tarde.O ideal e avisar no laboratorio onde fara o exame suas possiveis alergias ou cancelar seu exame e procurar um especialista em alergia- o que seria o mais indicado.Espero ter ajudado.Boa sorte.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 526,
+      "subsets": []
+    },
+    {
+      "question_id": 244,
+      "index": 243,
+      "sample_order": 234,
+      "question": "Minisulida comprimidos contém dipirona? sou alérgico",
+      "answer": "A nimesulida não contém dipirona. Porém , existem casos de pacientes alérgicos a dipirona que também tem reação com nimesulida.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 243,
+      "subsets": []
+    },
+    {
+      "question_id": 286,
+      "index": 285,
+      "sample_order": 235,
+      "question": "Sou alérgica a dipirona e a ass acetilico posso tomar azitromicina.",
+      "answer": "Não tem alergia cruzada entre antiinflamatorios e antibióticos (azitromicina). Então a principio é seguro.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 285,
+      "subsets": []
+    },
+    {
+      "question_id": 626,
+      "index": 625,
+      "sample_order": 236,
+      "question": "Tenho alergia a Benzetacil, e queria saber se tem algum risco ao tomar algum tipo de antibiótico (sem ser o próprio Benzetacil ou a penicilina). Ou seja, o risco é só o Benzetacil em si, ou tem antibióticos que tem benzetacil em sua composição?",
+      "answer": "Caríssimo, recomendo veementemente que procure um Médico Alergista e peça uma Bateria de Testes de Contato. Que testará varios antibióticos além de outras substâncias. Siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida. Saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 625,
+      "subsets": []
+    },
+    {
+      "question_id": 220,
+      "index": 219,
+      "sample_order": 237,
+      "question": "Tenho alergia a assinatura, dipirina e anti-inflamatórios.Posso tomar qualquer vacina do Covid?",
+      "answer": "É necessário uma consulta para entender melhor a situação.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 219,
+      "subsets": []
+    },
+    {
+      "question_id": 639,
+      "index": 638,
+      "sample_order": 238,
+      "question": "A dois anos me descobri alérgico a AAS, Dipirona e Ibuprofeno.Então manti distância delas, porém fui medicado com Dipirona e Ibuprofeno num pronto socorro semana passada e nada aconteceu, nenhuma alergia.Uma pessoa pode deixar de ser alérgica? A alergia pode simplesmente sumir assim?",
+      "answer": "Ola, boa tarde... muito raro. A reação que descreveu é a de múltiplos anti-inflamatórios, normalmente dependente de dose. Inicialmente em uma consulta médica com o alergologista, irá saber se realmente foi uma reação alergica, se necessário irá realizar teste. Tenha uma ótima semana.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 638,
+      "subsets": []
+    },
+    {
+      "question_id": 136,
+      "index": 135,
+      "sample_order": 239,
+      "question": "Meu filho tem alergia a dipirona pode tomar paracetamol ?",
+      "answer": "Podem dar o paracetamol ou ibuprofeno",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 135,
+      "subsets": []
+    },
+    {
+      "question_id": 485,
+      "index": 484,
+      "sample_order": 240,
+      "question": "Sou alérgico a dipirona e a ácido acetilsalicílico, posso tomar Mioflex A?",
+      "answer": "Mioflex a contém diclofenaco que também é um anti-inflamatório. Você tem grande chance de ter reação, porém cada caso é um e você precisaria passar por avaliação para tentar liberar uma classe de anti-inflamatório para você utilizar com mais segurança. Procure consultar com o alergista.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 484,
+      "subsets": []
+    },
+    {
+      "question_id": 249,
+      "index": 248,
+      "sample_order": 241,
+      "question": "Sou alérgica a cefalexina, posso tomar ciprofoxacino?",
+      "answer": "Carissimo, a cefalexina é da família da Penicilina, o Ciprofloxacino é da família da Sulfa. Recomendo veementemente que procure um Médico Alergista e faça uma Bateria de Testes de Contato, com ênfase em antibióticos. Siga as orientações médicas do colega e tenha uma excelente qualidade de vida.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 248,
+      "subsets": []
+    },
+    {
+      "question_id": 582,
+      "index": 581,
+      "sample_order": 242,
+      "question": "Sou alergica a Diclofenaco sodico, posso tomar Nimesulida?",
+      "answer": "Provavelmente não, tome com cautela, entre os anti-inflamatórios pode ter reação cruzada. Se possível substitua por analgésicos.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 581,
+      "subsets": []
+    },
+    {
+      "question_id": 417,
+      "index": 416,
+      "sample_order": 243,
+      "question": "Sou alérgica ao ibuprofeno , tem algum problema em tomar naproxeno sódico?",
+      "answer": "Sim pois são medicamentos similares.Se estiver com dor ou febre, mais seguro usar dipirona ou paracetamol.SE CUIDE CONTINUE EM CASAAbraçoDrRubens Cat",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 416,
+      "subsets": []
+    },
+    {
+      "question_id": 195,
+      "index": 194,
+      "sample_order": 244,
+      "question": "Bom dia. Quem tem alergia a penicilina e seus similares pode tomar qual vacina para a covid?",
+      "answer": "Preciso saber se houve reação alérgica grave.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 194,
+      "subsets": []
+    },
+    {
+      "question_id": 97,
+      "index": 96,
+      "sample_order": 245,
+      "question": "Tomei 1comp de levofloxacino 750.Poucas horas depois, estava no hospital, com taquicardia e parestesia. Senti pressão na cabeça.Isso é alergia? Grata!",
+      "answer": "Parece uma reação adversa não alérgica",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 96,
+      "subsets": []
+    },
+    {
+      "question_id": 773,
+      "index": 772,
+      "sample_order": 246,
+      "question": "Como eu faço para descobrir se sou alérgica ao contraste usado na angioressonância ? Tenho 19 anos e vou fazer esse exame por conta da minha enxaqueca com aura, mas eu sou alérgica a várias coisas e estou com muito medo de ser alérgica ao contraste também, o que eu faço ? o que devo exigir ?",
+      "answer": "Boa noite,Para os exames contratados o mais correto é seguro é fazermos o que chamamos de preparo.Este consiste em usarmos anti histaminicos e corticóide em doses e horários prescritos pelo Alergista afim de prevenir reações anafiláticas ou anafilactoides.Este preparo é recomendado para todas as pessoas, tendo ou não histórico de alergia.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 772,
+      "subsets": []
+    },
+    {
+      "question_id": 442,
+      "index": 441,
+      "sample_order": 247,
+      "question": "Oi, quem tem alergia a Eritromicina pode tomar Azitromicina?",
+      "answer": "A princípio pode, mas não é garantido. Pois são moléculas da mesma classe ou família (chamado de macrolídeos), porém com algumas diferenças estruturais.Molecularmente, a azitromicina diferencia-se da eritromicina em dois aspectos: sua lactona é constituída por 15 membros e contém um átomo de nitrogênio, ao passo que a lactona da eritromicina é de 14 membros, não possuindo o átomo de nitrogênio.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 441,
+      "subsets": []
+    },
+    {
+      "question_id": 363,
+      "index": 362,
+      "sample_order": 248,
+      "question": "Azitromicima e ou tem algum derivada da penicilina, pq tenho alergia queria saber se posso tomar ou nn esse remedio?",
+      "answer": "Só tome qualquer remédio com prescrição de seu médico de confiança.Abraço Dr Rubens Cat",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 362,
+      "subsets": []
+    },
+    {
+      "question_id": 616,
+      "index": 615,
+      "sample_order": 249,
+      "question": "Minha filha é alérgica a AAS,paracetamol, ibuprofeno é Dipirona.Ela pode tomar amoxilina com cluvalanato de potássio?",
+      "answer": "Pelos medicamentos descritos existe reação de hipersensibilidade ao grupo dos anti inflamatórios não esterodais. Amoxicilina faz parte do grupo de antibióticos, não havendo correlação direta com a sensibilidade descrita anteriormente. Mas apenas em consulta médica, sabendo qual reação ocorreu e de que forma, que podemos orientar sobre chances maiores ou menores de nova reação.Att",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 615,
+      "subsets": []
+    },
+    {
+      "question_id": 421,
+      "index": 420,
+      "sample_order": 250,
+      "question": "Tenho alergia a diclofenaco sodico posso tomar aciclofenaco?",
+      "answer": "Olá!Para responder a sua pergunta é fundamental saber que tipo de alergia você teve, quanto tempo após receber a medicação teve os sintomas e se há alergia a outras medicações. Uma consulta médica é fundamental para te avaliar e orientar e só um alergista conseguirá responder com propriedade a sua pergunta. Fico a disposição para te orientar caso precise. Abraço",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 420,
+      "subsets": []
+    },
+    {
+      "question_id": 479,
+      "index": 478,
+      "sample_order": 251,
+      "question": "Sou alergica a dipirona posso tomar nitrofurantoina de 100g?",
+      "answer": "Nao existe referencia a reação cruzada entre os dois compostos, portanto, pode-se fazer uso do medicamento",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 478,
+      "subsets": []
+    },
+    {
+      "question_id": 56,
+      "index": 55,
+      "sample_order": 252,
+      "question": "Sou alérgica a sulfa, posso tomar as vacinas da pfizer?",
+      "answer": "Boa tarde,Não há contraindicação para aplicação de vacinas da Pfeizer contra o coronavírus em paciente alérgicos à sulfa.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 55,
+      "subsets": []
+    },
+    {
+      "question_id": 101,
+      "index": 100,
+      "sample_order": 253,
+      "question": "Olá, descobri recentemente (semana passada) que sou alérgica a dipirona, tive confirmação através de test cutâneo com alergista.Gostaria de saber qual remédio devo tomar para dor de cabeça?Pois estou com receio de tomar paracetamol 500mg e ter alguma reação.",
+      "answer": "Seu médico não indicou os substitutos?GERALMENTE, os pacientes com alergia a Dipirona conseguem tomar Paracetamol sem ter sinais de alergia.Seria melhor contatar seu médico para confirmar se pode tomar normalmente.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 100,
+      "subsets": []
+    },
+    {
+      "question_id": 63,
+      "index": 62,
+      "sample_order": 254,
+      "question": "tenho alergia a dipirona e a ibuprofeno, posso tomar Deocil?",
+      "answer": "Ola boa tarde ! Pacientes alergicos a dipirona e ibuprofeno,precisam ser avaliados pois as alergias podem ser seletivas a determinado medicamento ou podem ser não seletivas e dessa forma, podera desenvolver reaçoes cruzadas com outros anti-inflamatorios e por isso a avaliação com o especialista ser tão importante.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 62,
+      "subsets": []
+    },
+    {
+      "question_id": 413,
+      "index": 412,
+      "sample_order": 255,
+      "question": "Eu tenho alergia AAS é Dipirona, eu tomei remédios que tinha a substância do AAS e não me aconteceu nada nem mesmo inchou os meus olhos, será que eu crie alguma imunidade?",
+      "answer": "Não consigo responder a tua dúvida.Porém, dar-te-ei um conselho:Não tomes quaisquer medicações contendo estas substâncias antes de uma consulta com o seu médico ou com um alergologista.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 412,
+      "subsets": []
+    },
+    {
+      "question_id": 348,
+      "index": 347,
+      "sample_order": 256,
+      "question": "Boa noite. Sou alérgico a penicilina , posso tomar azitromicina ??",
+      "answer": "Bom dia! A azitromicina é um antibiótico comumente utilizado como opção para pacientes alérgicos a penicilina. Lembrando que dependendo da intensidade da sua alergia, novas medicações devem ser testadas em ambientes controlados. Por isso é essencial uma devida avaliação médica. Espero ter esclarecido sua dúvida. Abraços",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 347,
+      "subsets": []
+    },
+    {
+      "question_id": 112,
+      "index": 111,
+      "sample_order": 257,
+      "question": "Tenho alergia a dipirona e ass, posso tomar nimesulida ?",
+      "answer": "Olá!A nimesulida é da mesma classe que estes anti-inflamatórios. Portanto, procure um alergista antes de tomar nimesulida. O ideal é que não tome.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 111,
+      "subsets": []
+    },
+    {
+      "question_id": 255,
+      "index": 254,
+      "sample_order": 258,
+      "question": "Boa noite! Sou alérgica a penicilina, ampicilina, posso tomar ivermectina e azitromicina?",
+      "answer": "Caríssima, a família da penicilina inclui :amoxacilina, ampicilina. Cefalosporina, dentre outros. Azitromicina é de outro grupamento, pode tomar, se receitado por médico, sem susto. Ivermectina é um anti-helmíntico, também sem cruzamento causador de alergia. Recomendo veementemente que procure um Médico Alergista e faça uma bateria de testes para elucidar isto. Desejo saúde.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 254,
+      "subsets": []
+    },
+    {
+      "question_id": 813,
+      "index": 812,
+      "sample_order": 259,
+      "question": "Para fazer o IGE especifico para trigo, soja, leite, clara, gema e amendoim, é preciso estar consumindo esses alimentos? Se a pessoa estiver fazendo exclusão desses alimentos o Ige pode dar um falso negativo (em caso de alergia)? qual melhor exame para identificar alergia alimentar o IGE ou teste cutâneo",
+      "answer": "Bom dia para se fazer a dosagem de IgE alimentar não é necessário estar ingerindo os mesmos. Para vir a negativar a dosagem de IgE específica é necessário dieta de exclusão total do alimento por um tempo muito longo (mais de ano). E com a reintrodução do mesmo ela pode voltar a aparecer em novas dosagens. Assim como os sintomas alérgicos.E o teste cutâneo é tão fidedigno quanto a mensuração de IgE específica. Em geral solicitamos a dosagem de IgE quando não temos como fazer o teste cutâneo ou quando este da negativo e queremos fazer uma dupla checagem",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 812,
+      "subsets": []
+    },
+    {
+      "question_id": 578,
+      "index": 577,
+      "sample_order": 260,
+      "question": "Sou alergica a Diclofenaco sodico, posso tomar Nimesulida?",
+      "answer": "Olha provavelmente não vai ter reação, mas os antinflamatórios costumam ter reação cruzada. Vá com observação. Se der reação será 48 a 72 horas após tomar.Caso tenha alguma reação a opção por Arcoxia é a melhor opção.Em caso de reação procure um Pronto Atendimento",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 577,
+      "subsets": []
+    },
+    {
+      "question_id": 665,
+      "index": 664,
+      "sample_order": 261,
+      "question": "Sou alérgica ao acidoacetilsalisilico e à dipirona, posso tomar ibuprofeno e diclofenaco potássico? ?",
+      "answer": "Bom diaPelas medicações que relatou, tens alergia aos antinflamatórios não hormonais.Sendo assim também não é indicado o uso de ibuprofeno e diclofenaco.Procure um Alergista para orientá -lo quanto às medicações permitidas e proibidas.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 664,
+      "subsets": []
+    },
+    {
+      "question_id": 789,
+      "index": 788,
+      "sample_order": 262,
+      "question": "O sistema unico de saude ofereçe consulta com especialistas alegistas",
+      "answer": "Em São Paulo capital sim, existem alguns AMEs que possuem alergistas em seus quadros. Entretanto alergia a medicamentos exige investigações não realizadas nestes serviços (ex. Teste de provocação); Na rede pública hospitais universitários (UNIFESP - EPM, FMUSP) realizam a investigação completa.",
+      "dataset_source": "filtred_alergia_medicamentos.xlsx",
+      "row_number": 788,
+      "subsets": []
+    }
+  ]
+}
