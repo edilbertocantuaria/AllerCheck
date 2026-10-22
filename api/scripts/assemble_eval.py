@@ -46,7 +46,9 @@ def load_ragas(paths):
                 row = json.loads(line)
                 if "_params" in row:
                     continue
-                if not row.get("errors"):
+                # unidade sem erro, ou com erro PARCIAL (alguma métrica/avaliador ficou null mas há resultados):
+                # mantém; só descarta a que não produziu nenhum resultado (ex.: TimeoutError da unidade inteira)
+                if not row.get("errors") or any(row.get("results", {}).values()):
                     units[row["unit_id"]] = row
     return units
 
