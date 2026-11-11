@@ -1,0 +1,5417 @@
+[
+  {
+    "_params": {
+      "collected": "coleta_262.jsonl",
+      "arms": [],
+      "keys": [
+        "sem_g2"
+      ],
+      "evaluators": [
+        "claude",
+        "gemini",
+        "gpt"
+      ],
+      "models": {
+        "claude": "claude-haiku-4-5-20251001",
+        "gemini": "gemini-2.5-flash-lite",
+        "gpt": "gpt-4o-mini"
+      },
+      "temperature": "0"
+    }
+  },
+  {
+    "unit_id": "1|ans|sem_g2",
+    "question_id": 1,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.36363636363636365,
+        "answer_relevancy": 0.619087642629239
+      },
+      "gemini": {
+        "faithfulness": 0.375,
+        "answer_relevancy": 0.5973670456143427
+      },
+      "gpt": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.8068853236001868
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:40:08-03:00"
+  },
+  {
+    "unit_id": "8|ans|sem_g2",
+    "question_id": 8,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.38461538461538464,
+        "answer_relevancy": 0.6126828704111329
+      },
+      "gemini": {
+        "faithfulness": 0.7142857142857143,
+        "answer_relevancy": 0.7537531320820028
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.7876988011328373
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:40:08-03:00"
+  },
+  {
+    "unit_id": "7|ans|sem_g2",
+    "question_id": 7,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5833333333333334,
+        "answer_relevancy": 0.6628179175244563
+      },
+      "gemini": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.8482704686386852
+      },
+      "gpt": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:40:08-03:00"
+  },
+  {
+    "unit_id": "12|ans|sem_g2",
+    "question_id": 12,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.7333954826936795
+      },
+      "gemini": {
+        "faithfulness": 0.7333333333333333,
+        "answer_relevancy": 0.9188200397905675
+      },
+      "gpt": {
+        "faithfulness": 0.9090909090909091,
+        "answer_relevancy": 0.9191767736380309
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:40:08-03:00"
+  },
+  {
+    "unit_id": "20|ans|sem_g2",
+    "question_id": 20,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.6867434181873119
+      },
+      "gemini": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.8669975774598174
+      },
+      "gpt": {
+        "faithfulness": 0.7142857142857143,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:40:08-03:00"
+  },
+  {
+    "unit_id": "22|ans|sem_g2",
+    "question_id": 22,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.45910525780209205
+      },
+      "gemini": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.8905044266496218
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.8452714918082562
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:40:08-03:00"
+  },
+  {
+    "unit_id": "26|ans|sem_g2",
+    "question_id": 26,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.14285714285714285,
+        "answer_relevancy": 0.419331112280636
+      },
+      "gemini": {
+        "faithfulness": 0.16666666666666666,
+        "answer_relevancy": 0.8090656553155142
+      },
+      "gpt": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.8016859072874083
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:40:08-03:00"
+  },
+  {
+    "unit_id": "28|ans|sem_g2",
+    "question_id": 28,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5384615384615384,
+        "answer_relevancy": 0.7488919791239871
+      },
+      "gemini": {
+        "faithfulness": 0.5384615384615384,
+        "answer_relevancy": 0.9225467840593148
+      },
+      "gpt": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.5248287236726359
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:40:08-03:00"
+  },
+  {
+    "unit_id": "31|ans|sem_g2",
+    "question_id": 31,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.125,
+        "answer_relevancy": 0.5483458937209058
+      },
+      "gemini": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.5837400590532441
+      },
+      "gpt": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.8259198783168937
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:41:00-03:00"
+  },
+  {
+    "unit_id": "33|ans|sem_g2",
+    "question_id": 33,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.8653796423360284
+      },
+      "gpt": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:41:00-03:00"
+  },
+  {
+    "unit_id": "45|ans|sem_g2",
+    "question_id": 45,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.18181818181818182,
+        "answer_relevancy": 0.5434654089948694
+      },
+      "gemini": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.8949816133509843
+      },
+      "gpt": {
+        "faithfulness": 0.7272727272727273,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:41:00-03:00"
+  },
+  {
+    "unit_id": "47|ans|sem_g2",
+    "question_id": 47,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.8333333333333334,
+        "answer_relevancy": 0.0
+      },
+      "gpt": {
+        "faithfulness": 0.7142857142857143,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:41:11-03:00"
+  },
+  {
+    "unit_id": "49|ans|sem_g2",
+    "question_id": 49,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.14285714285714285,
+        "answer_relevancy": 0.6634238558099463
+      },
+      "gemini": {
+        "faithfulness": 0.7272727272727273,
+        "answer_relevancy": 0.8842265309909031
+      },
+      "gpt": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.5001774269056926
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:41:23-03:00"
+  },
+  {
+    "unit_id": "56|ans|sem_g2",
+    "question_id": 56,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.36363636363636365,
+        "answer_relevancy": 0.5338099247434088
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.9070668367174385
+      },
+      "gpt": {
+        "faithfulness": 0.25,
+        "answer_relevancy": 0.9070668367174385
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:41:34-03:00"
+  },
+  {
+    "unit_id": "60|ans|sem_g2",
+    "question_id": 60,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.375,
+        "answer_relevancy": 0.666225329013868
+      },
+      "gemini": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.9312419592874849
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.6158867686438184
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:41:44-03:00"
+  },
+  {
+    "unit_id": "61|ans|sem_g2",
+    "question_id": 61,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.675679661560557
+      },
+      "gemini": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.7698074599503636
+      },
+      "gpt": {
+        "faithfulness": 0.8571428571428571,
+        "answer_relevancy": 0.6286034469683234
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:41:52-03:00"
+  },
+  {
+    "unit_id": "63|ans|sem_g2",
+    "question_id": 63,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.6687006776828536
+      },
+      "gemini": {
+        "faithfulness": 0.46153846153846156,
+        "answer_relevancy": 0.8842245870733644
+      },
+      "gpt": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.7795690063152123
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:42:00-03:00"
+  },
+  {
+    "unit_id": "66|ans|sem_g2",
+    "question_id": 66,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.36363636363636365,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.0
+      },
+      "gpt": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:42:08-03:00"
+  },
+  {
+    "unit_id": "68|ans|sem_g2",
+    "question_id": 68,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.35714285714285715,
+        "answer_relevancy": 0.6162700575039365
+      },
+      "gemini": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.7007291901934248
+      },
+      "gpt": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:42:17-03:00"
+  },
+  {
+    "unit_id": "70|ans|sem_g2",
+    "question_id": 70,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5384615384615384,
+        "answer_relevancy": 0.5938809702490041
+      },
+      "gemini": {
+        "faithfulness": 0.45454545454545453,
+        "answer_relevancy": 0.9250104336961747
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.5667820596675704
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:42:26-03:00"
+  },
+  {
+    "unit_id": "71|ans|sem_g2",
+    "question_id": 71,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6470588235294118,
+        "answer_relevancy": 0.4317254845110979
+      },
+      "gemini": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.8359503511599975
+      },
+      "gpt": {
+        "faithfulness": 0.7142857142857143,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:42:33-03:00"
+  },
+  {
+    "unit_id": "72|ans|sem_g2",
+    "question_id": 72,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.5338834282810305
+      },
+      "gemini": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.7785038258776195
+      },
+      "gpt": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.810802803271201
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:42:44-03:00"
+  },
+  {
+    "unit_id": "73|ans|sem_g2",
+    "question_id": 73,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.21052631578947367,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.7889279817707094
+      },
+      "gpt": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:42:53-03:00"
+  },
+  {
+    "unit_id": "82|ans|sem_g2",
+    "question_id": 82,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6428571428571429,
+        "answer_relevancy": 0.554641694062237
+      },
+      "gemini": {
+        "faithfulness": 0.9285714285714286,
+        "answer_relevancy": 0.5126683828715332
+      },
+      "gpt": {
+        "faithfulness": 0.7857142857142857,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:43:01-03:00"
+  },
+  {
+    "unit_id": "88|ans|sem_g2",
+    "question_id": 88,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.7637256410036385
+      },
+      "gpt": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:43:11-03:00"
+  },
+  {
+    "unit_id": "90|ans|sem_g2",
+    "question_id": 90,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.7142857142857143,
+        "answer_relevancy": 0.5750055986642462
+      },
+      "gemini": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.8358084701515844
+      },
+      "gpt": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.78751551156709
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:43:21-03:00"
+  },
+  {
+    "unit_id": "94|ans|sem_g2",
+    "question_id": 94,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5833333333333334,
+        "answer_relevancy": 0.5187692259576553
+      },
+      "gemini": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.870387732742055
+      },
+      "gpt": {
+        "faithfulness": 0.7142857142857143,
+        "answer_relevancy": 0.5494194272336118
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:43:29-03:00"
+  },
+  {
+    "unit_id": "95|ans|sem_g2",
+    "question_id": 95,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.6387564157575868
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.6340819540527431
+      },
+      "gpt": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.6643775744045888
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:43:39-03:00"
+  },
+  {
+    "unit_id": "96|ans|sem_g2",
+    "question_id": 96,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.36363636363636365,
+        "answer_relevancy": 0.4823706822949796
+      },
+      "gemini": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.4753353581456603
+      },
+      "gpt": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:43:47-03:00"
+  },
+  {
+    "unit_id": "97|ans|sem_g2",
+    "question_id": 97,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.6270097114782323
+      },
+      "gemini": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8074435055553475
+      },
+      "gpt": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:43:56-03:00"
+  },
+  {
+    "unit_id": "100|ans|sem_g2",
+    "question_id": 100,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.6572799301060415
+      },
+      "gemini": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.685006979468833
+      },
+      "gpt": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:44:10-03:00"
+  },
+  {
+    "unit_id": "101|ans|sem_g2",
+    "question_id": 101,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.4293839729519475
+      },
+      "gemini": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.795748315632904
+      },
+      "gpt": {
+        "faithfulness": 0.25,
+        "answer_relevancy": 0.7752052851518881
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:44:16-03:00"
+  },
+  {
+    "unit_id": "104|ans|sem_g2",
+    "question_id": 104,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.35294117647058826,
+        "answer_relevancy": 0.43348844925265495
+      },
+      "gemini": {
+        "faithfulness": 0.875,
+        "answer_relevancy": 0.8293700328317559
+      },
+      "gpt": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.8072417155651065
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:44:24-03:00"
+  },
+  {
+    "unit_id": "105|ans|sem_g2",
+    "question_id": 105,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.45058590101290846
+      },
+      "gemini": {
+        "faithfulness": 0.7692307692307693,
+        "answer_relevancy": 0.4203873063148049
+      },
+      "gpt": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.546589866105921
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:44:34-03:00"
+  },
+  {
+    "unit_id": "109|ans|sem_g2",
+    "question_id": 109,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.5825969246642423
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.8819155366077608
+      },
+      "gpt": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.6562266540324887
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:44:43-03:00"
+  },
+  {
+    "unit_id": "112|ans|sem_g2",
+    "question_id": 112,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.36363636363636365,
+        "answer_relevancy": 0.4565096708521151
+      },
+      "gemini": {
+        "faithfulness": 0.2,
+        "answer_relevancy": 0.9049956329280578
+      },
+      "gpt": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.8632432520644783
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:44:53-03:00"
+  },
+  {
+    "unit_id": "113|ans|sem_g2",
+    "question_id": 113,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.6275583753083492
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.8479273475522562
+      },
+      "gpt": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.780960707396486
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:45:03-03:00"
+  },
+  {
+    "unit_id": "115|ans|sem_g2",
+    "question_id": 115,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.16666666666666666,
+        "answer_relevancy": 0.6440241214377268
+      },
+      "gemini": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.47878550366543826
+      },
+      "gpt": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:45:11-03:00"
+  },
+  {
+    "unit_id": "118|ans|sem_g2",
+    "question_id": 118,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.25,
+        "answer_relevancy": 0.6206609671043276
+      },
+      "gemini": {
+        "faithfulness": 0.16666666666666666,
+        "answer_relevancy": 0.8070729145747121
+      },
+      "gpt": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.8070729145747121
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:45:21-03:00"
+  },
+  {
+    "unit_id": "124|ans|sem_g2",
+    "question_id": 124,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.5955890047494719
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.8642404672203753
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.707784529445672
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:45:29-03:00"
+  },
+  {
+    "unit_id": "128|ans|sem_g2",
+    "question_id": 128,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.47733933440034576
+      },
+      "gemini": {
+        "faithfulness": 0.8333333333333334,
+        "answer_relevancy": 0.8515482969617546
+      },
+      "gpt": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.7167350407820186
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:45:40-03:00"
+  },
+  {
+    "unit_id": "129|ans|sem_g2",
+    "question_id": 129,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.5144115540920174
+      },
+      "gemini": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.8699093619676056
+      },
+      "gpt": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.8476788082791645
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:45:47-03:00"
+  },
+  {
+    "unit_id": "132|ans|sem_g2",
+    "question_id": 132,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.5617243548330718
+      },
+      "gemini": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.5663801743634648
+      },
+      "gpt": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.9041192273790527
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:45:58-03:00"
+  },
+  {
+    "unit_id": "136|ans|sem_g2",
+    "question_id": 136,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.5946038840862459
+      },
+      "gemini": {
+        "faithfulness": 0.375,
+        "answer_relevancy": 0.5809970766599357
+      },
+      "gpt": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.9472861872122732
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:46:06-03:00"
+  },
+  {
+    "unit_id": "142|ans|sem_g2",
+    "question_id": 142,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.5941683030148955
+      },
+      "gemini": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.7489568460380923
+      },
+      "gpt": {
+        "faithfulness": 0.8461538461538461,
+        "answer_relevancy": 0.7981286293080969
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:46:16-03:00"
+  },
+  {
+    "unit_id": "143|ans|sem_g2",
+    "question_id": 143,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.7272727272727273,
+        "answer_relevancy": 0.5637023742957479
+      },
+      "gemini": {
+        "faithfulness": 0.8571428571428571,
+        "answer_relevancy": 0.9285490874179265
+      },
+      "gpt": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.9285490874179265
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:46:25-03:00"
+  },
+  {
+    "unit_id": "147|ans|sem_g2",
+    "question_id": 147,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.7002838516554678
+      },
+      "gemini": {
+        "faithfulness": 0.375,
+        "answer_relevancy": 0.898757319491993
+      },
+      "gpt": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.8411341705376557
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:46:34-03:00"
+  },
+  {
+    "unit_id": "160|ans|sem_g2",
+    "question_id": 160,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2727272727272727,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.5994925746137038
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:46:45-03:00"
+  },
+  {
+    "unit_id": "162|ans|sem_g2",
+    "question_id": 162,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.6590826311685728
+      },
+      "gemini": {
+        "faithfulness": 0.8888888888888888,
+        "answer_relevancy": 0.8997215301006704
+      },
+      "gpt": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.6611297965641755
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:46:50-03:00"
+  },
+  {
+    "unit_id": "164|ans|sem_g2",
+    "question_id": 164,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.46153846153846156,
+        "answer_relevancy": 0.6545961491128818
+      },
+      "gemini": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.8796199045290288
+      },
+      "gpt": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.8971841173804324
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:47:04-03:00"
+  },
+  {
+    "unit_id": "166|ans|sem_g2",
+    "question_id": 166,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.8666666666666667,
+        "answer_relevancy": 0.5474493661586216
+      },
+      "gemini": {
+        "faithfulness": 0.9166666666666666,
+        "answer_relevancy": 0.712944226196344
+      },
+      "gpt": {
+        "faithfulness": 0.7272727272727273,
+        "answer_relevancy": 0.7394001957880305
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:47:11-03:00"
+  },
+  {
+    "unit_id": "168|ans|sem_g2",
+    "question_id": 168,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.7222222222222222,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.887501608991292
+      },
+      "gpt": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:47:20-03:00"
+  },
+  {
+    "unit_id": "170|ans|sem_g2",
+    "question_id": 170,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.5234723810938391
+      },
+      "gemini": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8944495038419747
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:47:30-03:00"
+  },
+  {
+    "unit_id": "176|ans|sem_g2",
+    "question_id": 176,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.8461538461538461,
+        "answer_relevancy": 0.7501920010305149
+      },
+      "gpt": {
+        "faithfulness": 0.9,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:47:40-03:00"
+  },
+  {
+    "unit_id": "183|ans|sem_g2",
+    "question_id": 183,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.6422834439339428
+      },
+      "gemini": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.746553311189979
+      },
+      "gpt": {
+        "faithfulness": 0.8333333333333334,
+        "answer_relevancy": 0.7882130234408908
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:47:48-03:00"
+  },
+  {
+    "unit_id": "195|ans|sem_g2",
+    "question_id": 195,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.6079190813085907
+      },
+      "gemini": {
+        "faithfulness": 0.375,
+        "answer_relevancy": 0.8761913510437975
+      },
+      "gpt": {
+        "faithfulness": 0.1,
+        "answer_relevancy": 0.8541133500964916
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:47:57-03:00"
+  },
+  {
+    "unit_id": "197|ans|sem_g2",
+    "question_id": 197,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.5190300323054
+      },
+      "gemini": {
+        "faithfulness": 0.875,
+        "answer_relevancy": 0.8012438898532735
+      },
+      "gpt": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:48:09-03:00"
+  },
+  {
+    "unit_id": "204|ans|sem_g2",
+    "question_id": 204,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2857142857142857,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.0
+      },
+      "gpt": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:48:17-03:00"
+  },
+  {
+    "unit_id": "206|ans|sem_g2",
+    "question_id": 206,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.609016677217443
+      },
+      "gpt": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:48:25-03:00"
+  },
+  {
+    "unit_id": "215|ans|sem_g2",
+    "question_id": 215,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2857142857142857,
+        "answer_relevancy": 0.4550762162730191
+      },
+      "gemini": {
+        "faithfulness": 0.5333333333333333,
+        "answer_relevancy": 0.4550762162730191
+      },
+      "gpt": {
+        "faithfulness": 0.26666666666666666,
+        "answer_relevancy": 0.7897779626049255
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:48:37-03:00"
+  },
+  {
+    "unit_id": "217|ans|sem_g2",
+    "question_id": 217,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.5765077645538795
+      },
+      "gemini": {
+        "faithfulness": 0.5384615384615384,
+        "answer_relevancy": 0.7295216226656484
+      },
+      "gpt": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.49912454611457674
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:48:44-03:00"
+  },
+  {
+    "unit_id": "218|ans|sem_g2",
+    "question_id": 218,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.45454545454545453,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.8174468158612948
+      },
+      "gpt": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.5559121357017025
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:48:53-03:00"
+  },
+  {
+    "unit_id": "220|ans|sem_g2",
+    "question_id": 220,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.7857142857142857,
+        "answer_relevancy": 0.5450724190533558
+      },
+      "gemini": {
+        "faithfulness": 0.875,
+        "answer_relevancy": 0.8250510309850935
+      },
+      "gpt": {
+        "faithfulness": 0.9,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:49:03-03:00"
+  },
+  {
+    "unit_id": "224|ans|sem_g2",
+    "question_id": 224,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.25,
+        "answer_relevancy": 0.5915628996642849
+      },
+      "gemini": {
+        "faithfulness": 0.2857142857142857,
+        "answer_relevancy": 0.600744559098885
+      },
+      "gpt": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:49:12-03:00"
+  },
+  {
+    "unit_id": "225|ans|sem_g2",
+    "question_id": 225,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.6342423516967527
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.8993581837430974
+      },
+      "gpt": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:49:23-03:00"
+  },
+  {
+    "unit_id": "226|ans|sem_g2",
+    "question_id": 226,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2631578947368421,
+        "answer_relevancy": 0.6323004508346318
+      },
+      "gemini": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.9145144007264285
+      },
+      "gpt": {
+        "faithfulness": 0.18181818181818182,
+        "answer_relevancy": 0.6819227052958269
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T20:49:33-03:00"
+  },
+  {
+    "unit_id": "231|ans|sem_g2",
+    "question_id": 231,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {},
+    "errors": [
+      {
+        "evaluator": "*",
+        "metric": "*",
+        "error": "TimeoutError: "
+      }
+    ],
+    "at": "2026-10-07T20:49:51-03:00"
+  },
+  {
+    "unit_id": "246|ans|sem_g2",
+    "question_id": 246,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {},
+    "errors": [
+      {
+        "evaluator": "*",
+        "metric": "*",
+        "error": "TimeoutError: "
+      }
+    ],
+    "at": "2026-10-07T20:50:48-03:00"
+  },
+  {
+    "unit_id": "229|ans|sem_g2",
+    "question_id": 229,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {},
+    "errors": [
+      {
+        "evaluator": "*",
+        "metric": "*",
+        "error": "TimeoutError: "
+      }
+    ],
+    "at": "2026-10-07T20:49:41-03:00"
+  },
+  {
+    "unit_id": "234|ans|sem_g2",
+    "question_id": 234,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {},
+    "errors": [
+      {
+        "evaluator": "*",
+        "metric": "*",
+        "error": "TimeoutError: "
+      }
+    ],
+    "at": "2026-10-07T20:49:59-03:00"
+  },
+  {
+    "unit_id": "235|ans|sem_g2",
+    "question_id": 235,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {},
+    "errors": [
+      {
+        "evaluator": "*",
+        "metric": "*",
+        "error": "TimeoutError: "
+      }
+    ],
+    "at": "2026-10-07T20:50:07-03:00"
+  },
+  {
+    "unit_id": "236|ans|sem_g2",
+    "question_id": 236,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {},
+    "errors": [
+      {
+        "evaluator": "*",
+        "metric": "*",
+        "error": "TimeoutError: "
+      }
+    ],
+    "at": "2026-10-07T20:50:18-03:00"
+  },
+  {
+    "unit_id": "239|ans|sem_g2",
+    "question_id": 239,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {},
+    "errors": [
+      {
+        "evaluator": "*",
+        "metric": "*",
+        "error": "TimeoutError: "
+      }
+    ],
+    "at": "2026-10-07T20:50:27-03:00"
+  },
+  {
+    "unit_id": "244|ans|sem_g2",
+    "question_id": 244,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {},
+    "errors": [
+      {
+        "evaluator": "*",
+        "metric": "*",
+        "error": "TimeoutError: "
+      }
+    ],
+    "at": "2026-10-07T20:50:38-03:00"
+  },
+  {
+    "unit_id": "229|ans|sem_g2",
+    "question_id": 229,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.6454616287544239
+      },
+      "gemini": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.8945655325176429
+      },
+      "gpt": {
+        "faithfulness": 0.1111111111111111,
+        "answer_relevancy": 0.9491457103788025
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:17:48-03:00"
+  },
+  {
+    "unit_id": "231|ans|sem_g2",
+    "question_id": 231,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.6690242708861427
+      },
+      "gpt": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:17:48-03:00"
+  },
+  {
+    "unit_id": "234|ans|sem_g2",
+    "question_id": 234,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5294117647058824,
+        "answer_relevancy": 0.5552189382993901
+      },
+      "gemini": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.8166772182281372
+      },
+      "gpt": {
+        "faithfulness": 0.5833333333333334,
+        "answer_relevancy": 0.8113434024562584
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:17:48-03:00"
+  },
+  {
+    "unit_id": "235|ans|sem_g2",
+    "question_id": 235,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.38461538461538464,
+        "answer_relevancy": 0.6790235195979664
+      },
+      "gemini": {
+        "faithfulness": 0.36363636363636365,
+        "answer_relevancy": 0.5733402749698229
+      },
+      "gpt": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:17:48-03:00"
+  },
+  {
+    "unit_id": "236|ans|sem_g2",
+    "question_id": 236,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.8102470468355264
+      },
+      "gpt": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:17:48-03:00"
+  },
+  {
+    "unit_id": "239|ans|sem_g2",
+    "question_id": 239,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.46153846153846156,
+        "answer_relevancy": 0.6794599800163551
+      },
+      "gemini": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.6755062304781431
+      },
+      "gpt": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.7943666252880801
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:17:48-03:00"
+  },
+  {
+    "unit_id": "244|ans|sem_g2",
+    "question_id": 244,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.5727808263942994
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.558617849143856
+      },
+      "gpt": {
+        "faithfulness": 0.8888888888888888,
+        "answer_relevancy": 0.49603241001378157
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:17:48-03:00"
+  },
+  {
+    "unit_id": "246|ans|sem_g2",
+    "question_id": 246,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5833333333333334,
+        "answer_relevancy": 0.5730936641194168
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.550100080563666
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.908983299775033
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:17:48-03:00"
+  },
+  {
+    "unit_id": "247|ans|sem_g2",
+    "question_id": 247,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.15384615384615385,
+        "answer_relevancy": 0.639571243561598
+      },
+      "gemini": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.8033500296136428
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:18:38-03:00"
+  },
+  {
+    "unit_id": "249|ans|sem_g2",
+    "question_id": 249,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.7692307692307693,
+        "answer_relevancy": 0.683974909263874
+      },
+      "gemini": {
+        "faithfulness": 0.375,
+        "answer_relevancy": 0.910594082719501
+      },
+      "gpt": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.8002485265868763
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:18:38-03:00"
+  },
+  {
+    "unit_id": "251|ans|sem_g2",
+    "question_id": 251,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.25,
+        "answer_relevancy": 0.5351892017089086
+      },
+      "gemini": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.9511821553596514
+      },
+      "gpt": {
+        "faithfulness": 0.875,
+        "answer_relevancy": 0.6730412009129458
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:18:45-03:00"
+  },
+  {
+    "unit_id": "253|ans|sem_g2",
+    "question_id": 253,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.8467988957632061
+      },
+      "gpt": {
+        "faithfulness": 0.46153846153846156,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:18:55-03:00"
+  },
+  {
+    "unit_id": "254|ans|sem_g2",
+    "question_id": 254,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5833333333333334,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.9026253084433983
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:19:06-03:00"
+  },
+  {
+    "unit_id": "255|ans|sem_g2",
+    "question_id": 255,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.6587978650054866
+      },
+      "gemini": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.8608539701368944
+      },
+      "gpt": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.9021096467955706
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:19:13-03:00"
+  },
+  {
+    "unit_id": "258|ans|sem_g2",
+    "question_id": 258,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.38461538461538464,
+        "answer_relevancy": 0.6184150112015266
+      },
+      "gemini": {
+        "faithfulness": 0.875,
+        "answer_relevancy": 0.7778814174699765
+      },
+      "gpt": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.7921867972676998
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:19:24-03:00"
+  },
+  {
+    "unit_id": "270|ans|sem_g2",
+    "question_id": 270,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.5316827470254614
+      },
+      "gemini": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.942577874193935
+      },
+      "gpt": {
+        "faithfulness": 0.7692307692307693,
+        "answer_relevancy": 0.942577874193935
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:19:33-03:00"
+  },
+  {
+    "unit_id": "271|ans|sem_g2",
+    "question_id": 271,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2857142857142857,
+        "answer_relevancy": 0.5341310272460976
+      },
+      "gemini": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.8521193271227924
+      },
+      "gpt": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.7853611917647806
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:19:42-03:00"
+  },
+  {
+    "unit_id": "272|ans|sem_g2",
+    "question_id": 272,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.6522333893468796
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.8178863586930771
+      },
+      "gpt": {
+        "faithfulness": 0.5833333333333334,
+        "answer_relevancy": 0.8356181110689702
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:19:52-03:00"
+  },
+  {
+    "unit_id": "274|ans|sem_g2",
+    "question_id": 274,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5384615384615384,
+        "answer_relevancy": 0.646618409035857
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.8908947887517806
+      },
+      "gpt": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.8908947887517806
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:20:01-03:00"
+  },
+  {
+    "unit_id": "275|ans|sem_g2",
+    "question_id": 275,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5833333333333334,
+        "answer_relevancy": 0.595383335624111
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.9459157754149379
+      },
+      "gpt": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.8184414028241244
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:20:10-03:00"
+  },
+  {
+    "unit_id": "277|ans|sem_g2",
+    "question_id": 277,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.5486463542859948
+      },
+      "gemini": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.9607677417975181
+      },
+      "gpt": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.9607677417975181
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:20:20-03:00"
+  },
+  {
+    "unit_id": "282|ans|sem_g2",
+    "question_id": 282,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.6353452907235719
+      },
+      "gemini": {
+        "faithfulness": 0.25,
+        "answer_relevancy": 0.563090506542487
+      },
+      "gpt": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.7401426056272813
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:20:31-03:00"
+  },
+  {
+    "unit_id": "286|ans|sem_g2",
+    "question_id": 286,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.536508268289003
+      },
+      "gemini": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8139045280489389
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:20:40-03:00"
+  },
+  {
+    "unit_id": "297|ans|sem_g2",
+    "question_id": 297,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4583333333333333,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.9625276094619769
+      },
+      "gpt": {
+        "faithfulness": 0.7272727272727273,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:20:50-03:00"
+  },
+  {
+    "unit_id": "301|ans|sem_g2",
+    "question_id": 301,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.6287029940028913
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.9110177498838921
+      },
+      "gpt": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.9088135892037345
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:20:59-03:00"
+  },
+  {
+    "unit_id": "306|ans|sem_g2",
+    "question_id": 306,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.36363636363636365,
+        "answer_relevancy": 0.5203111763176481
+      },
+      "gemini": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.865425307911293
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8584777582429882
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:21:08-03:00"
+  },
+  {
+    "unit_id": "315|ans|sem_g2",
+    "question_id": 315,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.9650567791890549
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.7411149240027298
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:21:17-03:00"
+  },
+  {
+    "unit_id": "320|ans|sem_g2",
+    "question_id": 320,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.36363636363636365,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.8155460111644427
+      },
+      "gpt": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:21:26-03:00"
+  },
+  {
+    "unit_id": "323|ans|sem_g2",
+    "question_id": 323,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.4878338744434607
+      },
+      "gemini": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.8255460746361688
+      },
+      "gpt": {
+        "faithfulness": 0.875,
+        "answer_relevancy": 0.7966634204469774
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:21:35-03:00"
+  },
+  {
+    "unit_id": "324|ans|sem_g2",
+    "question_id": 324,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.7142857142857143,
+        "answer_relevancy": 0.549286091862549
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.8478851802879704
+      },
+      "gpt": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:21:45-03:00"
+  },
+  {
+    "unit_id": "332|ans|sem_g2",
+    "question_id": 332,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.7008293002091476
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.5772416496795266
+      },
+      "gpt": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:21:56-03:00"
+  },
+  {
+    "unit_id": "333|ans|sem_g2",
+    "question_id": 333,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.14285714285714285,
+        "answer_relevancy": 0.6588703276813468
+      },
+      "gemini": {
+        "faithfulness": 0.16666666666666666,
+        "answer_relevancy": 0.91781515902419
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.9098514055210613
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:22:06-03:00"
+  },
+  {
+    "unit_id": "339|ans|sem_g2",
+    "question_id": 339,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.45454545454545453,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.7272727272727273,
+        "answer_relevancy": 0.9363074968211208
+      },
+      "gpt": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:22:13-03:00"
+  },
+  {
+    "unit_id": "347|ans|sem_g2",
+    "question_id": 347,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.5277967483702458
+      },
+      "gemini": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.9298764906370827
+      },
+      "gpt": {
+        "faithfulness": 0.9,
+        "answer_relevancy": 0.9298764906370827
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:22:24-03:00"
+  },
+  {
+    "unit_id": "348|ans|sem_g2",
+    "question_id": 348,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.5460086899514731
+      },
+      "gemini": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.5417081023169356
+      },
+      "gpt": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.9070270676280927
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:22:33-03:00"
+  },
+  {
+    "unit_id": "349|ans|sem_g2",
+    "question_id": 349,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.14285714285714285,
+        "answer_relevancy": 0.5009688343241132
+      },
+      "gemini": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.9020166366811764
+      },
+      "gpt": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.9125202500565198
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:22:42-03:00"
+  },
+  {
+    "unit_id": "353|ans|sem_g2",
+    "question_id": 353,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.7272727272727273,
+        "answer_relevancy": 0.4730058296636082
+      },
+      "gemini": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.8702332792756984
+      },
+      "gpt": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:22:49-03:00"
+  },
+  {
+    "unit_id": "363|ans|sem_g2",
+    "question_id": 363,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.6028817308977997
+      },
+      "gemini": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.6028817308977997
+      },
+      "gpt": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:23:00-03:00"
+  },
+  {
+    "unit_id": "364|ans|sem_g2",
+    "question_id": 364,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.5621872069233284
+      },
+      "gemini": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.7927844952330819
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:23:07-03:00"
+  },
+  {
+    "unit_id": "368|ans|sem_g2",
+    "question_id": 368,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.6381120873000921
+      },
+      "gemini": {
+        "faithfulness": 0.9,
+        "answer_relevancy": 0.5635160841439326
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:23:16-03:00"
+  },
+  {
+    "unit_id": "371|ans|sem_g2",
+    "question_id": 371,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.8383150561482
+      },
+      "gpt": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.9219825546934021
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:23:25-03:00"
+  },
+  {
+    "unit_id": "372|ans|sem_g2",
+    "question_id": 372,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.13333333333333333,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.9074832323555285
+      },
+      "gpt": {
+        "faithfulness": 0.9230769230769231,
+        "answer_relevancy": 0.9226867740213115
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:23:33-03:00"
+  },
+  {
+    "unit_id": "374|ans|sem_g2",
+    "question_id": 374,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.6106749800198955
+      },
+      "gemini": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.7975351096121699
+      },
+      "gpt": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:23:43-03:00"
+  },
+  {
+    "unit_id": "383|ans|sem_g2",
+    "question_id": 383,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.5874239889488932
+      },
+      "gemini": {
+        "faithfulness": 0.5384615384615384,
+        "answer_relevancy": 0.7489622504449632
+      },
+      "gpt": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.5445039226884043
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:23:51-03:00"
+  },
+  {
+    "unit_id": "388|ans|sem_g2",
+    "question_id": 388,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.5595964279683133
+      },
+      "gemini": {
+        "faithfulness": 0.875,
+        "answer_relevancy": 0.8756527507625602
+      },
+      "gpt": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.8650903154355625
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:24:01-03:00"
+  },
+  {
+    "unit_id": "389|ans|sem_g2",
+    "question_id": 389,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.5802857794211133
+      },
+      "gemini": {
+        "faithfulness": 0.2727272727272727,
+        "answer_relevancy": 0.5816870501971422
+      },
+      "gpt": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:24:12-03:00"
+  },
+  {
+    "unit_id": "390|ans|sem_g2",
+    "question_id": 390,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2222222222222222,
+        "answer_relevancy": 0.6065157356511514
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.9225264495460194
+      },
+      "gpt": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:24:19-03:00"
+  },
+  {
+    "unit_id": "391|ans|sem_g2",
+    "question_id": 391,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2857142857142857,
+        "answer_relevancy": 0.6429513045738345
+      },
+      "gemini": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.5861704339638522
+      },
+      "gpt": {
+        "faithfulness": 0.5833333333333334,
+        "answer_relevancy": 0.5025709675968939
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:24:29-03:00"
+  },
+  {
+    "unit_id": "395|ans|sem_g2",
+    "question_id": 395,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.45454545454545453,
+        "answer_relevancy": 0.579880584830326
+      },
+      "gemini": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.8465863430318917
+      },
+      "gpt": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:24:39-03:00"
+  },
+  {
+    "unit_id": "406|ans|sem_g2",
+    "question_id": 406,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.6186373029653436
+      },
+      "gemini": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.8164259072668317
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8133700989712304
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:24:48-03:00"
+  },
+  {
+    "unit_id": "409|ans|sem_g2",
+    "question_id": 409,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.6553555348203459
+      },
+      "gemini": {
+        "faithfulness": 0.7272727272727273,
+        "answer_relevancy": 0.753152371311533
+      },
+      "gpt": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.8929518870935697
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:24:57-03:00"
+  },
+  {
+    "unit_id": "411|ans|sem_g2",
+    "question_id": 411,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.44293360015862776
+      },
+      "gemini": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.4681853600144876
+      },
+      "gpt": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.8909383314593562
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:25:05-03:00"
+  },
+  {
+    "unit_id": "413|ans|sem_g2",
+    "question_id": 413,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.7692307692307693,
+        "answer_relevancy": 0.5021931353798745
+      },
+      "gemini": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.7654271842391519
+      },
+      "gpt": {
+        "faithfulness": 0.9090909090909091,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:25:16-03:00"
+  },
+  {
+    "unit_id": "417|ans|sem_g2",
+    "question_id": 417,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.6276510671862079
+      },
+      "gemini": {
+        "faithfulness": 0.4666666666666667,
+        "answer_relevancy": 0.8889981158383494
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8972168787315432
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:25:24-03:00"
+  },
+  {
+    "unit_id": "421|ans|sem_g2",
+    "question_id": 421,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.6861094552983708
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.9210001424031452
+      },
+      "gpt": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:25:34-03:00"
+  },
+  {
+    "unit_id": "430|ans|sem_g2",
+    "question_id": 430,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2727272727272727,
+        "answer_relevancy": 0.5809148054788053
+      },
+      "gemini": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.5911762618000705
+      },
+      "gpt": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:25:47-03:00"
+  },
+  {
+    "unit_id": "433|ans|sem_g2",
+    "question_id": 433,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.7182485675038396
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.9427464495193769
+      },
+      "gpt": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:25:52-03:00"
+  },
+  {
+    "unit_id": "434|ans|sem_g2",
+    "question_id": 434,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.6751577308208926
+      },
+      "gemini": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.7021363980060243
+      },
+      "gpt": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.6734646806064951
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:26:03-03:00"
+  },
+  {
+    "unit_id": "439|ans|sem_g2",
+    "question_id": 439,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.21428571428571427,
+        "answer_relevancy": 0.7366446991753944
+      },
+      "gemini": {
+        "faithfulness": 0.36363636363636365,
+        "answer_relevancy": 0.9276640504366611
+      },
+      "gpt": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.9313923507776539
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:26:10-03:00"
+  },
+  {
+    "unit_id": "442|ans|sem_g2",
+    "question_id": 442,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.5376278994958824
+      },
+      "gemini": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.9031017053358589
+      },
+      "gpt": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:26:20-03:00"
+  },
+  {
+    "unit_id": "449|ans|sem_g2",
+    "question_id": 449,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.21428571428571427,
+        "answer_relevancy": 0.5365540967778019
+      },
+      "gemini": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.9999999999999992
+      },
+      "gpt": {
+        "faithfulness": 0.3076923076923077,
+        "answer_relevancy": 0.9831897447579521
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:26:30-03:00"
+  },
+  {
+    "unit_id": "460|ans|sem_g2",
+    "question_id": 460,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.9225522403813549
+      },
+      "gpt": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.5748895781684635
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:26:39-03:00"
+  },
+  {
+    "unit_id": "463|ans|sem_g2",
+    "question_id": 463,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.7507403225014531
+      },
+      "gemini": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.9583957148277299
+      },
+      "gpt": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.9818975396169876
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:26:47-03:00"
+  },
+  {
+    "unit_id": "465|ans|sem_g2",
+    "question_id": 465,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.0
+      },
+      "gpt": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:26:57-03:00"
+  },
+  {
+    "unit_id": "470|ans|sem_g2",
+    "question_id": 470,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2727272727272727,
+        "answer_relevancy": 0.6456546325819891
+      },
+      "gemini": {
+        "faithfulness": 0.25,
+        "answer_relevancy": 0.9122285309489454
+      },
+      "gpt": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.9042838909818297
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:27:05-03:00"
+  },
+  {
+    "unit_id": "471|ans|sem_g2",
+    "question_id": 471,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3076923076923077,
+        "answer_relevancy": 0.6627336388319695
+      },
+      "gemini": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.858386348575213
+      },
+      "gpt": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.878906468186165
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:27:14-03:00"
+  },
+  {
+    "unit_id": "474|ans|sem_g2",
+    "question_id": 474,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.6254812401409299
+      },
+      "gemini": {
+        "faithfulness": 0.6428571428571429,
+        "answer_relevancy": 0.8291396825941616
+      },
+      "gpt": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:27:23-03:00"
+  },
+  {
+    "unit_id": "479|ans|sem_g2",
+    "question_id": 479,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.11764705882352941,
+        "answer_relevancy": 0.5676466590654156
+      },
+      "gemini": {
+        "faithfulness": 0.2,
+        "answer_relevancy": 0.8935834505429631
+      },
+      "gpt": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:27:32-03:00"
+  },
+  {
+    "unit_id": "480|ans|sem_g2",
+    "question_id": 480,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.624497187741477
+      },
+      "gemini": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.5778169567241366
+      },
+      "gpt": {
+        "faithfulness": 0.7142857142857143,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:27:42-03:00"
+  },
+  {
+    "unit_id": "485|ans|sem_g2",
+    "question_id": 485,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.9411725200307398
+      },
+      "gpt": {
+        "faithfulness": 0.45454545454545453,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:27:53-03:00"
+  },
+  {
+    "unit_id": "487|ans|sem_g2",
+    "question_id": 487,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.6004577704174383
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.5998762332641968
+      },
+      "gpt": {
+        "faithfulness": 0.7272727272727273,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:28:00-03:00"
+  },
+  {
+    "unit_id": "498|ans|sem_g2",
+    "question_id": 498,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.1,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.9063701219996693
+      },
+      "gpt": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:28:10-03:00"
+  },
+  {
+    "unit_id": "501|ans|sem_g2",
+    "question_id": 501,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5384615384615384,
+        "answer_relevancy": 0.6111021874174646
+      },
+      "gemini": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.5533298369651488
+      },
+      "gpt": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.8882514917381465
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:28:17-03:00"
+  },
+  {
+    "unit_id": "506|ans|sem_g2",
+    "question_id": 506,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.36363636363636365,
+        "answer_relevancy": 0.6180920555834896
+      },
+      "gemini": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.5345405092562442
+      },
+      "gpt": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.505744902465178
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:28:26-03:00"
+  },
+  {
+    "unit_id": "512|ans|sem_g2",
+    "question_id": 512,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.45454545454545453,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.0
+      },
+      "gpt": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:28:37-03:00"
+  },
+  {
+    "unit_id": "513|ans|sem_g2",
+    "question_id": 513,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5384615384615384,
+        "answer_relevancy": 0.6505244911469394
+      },
+      "gemini": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.9751472849810788
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.9384522810236334
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:28:47-03:00"
+  },
+  {
+    "unit_id": "518|ans|sem_g2",
+    "question_id": 518,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.18181818181818182,
+        "answer_relevancy": 0.6873585179868927
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.9680730527160741
+      },
+      "gpt": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.8678568684776344
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:28:55-03:00"
+  },
+  {
+    "unit_id": "520|ans|sem_g2",
+    "question_id": 520,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.0
+      },
+      "gpt": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:29:05-03:00"
+  },
+  {
+    "unit_id": "522|ans|sem_g2",
+    "question_id": 522,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.07692307692307693,
+        "answer_relevancy": 0.6237415746459893
+      },
+      "gemini": {
+        "faithfulness": 0.9090909090909091,
+        "answer_relevancy": 0.6818919234917505
+      },
+      "gpt": {
+        "faithfulness": 0.9166666666666666,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:29:14-03:00"
+  },
+  {
+    "unit_id": "527|ans|sem_g2",
+    "question_id": 527,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.5033215931968014
+      },
+      "gemini": {
+        "faithfulness": 0.8571428571428571,
+        "answer_relevancy": 0.7899741841852634
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.642905442757071
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:29:25-03:00"
+  },
+  {
+    "unit_id": "544|ans|sem_g2",
+    "question_id": 544,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.5259949528825746
+      },
+      "gpt": {
+        "faithfulness": 0.0,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:29:33-03:00"
+  },
+  {
+    "unit_id": "546|ans|sem_g2",
+    "question_id": 546,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.6474919770356776
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.9611376080488544
+      },
+      "gpt": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.9125549991600376
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:29:42-03:00"
+  },
+  {
+    "unit_id": "547|ans|sem_g2",
+    "question_id": 547,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.7232147717963132
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.9611376080488544
+      },
+      "gpt": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.8958605194411238
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:29:56-03:00"
+  },
+  {
+    "unit_id": "550|ans|sem_g2",
+    "question_id": 550,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.05555555555555555,
+        "answer_relevancy": 0.5720187467741246
+      },
+      "gemini": {
+        "faithfulness": 0.1,
+        "answer_relevancy": 0.7797647698756647
+      },
+      "gpt": {
+        "faithfulness": 0.8333333333333334,
+        "answer_relevancy": 0.7277864235792482
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:30:00-03:00"
+  },
+  {
+    "unit_id": "552|ans|sem_g2",
+    "question_id": 552,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.5490044912355385
+      },
+      "gemini": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.7607705615719076
+      },
+      "gpt": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.738972975115321
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:30:14-03:00"
+  },
+  {
+    "unit_id": "553|ans|sem_g2",
+    "question_id": 553,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.45454545454545453,
+        "answer_relevancy": 0.6732133432385408
+      },
+      "gemini": {
+        "faithfulness": 0.16666666666666666,
+        "answer_relevancy": 0.9133929093434737
+      },
+      "gpt": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.9273236943362052
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:30:21-03:00"
+  },
+  {
+    "unit_id": "559|ans|sem_g2",
+    "question_id": 559,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.26666666666666666,
+        "answer_relevancy": 0.49190296534563166
+      },
+      "gemini": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.5506563534157397
+      },
+      "gpt": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.6964701396908989
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:30:33-03:00"
+  },
+  {
+    "unit_id": "563|ans|sem_g2",
+    "question_id": 563,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.9444444444444444,
+        "answer_relevancy": 0.4561697891009904
+      },
+      "gemini": {
+        "faithfulness": 0.7692307692307693,
+        "answer_relevancy": 0.7609814863482326
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.831215283781393
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:30:42-03:00"
+  },
+  {
+    "unit_id": "566|ans|sem_g2",
+    "question_id": 566,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.45454545454545453,
+        "answer_relevancy": 0.6421699081375714
+      },
+      "gemini": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.9693519343686368
+      },
+      "gpt": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.9693519343686368
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:30:51-03:00"
+  },
+  {
+    "unit_id": "567|ans|sem_g2",
+    "question_id": 567,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.6093255694937526
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.9391858112210416
+      },
+      "gpt": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.9693519343686368
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:31:01-03:00"
+  },
+  {
+    "unit_id": "568|ans|sem_g2",
+    "question_id": 568,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.35714285714285715,
+        "answer_relevancy": 0.4385097801263593
+      },
+      "gemini": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.8271913059118575
+      },
+      "gpt": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:31:08-03:00"
+  },
+  {
+    "unit_id": "571|ans|sem_g2",
+    "question_id": 571,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.5292912667234405
+      },
+      "gemini": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.8949991120313653
+      },
+      "gpt": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.9492941458568671
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:31:19-03:00"
+  },
+  {
+    "unit_id": "575|ans|sem_g2",
+    "question_id": 575,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.6391499715953396
+      },
+      "gemini": {
+        "faithfulness": 0.46153846153846156,
+        "answer_relevancy": 0.7868505612166694
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8075917691445428
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:31:27-03:00"
+  },
+  {
+    "unit_id": "578|ans|sem_g2",
+    "question_id": 578,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.6741777760057731
+      },
+      "gemini": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.7554757401740488
+      },
+      "gpt": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.7984636635160184
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:31:36-03:00"
+  },
+  {
+    "unit_id": "581|ans|sem_g2",
+    "question_id": 581,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2,
+        "answer_relevancy": 0.6391499715953396
+      },
+      "gemini": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.8892161456023686
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.7922093414607775
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:31:45-03:00"
+  },
+  {
+    "unit_id": "582|ans|sem_g2",
+    "question_id": 582,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.16666666666666666,
+        "answer_relevancy": 0.6319991583547654
+      },
+      "gemini": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.875766111817303
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8548862691989935
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:31:58-03:00"
+  },
+  {
+    "unit_id": "592|ans|sem_g2",
+    "question_id": 592,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6428571428571429,
+        "answer_relevancy": 0.6159711118671066
+      },
+      "gemini": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.5144931097860823
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.753912038701897
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:32:05-03:00"
+  },
+  {
+    "unit_id": "598|ans|sem_g2",
+    "question_id": 598,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5333333333333333,
+        "answer_relevancy": 0.7419429652416104
+      },
+      "gemini": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.8106910056075624
+      },
+      "gpt": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.8158468524707665
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:32:14-03:00"
+  },
+  {
+    "unit_id": "599|ans|sem_g2",
+    "question_id": 599,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.7394668593658134
+      },
+      "gemini": {
+        "faithfulness": 0.8181818181818182,
+        "answer_relevancy": 0.6360794071828281
+      },
+      "gpt": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.819683702992255
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:32:22-03:00"
+  },
+  {
+    "unit_id": "604|ans|sem_g2",
+    "question_id": 604,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2,
+        "answer_relevancy": 0.6042971194348693
+      },
+      "gemini": {
+        "faithfulness": 0.8888888888888888,
+        "answer_relevancy": 0.7059405093009609
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:32:32-03:00"
+  },
+  {
+    "unit_id": "605|ans|sem_g2",
+    "question_id": 605,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.35714285714285715,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.0
+      },
+      "gpt": {
+        "faithfulness": 0.8888888888888888,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:32:42-03:00"
+  },
+  {
+    "unit_id": "611|ans|sem_g2",
+    "question_id": 611,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.7228705299973083
+      },
+      "gemini": {
+        "faithfulness": 0.1,
+        "answer_relevancy": 0.6667384479670982
+      },
+      "gpt": {
+        "faithfulness": 0.9,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:32:51-03:00"
+  },
+  {
+    "unit_id": "614|ans|sem_g2",
+    "question_id": 614,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.6858645693695169
+      },
+      "gpt": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:32:59-03:00"
+  },
+  {
+    "unit_id": "616|ans|sem_g2",
+    "question_id": 616,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.7857142857142857,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.7272727272727273,
+        "answer_relevancy": 0.680941837179514
+      },
+      "gpt": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:33:09-03:00"
+  },
+  {
+    "unit_id": "617|ans|sem_g2",
+    "question_id": 617,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.7022614175475161
+      },
+      "gemini": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.9858118306730531
+      },
+      "gpt": {
+        "faithfulness": 0.5833333333333334,
+        "answer_relevancy": 0.9858118306730531
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:33:19-03:00"
+  },
+  {
+    "unit_id": "619|ans|sem_g2",
+    "question_id": 619,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5882352941176471,
+        "answer_relevancy": 0.7022614175475161
+      },
+      "gemini": {
+        "faithfulness": 0.7142857142857143,
+        "answer_relevancy": 0.9858118306730531
+      },
+      "gpt": {
+        "faithfulness": 0.9090909090909091,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:33:29-03:00"
+  },
+  {
+    "unit_id": "624|ans|sem_g2",
+    "question_id": 624,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.5595966776611886
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.8687795425371564
+      },
+      "gpt": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.8118624780300863
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:33:39-03:00"
+  },
+  {
+    "unit_id": "626|ans|sem_g2",
+    "question_id": 626,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.5897146854216547
+      },
+      "gemini": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.8469942343916959
+      },
+      "gpt": {
+        "faithfulness": 0.9090909090909091,
+        "answer_relevancy": 0.5812712958913021
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:33:48-03:00"
+  },
+  {
+    "unit_id": "634|ans|sem_g2",
+    "question_id": 634,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.8772807338487421
+      },
+      "gpt": {
+        "faithfulness": 0.8888888888888888,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:33:57-03:00"
+  },
+  {
+    "unit_id": "639|ans|sem_g2",
+    "question_id": 639,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.76043786027887
+      },
+      "gpt": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:34:06-03:00"
+  },
+  {
+    "unit_id": "641|ans|sem_g2",
+    "question_id": 641,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.47058823529411764,
+        "answer_relevancy": 0.45486307620546196
+      },
+      "gemini": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.7647453931218268
+      },
+      "gpt": {
+        "faithfulness": 0.7692307692307693,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:34:16-03:00"
+  },
+  {
+    "unit_id": "642|ans|sem_g2",
+    "question_id": 642,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.45454545454545453,
+        "answer_relevancy": 0.611396193684648
+      },
+      "gemini": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.8380107435650029
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.8294994594526023
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:34:25-03:00"
+  },
+  {
+    "unit_id": "643|ans|sem_g2",
+    "question_id": 643,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.18181818181818182,
+        "answer_relevancy": 0.6201195911928975
+      },
+      "gemini": {
+        "faithfulness": 0.125,
+        "answer_relevancy": 0.8568261938946108
+      },
+      "gpt": {
+        "faithfulness": 0.9090909090909091,
+        "answer_relevancy": 0.822113248624531
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:34:31-03:00"
+  },
+  {
+    "unit_id": "644|ans|sem_g2",
+    "question_id": 644,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5882352941176471,
+        "answer_relevancy": 0.6022981392296749
+      },
+      "gemini": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.8128470494496213
+      },
+      "gpt": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.7388131383200078
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:34:46-03:00"
+  },
+  {
+    "unit_id": "651|ans|sem_g2",
+    "question_id": 651,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.21428571428571427,
+        "answer_relevancy": 0.45718280396407535
+      },
+      "gemini": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.44110134071990714
+      },
+      "gpt": {
+        "faithfulness": 0.9166666666666666,
+        "answer_relevancy": 0.8005912248375001
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:34:52-03:00"
+  },
+  {
+    "unit_id": "652|ans|sem_g2",
+    "question_id": 652,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.15384615384615385,
+        "answer_relevancy": 0.43261562298167505
+      },
+      "gemini": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.8461973748205756
+      },
+      "gpt": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.8002222407628689
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:35:01-03:00"
+  },
+  {
+    "unit_id": "655|ans|sem_g2",
+    "question_id": 655,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.23076923076923078,
+        "answer_relevancy": 0.47092743721964087
+      },
+      "gemini": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.7794365661214652
+      },
+      "gpt": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.42629750145246587
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:35:11-03:00"
+  },
+  {
+    "unit_id": "659|ans|sem_g2",
+    "question_id": 659,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.875,
+        "answer_relevancy": 0.41133252454474123
+      },
+      "gemini": {
+        "faithfulness": 0.8888888888888888,
+        "answer_relevancy": 0.4807262274419573
+      },
+      "gpt": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.7755673033964738
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:35:18-03:00"
+  },
+  {
+    "unit_id": "661|ans|sem_g2",
+    "question_id": 661,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.4383839980894721
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.7707822268941195
+      },
+      "gpt": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.7697391607832319
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:35:27-03:00"
+  },
+  {
+    "unit_id": "664|ans|sem_g2",
+    "question_id": 664,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.38461538461538464,
+        "answer_relevancy": 0.6140217270901137
+      },
+      "gemini": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.9261070445412587
+      },
+      "gpt": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.6438958224385817
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:35:39-03:00"
+  },
+  {
+    "unit_id": "665|ans|sem_g2",
+    "question_id": 665,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6470588235294118,
+        "answer_relevancy": 0.6226894348455001
+      },
+      "gemini": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.9262819073626171
+      },
+      "gpt": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:35:48-03:00"
+  },
+  {
+    "unit_id": "666|ans|sem_g2",
+    "question_id": 666,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.6075301635496111
+      },
+      "gemini": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.9284862839364688
+      },
+      "gpt": {
+        "faithfulness": 0.45454545454545453,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:36:02-03:00"
+  },
+  {
+    "unit_id": "672|ans|sem_g2",
+    "question_id": 672,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.4959597526105395
+      },
+      "gemini": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.8588615268455988
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.561698997594557
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:36:06-03:00"
+  },
+  {
+    "unit_id": "675|ans|sem_g2",
+    "question_id": 675,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.5747344033693018
+      },
+      "gemini": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.7411570202454469
+      },
+      "gpt": {
+        "faithfulness": 0.6428571428571429,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:36:17-03:00"
+  },
+  {
+    "unit_id": "676|ans|sem_g2",
+    "question_id": 676,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.5202991115323844
+      },
+      "gemini": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.8099929569656835
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.7788672423299273
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:36:28-03:00"
+  },
+  {
+    "unit_id": "678|ans|sem_g2",
+    "question_id": 678,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.09090909090909091,
+        "answer_relevancy": 0.5711348596116399
+      },
+      "gemini": {
+        "faithfulness": 0.25,
+        "answer_relevancy": 0.8248303699669325
+      },
+      "gpt": {
+        "faithfulness": 0.7142857142857143,
+        "answer_relevancy": 0.6687217804114001
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:36:38-03:00"
+  },
+  {
+    "unit_id": "687|ans|sem_g2",
+    "question_id": 687,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2727272727272727,
+        "answer_relevancy": 0.46993749503850446
+      },
+      "gemini": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.4950903342292987
+      },
+      "gpt": {
+        "faithfulness": 0.2222222222222222,
+        "answer_relevancy": 0.8237862954405442
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:36:48-03:00"
+  },
+  {
+    "unit_id": "689|ans|sem_g2",
+    "question_id": 689,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.38461538461538464,
+        "answer_relevancy": 0.6923607152583683
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.9122002862984876
+      },
+      "gpt": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.8540004495802687
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:37:03-03:00"
+  },
+  {
+    "unit_id": "698|ans|sem_g2",
+    "question_id": 698,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.29411764705882354,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.46153846153846156,
+        "answer_relevancy": 0.7278524902584151
+      },
+      "gpt": {
+        "faithfulness": 0.42857142857142855,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:37:12-03:00"
+  },
+  {
+    "unit_id": "702|ans|sem_g2",
+    "question_id": 702,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5833333333333334,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.9230958189080191
+      },
+      "gpt": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:37:20-03:00"
+  },
+  {
+    "unit_id": "705|ans|sem_g2",
+    "question_id": 705,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.07692307692307693,
+        "answer_relevancy": 0.6588841800995558
+      },
+      "gemini": {
+        "faithfulness": 0.4,
+        "answer_relevancy": 0.486844519430688
+      },
+      "gpt": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:37:30-03:00"
+  },
+  {
+    "unit_id": "707|ans|sem_g2",
+    "question_id": 707,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.13333333333333333,
+        "answer_relevancy": 0.5940582863869818
+      },
+      "gemini": {
+        "faithfulness": 0.36363636363636365,
+        "answer_relevancy": 0.9708835600333207
+      },
+      "gpt": {
+        "faithfulness": 0.8333333333333334,
+        "answer_relevancy": 0.927206216701291
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:37:39-03:00"
+  },
+  {
+    "unit_id": "708|ans|sem_g2",
+    "question_id": 708,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.5527423650545519
+      },
+      "gemini": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.5044655048852024
+      },
+      "gpt": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:37:50-03:00"
+  },
+  {
+    "unit_id": "713|ans|sem_g2",
+    "question_id": 713,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.4867365909350963
+      },
+      "gemini": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.8885123320757352
+      },
+      "gpt": {
+        "faithfulness": 0.7272727272727273,
+        "answer_relevancy": 0.47330479958233607
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:37:58-03:00"
+  },
+  {
+    "unit_id": "714|ans|sem_g2",
+    "question_id": 714,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.45454545454545453,
+        "answer_relevancy": 0.469072992906623
+      },
+      "gemini": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.7908272197901467
+      },
+      "gpt": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.8630579197097412
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:38:08-03:00"
+  },
+  {
+    "unit_id": "715|ans|sem_g2",
+    "question_id": 715,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.5544746469268635
+      },
+      "gemini": {
+        "faithfulness": 0.1,
+        "answer_relevancy": 0.89178758461409
+      },
+      "gpt": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.9083808213310126
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:38:18-03:00"
+  },
+  {
+    "unit_id": "730|ans|sem_g2",
+    "question_id": 730,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.5393797669801573
+      },
+      "gemini": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.9088347283918563
+      },
+      "gpt": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.8980706287826248
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:38:28-03:00"
+  },
+  {
+    "unit_id": "734|ans|sem_g2",
+    "question_id": 734,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.5212905501261187
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.7542999590498066
+      },
+      "gpt": {
+        "faithfulness": 0.9166666666666666,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:38:40-03:00"
+  },
+  {
+    "unit_id": "742|ans|sem_g2",
+    "question_id": 742,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.5257395654517567
+      },
+      "gemini": {
+        "faithfulness": 0.8333333333333334,
+        "answer_relevancy": 0.812100135766447
+      },
+      "gpt": {
+        "faithfulness": 0.8333333333333334,
+        "answer_relevancy": 0.5824129127097012
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:38:48-03:00"
+  },
+  {
+    "unit_id": "743|ans|sem_g2",
+    "question_id": 743,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.6500732433306265
+      },
+      "gemini": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.8391718515822647
+      },
+      "gpt": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.7353240863538808
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:38:58-03:00"
+  },
+  {
+    "unit_id": "748|ans|sem_g2",
+    "question_id": 748,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3,
+        "answer_relevancy": 0.0
+      },
+      "gemini": {
+        "faithfulness": 0.625,
+        "answer_relevancy": 0.7828751895454822
+      },
+      "gpt": {
+        "faithfulness": 0.5555555555555556,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:39:09-03:00"
+  },
+  {
+    "unit_id": "755|ans|sem_g2",
+    "question_id": 755,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4166666666666667,
+        "answer_relevancy": 0.5500453050327269
+      },
+      "gemini": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.8421218955243001
+      },
+      "gpt": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.8349651068343075
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:39:19-03:00"
+  },
+  {
+    "unit_id": "757|ans|sem_g2",
+    "question_id": 757,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.47473316935334003
+      },
+      "gemini": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.8934312993849914
+      },
+      "gpt": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:39:28-03:00"
+  },
+  {
+    "unit_id": "759|ans|sem_g2",
+    "question_id": 759,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.26666666666666666,
+        "answer_relevancy": 0.5427755877527011
+      },
+      "gemini": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.5361137997683366
+      },
+      "gpt": {
+        "faithfulness": 0.9230769230769231,
+        "answer_relevancy": 0.6568017566745542
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:39:39-03:00"
+  },
+  {
+    "unit_id": "760|ans|sem_g2",
+    "question_id": 760,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.13333333333333333,
+        "answer_relevancy": 0.4996172320976182
+      },
+      "gemini": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.794226658397937
+      },
+      "gpt": {
+        "faithfulness": 0.15384615384615385,
+        "answer_relevancy": 0.7829848762038784
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:39:46-03:00"
+  },
+  {
+    "unit_id": "762|ans|sem_g2",
+    "question_id": 762,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4666666666666667,
+        "answer_relevancy": 0.49226731504499416
+      },
+      "gemini": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.6337599898299286
+      },
+      "gpt": {
+        "faithfulness": 0.5714285714285714,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:39:55-03:00"
+  },
+  {
+    "unit_id": "765|ans|sem_g2",
+    "question_id": 765,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.35714285714285715,
+        "answer_relevancy": 0.4879049579690882
+      },
+      "gemini": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.8257975173161393
+      },
+      "gpt": {
+        "faithfulness": 0.25,
+        "answer_relevancy": 0.8476002647483679
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:40:09-03:00"
+  },
+  {
+    "unit_id": "773|ans|sem_g2",
+    "question_id": 773,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.47806263627513484
+      },
+      "gemini": {
+        "faithfulness": 0.7,
+        "answer_relevancy": 0.8476939798177932
+      },
+      "gpt": {
+        "faithfulness": 0.5833333333333334,
+        "answer_relevancy": 0.8410711386329092
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:40:16-03:00"
+  },
+  {
+    "unit_id": "774|ans|sem_g2",
+    "question_id": 774,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.631578947368421,
+        "answer_relevancy": 0.610370342456653
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.8404441365385097
+      },
+      "gpt": {
+        "faithfulness": 0.3076923076923077,
+        "answer_relevancy": 0.6370414013717047
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:40:24-03:00"
+  },
+  {
+    "unit_id": "780|ans|sem_g2",
+    "question_id": 780,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.29411764705882354,
+        "answer_relevancy": 0.38800194863483456
+      },
+      "gemini": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.5873969320572922
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.0
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:40:33-03:00"
+  },
+  {
+    "unit_id": "781|ans|sem_g2",
+    "question_id": 781,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.65,
+        "answer_relevancy": 0.43816333901422894
+      },
+      "gemini": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.6052986865666754
+      },
+      "gpt": {
+        "faithfulness": 1.0,
+        "answer_relevancy": 0.5357091757978565
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:40:44-03:00"
+  },
+  {
+    "unit_id": "782|ans|sem_g2",
+    "question_id": 782,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.38461538461538464,
+        "answer_relevancy": 0.4466544403416161
+      },
+      "gemini": {
+        "faithfulness": 0.7692307692307693,
+        "answer_relevancy": 0.6190623277607198
+      },
+      "gpt": {
+        "faithfulness": 0.8461538461538461,
+        "answer_relevancy": 0.5470138845901175
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:40:53-03:00"
+  },
+  {
+    "unit_id": "784|ans|sem_g2",
+    "question_id": 784,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.7647058823529411,
+        "answer_relevancy": 0.6396058721199237
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.8811538751676107
+      },
+      "gpt": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.8515293394086264
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:41:02-03:00"
+  },
+  {
+    "unit_id": "787|ans|sem_g2",
+    "question_id": 787,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6153846153846154,
+        "answer_relevancy": 0.5655581579014864
+      },
+      "gemini": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.8391149000831871
+      },
+      "gpt": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.7275512170384152
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:41:13-03:00"
+  },
+  {
+    "unit_id": "796|ans|sem_g2",
+    "question_id": 796,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2727272727272727,
+        "answer_relevancy": 0.612441714085632
+      },
+      "gemini": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.8459204271925117
+      },
+      "gpt": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.7972564021669428
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:41:20-03:00"
+  },
+  {
+    "unit_id": "797|ans|sem_g2",
+    "question_id": 797,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.2777777777777778,
+        "answer_relevancy": 0.612441714085632
+      },
+      "gemini": {
+        "faithfulness": 0.4666666666666667,
+        "answer_relevancy": 0.8459204271925117
+      },
+      "gpt": {
+        "faithfulness": 0.5454545454545454,
+        "answer_relevancy": 0.829699085517322
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:41:30-03:00"
+  },
+  {
+    "unit_id": "809|ans|sem_g2",
+    "question_id": 809,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.5143115772273014
+      },
+      "gemini": {
+        "faithfulness": 0.9090909090909091,
+        "answer_relevancy": 0.8415403505396352
+      },
+      "gpt": {
+        "faithfulness": 0.6923076923076923,
+        "answer_relevancy": 0.860528574823426
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:41:40-03:00"
+  },
+  {
+    "unit_id": "810|ans|sem_g2",
+    "question_id": 810,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.8333333333333334,
+        "answer_relevancy": 0.5780736669120891
+      },
+      "gemini": {
+        "faithfulness": 0.875,
+        "answer_relevancy": 0.8675231196677275
+      },
+      "gpt": {
+        "faithfulness": 0.7777777777777778,
+        "answer_relevancy": 0.8588012670519108
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:41:51-03:00"
+  },
+  {
+    "unit_id": "811|ans|sem_g2",
+    "question_id": 811,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.7142857142857143,
+        "answer_relevancy": 0.6051380634757423
+      },
+      "gemini": {
+        "faithfulness": 0.8333333333333334,
+        "answer_relevancy": 0.8675003012474249
+      },
+      "gpt": {
+        "faithfulness": 0.7857142857142857,
+        "answer_relevancy": 0.8568152384570933
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:42:02-03:00"
+  },
+  {
+    "unit_id": "812|ans|sem_g2",
+    "question_id": 812,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.4444444444444444,
+        "answer_relevancy": 0.6114775013110382
+      },
+      "gemini": {
+        "faithfulness": 0.5,
+        "answer_relevancy": 0.8578485077081369
+      },
+      "gpt": {
+        "faithfulness": 0.6363636363636364,
+        "answer_relevancy": 0.7839090034792072
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:42:08-03:00"
+  },
+  {
+    "unit_id": "816|ans|sem_g2",
+    "question_id": 816,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.13333333333333333,
+        "answer_relevancy": 0.5834040686334186
+      },
+      "gemini": {
+        "faithfulness": 0.9090909090909091,
+        "answer_relevancy": 0.7977721671837504
+      },
+      "gpt": {
+        "faithfulness": 0.9230769230769231,
+        "answer_relevancy": 0.7977721671837504
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:42:24-03:00"
+  },
+  {
+    "unit_id": "818|ans|sem_g2",
+    "question_id": 818,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.4960398576240308
+      },
+      "gemini": {
+        "faithfulness": 0.6,
+        "answer_relevancy": 0.7773600479986776
+      },
+      "gpt": {
+        "faithfulness": 0.75,
+        "answer_relevancy": 0.7798033326391988
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:42:24-03:00"
+  },
+  {
+    "unit_id": "820|ans|sem_g2",
+    "question_id": 820,
+    "kind": "ans",
+    "name": "sem_g2",
+    "arm": "sem",
+    "results": {
+      "claude": {
+        "faithfulness": 0.3333333333333333,
+        "answer_relevancy": 0.6948875079581529
+      },
+      "gemini": {
+        "faithfulness": 0.6666666666666666,
+        "answer_relevancy": 0.7218163797645646
+      },
+      "gpt": {
+        "faithfulness": 0.8,
+        "answer_relevancy": 0.6877925308109453
+      }
+    },
+    "errors": [],
+    "at": "2026-10-07T21:42:37-03:00"
+  }
+]

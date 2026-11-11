@@ -1,0 +1,200 @@
+[
+  {
+    "question_id": 693,
+    "question": "É possível ter qualidade de vida e envelhecer com saúde tendo alergia a medicamentos?",
+    "ground_truth": "Quanto mais a pessoa se adaptar às restrições que são orientava-se seguir o tratamento melhor ficara a cada dia e seguirá com saúde e qualidade de vida ! Sempre acompanhando com o especialista",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 719,
+    "question": "Boa tarde! Meu filho tem 7 anos e irá realizar uma ressonância magnética de hipófise com contraste....ele tem rinite alérgica....como posso saber se ele é alérgico ao contraste?",
+    "ground_truth": "Caríssimo, pode sim. Basta solicitar ao Médico Alergista para realizar uma Bateria de Testes de Contato. Saberá a resposta de sua pergunta. Saúde.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 285,
+    "question": "Já tomei anestesia peridural no parto, mesmo assim posso ter alergia a anestesia geral ou são usadas mesma substâncias?",
+    "ground_truth": "Acidentes alérgicos com anestesia geral são muitíssimo raros e na anestesia peridural usa-se anestésicos locais, não gerais.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 778,
+    "question": "Dessensibilização para utilização de contraste iodado. Vou fazer uma angiografia e uma angioplastia de veias cerebrais, Sou uma paciente alérgica. Como dessenssibilizar para usar o contraste de iodo. É seguro após o uso de corticoides e antialérgicos fazer o uso do contraste?",
+    "ground_truth": "Se a indicação médica do exame contrastado supera a contraindicação pelo problema geral de alergia, neste caso, a utilização de corticoides e antialérgicos, desde que prescritos pelo médico assistente para esta finalidade, pode ser interessante e útil sim. Em outras palavras, se a melhor opção for a realização do exame, o uso de corticoides e antialérgicos ajudam a prevenção de possíveis reações adversas. Ademais, o tratamento homeopático também pode, de forma adjuvante, atuar na prevenção dessas reações indesejáveis. Quer dizer, além dessas prescrições, a homeopatia também pode ser uma boa auxiliar nesse procedimento médico.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 806,
+    "question": "Sou professora 41 anos, e há 1 ano venho apresentando reações e medicações antinflamatórias, corticóides e opióides, tudo para dor...tenho sofrido muito por não ter opção ao que tomar, e sem um diagnóstico fechado.Quem pode me atender e ajudar ?",
+    "ground_truth": "Na homeopatia as medicações prescritas por médico(a) homeopata não causam alergia e são úteis ao tratamento dos quadros dolorosos, inflamatórios e febris.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 221,
+    "question": "Ibuprofeno tem acido acetilico?ou seja contem componentes do ASS?",
+    "ground_truth": "Olá. O AAS e o ibuprofeno são substância diferentes. Porém, ambos são anti-inflamatórios e podem dar alergia cruzada. Procure um alergista para definir qual o melhor para o seu caso.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 345,
+    "question": "Alergia forte à crustáceos é, por si só, circunstância de contraindicação ao exame de TC com contraste? Há algum tipo de cuidado que deve ser tomado em relação aos componentes do contraste?",
+    "ground_truth": "Oi! Muita gente associa a alergia a crustáceos com alergia aos contrastes, mas isso é um mito! se o paciente teve uma reação alérgica ao uso de constraste em algum procedimento prévio, deve procurar um alergista para melhor avaliação e devidas orientações.boa semana a todos",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 81,
+    "question": "LevofloxacinoPode causar muito enjouo e tontura após o seu uso?",
+    "ground_truth": "Boa tarde,Sou Dr Manoel Victor Ferreira SIlva Residente do Segundo ano de Medicina de Familia e ComunidadeSegue alguns dos efeitos colaterais do levofloxacino (de acordo com o pebmed)- Monilíase;- Insônia;- Cefaleia, tontura;- Dispneia;- Náusea, diarreia, constipação, dor abdominal, vômitos, dispepsia;- Erupção cutânea, prurido;- Vaginite;- Edema;- Reação no local da administração;- Dor torácica.Os riscos de apresentar cada um dos efeitos colaterais variam de pessoa para pessoa. Sempre importante dizer que os benefícios (no caso a melhora da infecção), superam os malefícios. Importante não interromper o tratamento sem orientação médica e, caso esteja realmente difícil suportar os efeitos colaterais, procurar novo atendimento para reavaliação do quadro.Grande abraço,Desejo melhoras do quadro infeccioso",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 722,
+    "question": "O que fazer quando uma pessoa tem hipersensibilidade ou alergia aos excipientes de medicamentos?",
+    "ground_truth": "Caríssimo, procure um Médico Alergista para realizar uma Bateria de Testes de Contato e descobrir quais substâncias que você tem alergia. Há tratamento imunoterápico para determinados produtos . Para outros , há a troca para semelhantes em desempenho farmacológico porém com outra base química. Escute e faça tudo que o colega Alergista orientar em relação ao seu caso. Tenha uma ótima qualidade de vida. Saúde.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 801,
+    "question": "Como diferenciar rash causado por virus daqueles causados por remédios (sintomas, características, formas etc)?!",
+    "ground_truth": "Não existem características específicas do rash cutâneo que aponte se a lesão é causada por vírus ou medicamentos. A história clínica, exame físico e possivelmente testes cutâneos nos auxiliam a fazer essa diferenciação.Atenciosamente, dra Jessica",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 167,
+    "question": "Sou alérgica a sulfa e já tive hepatite grave com tratamento severo. Posso tomar a vacina da covid?",
+    "ground_truth": "Pode. alergia a sulfa não é contra indicação a vacina do covid",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 380,
+    "question": "Sou alérgica ao Thimerosal. Como essa substância aparece na composição?",
+    "ground_truth": "Aparece como thimerosal mesmo. Fazia parte da formulação do merthiolate antigamente é muitas pessoas desenvolveram alergia de contato ao thimerosal. Depois substituiram ele na formula e hoje em dia já seria seguro para voce usar. É um conservante usado muito em vacinas porem isso não contraindica o uso dessas vacinas pela dose ser muita pequena.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 793,
+    "question": "Pelo sus é possivel fazer exame para dectar que tipo de alergia medicamentosa a possa tem.",
+    "ground_truth": "O exame para detectar alergia a medicamentos só existe em centros muito especializados para tal procedimento e não me consta que exista este centro no brasil. Então na prática deve-se evitar o medicamento que deu tal reação e o exame não existe.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 700,
+    "question": "Tenho alergia a creme dental ,já procurei dentista e alergista já fiz vários exames e não encontraram a causa da alergia , gostaria de saber qual especialista eu devo procurar? Obrigada",
+    "ground_truth": "Prezado (a) paciente, recomendo marcar consulta. Levar todos os exames e prescrições médicas. Cordial abraço, Dra. Marta Guidacci",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 74,
+    "question": "Minha filha está com depressão apor tomar levoflocina 750 .quanto tempo dura este efeito colateral?",
+    "ground_truth": "A levofloxacina é um antibiótico que geralmente é usado para tratar infecções bacterianas. Não é considerado um tratamento para a depressão e nem tem a depressão como efeito adverso. Se sua filha está sofrendo com depressão, é importante que ela consulte um profissional de saúde mental para avaliar sua condição e recomendar o melhor tratamento. O tratamento para a depressão pode incluir terapia, medicamentos ou uma combinação dos dois. É importante encontrar o tratamento certo para ajudar sua filha a se sentir melhor e lidar com seus sintomas.Seguem algumas das reações adversas do Levofloxacino:Monilíase;Insônia;Cefaleia, tontura;Dispneia;Náusea, diarreia, constipação, dor abdominal, vômitos, dispepsia;Erupção cutânea, prurido;Vaginite;Edema;Reação no local da administração;Dor torácica.Te convidamos para uma consulta: Teleconsulta - R 329Você pode reservar uma consulta através do site Doctoralia, clicando no botão agendar consulta.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 656,
+    "question": "Estou usando o Xarelto já tem um tempo usei o de 15 mg e agora estou usando o de 20 mg. Percebi que começaram aparecer no meu corpo uma bolinhas vermelhas, tipo um pontinho, não são muitas, só algumas. Pode ser pelo uso do Xarelto?",
+    "ground_truth": "Caríssimo, recomendo veementemente que procure um Médico Alergista e peça uma Bateria de Testes de Contato. Com o laudo médico nas mãos faça a Imunoterapia específica para seus males alérgicos, se for indicado. Siga todas as orientações médicas do colega e tenha uma excelente qualidade de vida. Saúde.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 58,
+    "question": "Sou alérgica a Aines . Posso tomar vacina contra COVID 19 ?",
+    "ground_truth": "Sim. Não há reação cruzada entre os antiinflamatórios e vacinas, inclusive a covid 19",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 805,
+    "question": "Sou professora 41 anos, e há 1 ano venho apresentando reações e medicações antinflamatórias, corticóides e opióides, tudo para dor...tenho sofrido muito por não ter opção ao que tomar, e sem um diagnóstico fechado.Quem pode me atender e ajudar ?",
+    "ground_truth": "Caríssima, possivelmente está apresentando alergia a AAS DIPIRONA. Sugiro que procure um colega Alergista e realize a Bateria de Testes de Contato e siga rigorosamente as orientações deste médico. Se me permitir, recomendaria para dor o medicamento: TYLENOL.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 814,
+    "question": "Para fazer o IGE especifico para trigo, soja, leite, clara, gema e amendoim, é preciso estar consumindo esses alimentos? Se a pessoa estiver fazendo exclusão desses alimentos o Ige pode dar um falso negativo (em caso de alergia)? qual melhor exame para identificar alergia alimentar o IGE ou teste cutâneo",
+    "ground_truth": "Caríssimo, o exame laboratorial confiável é o RAST dos alimentos que você quer saber! O seu laboratório de confiança deve realizar. Ó Médico Alergista deve solicitar. O mais exato e específico seriai exame feito ao nível Hospitalar denominado: PRICK to PRICK . Onde se escarifica o alimento, e logo a seguir a pele do paciente. Lembre-se que só se deve realizar em ambiente hospitalar!!!",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 718,
+    "question": "Boa tarde! Meu filho tem 7 anos e irá realizar uma ressonância magnética de hipófise com contraste....ele tem rinite alérgica....como posso saber se ele é alérgico ao contraste?",
+    "ground_truth": "Não existe um teste específico para contraste que possa te dar alguma segurança. A história clínica de outros eventos similares é que norteia o médico. Quando existe suspeita é necessário uma prevenção, mas fazer algum teste que lhe garanta qualquer coisa, não existe.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 157,
+    "question": "Olá! Em um período de 30 dias já fiz tratamento pra faringite, com azitromicina e corticóide, depois de uma semana tratei sinusite com Clavulin e corticóide, e como não melhorou agora tratamento com levofloxacino por 10 dias e corticóide duoflam. Hoje, no terceiro dia de antibiótico, estou sentindo mal estar, bolo na garganta e sinto cansaço pra falar. Também cansaço geral e fraqueza muscular. Pode ser reação das medicações? Devo suspender o uso do antibiótico?",
+    "ground_truth": "Olá. Você relata sintomas que podem estar associados a processo infecciosoinflamatório ou mesmo a reação medicamentosa devido ao uso de tanto medicamentos em tão curto espaço de tempo. Sugiro procurar um médico otorrinolaringologista para fazer uma minuciosa investigação, um exame físico, e possívelmente um exame com fibra óptica para descartar infecções, processos alérgicos ou irritativos (como por refluxo gastroesofágico). A partir disso poderemos estabelecer a razão da persistência de seus sintomas para indicar tratamento adequado.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 542,
+    "question": "Tomei Levoxin e me deu tremores nas maos ...Quantos dias pra desaparecer esse efeito colateral?",
+    "ground_truth": "Não é comum esse sintoma com uso de Levotiroxina, exceto se há doses elevadas da medciação. O ideal era avaliar esse sintoma.Fico a disposição",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 657,
+    "question": "Estou usando o Xarelto já tem um tempo usei o de 15 mg e agora estou usando o de 20 mg. Percebi que começaram aparecer no meu corpo uma bolinhas vermelhas, tipo um pontinho, não são muitas, só algumas. Pode ser pelo uso do Xarelto?",
+    "ground_truth": "Bom dia, teria que ver o tipo de lesão que está apresentando. O xarelto é um composto que age inibindo a ação de um fator da coagulação que é responsável pela formação de coágulos no sangue. Concluindo esses pontinhos pode ser um efeito colateral do medicamento, aconselho procurar um médico alergologista que irá avaliar a lesão e se for necessário pedir alguns exames complementares. Espero que tenha te ajudado . Um bom inicio de semana",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 735,
+    "question": "Bom dia meu filho vai realizar um exame de cintilografia óssea ele tem 7 anos, gostaria de verificar se ele é alérgico ao contraste de iodo, como devo proceder?",
+    "ground_truth": "Existem dois testes de contato , como assinalou o colega acima, que testam a alergia ao iodo, vale a pena faze-los. Todavia, se ele ja experimentou algum tipo de alergia ao camarao ou a frutos do mar , torna-se imperioso que se faca uso de medicacao preventiva mesmo que os testes tenham sido negativos.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 446,
+    "question": "Há como saber se tenho alergia ao contraste usado em uma angioressonancia arterial e venosa para ver suspeita de aneurisma?",
+    "ground_truth": "Boa tarde, prezado(a). Não há indicação ou possível teste prévio para uso de contraste. Atenciosamente.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 4,
+    "question": "Quem já tomou Benzetacil e não teve reação alérgica, pode tomar amoxicilina?",
+    "ground_truth": "A princípio não há contraindicação para utilizar amoxicilina nesse caso. O risco de reação é o habitual como para qualquer paciente.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 680,
+    "question": "Sou alergico a Dipirona posso tomar Fluoxetina?",
+    "ground_truth": "Caríssima, teoricamente não. Porém, seria muito aconselhável fazer uma Bateria de Testes de Contato para saber de possíveis alergias cruzadas. Procure um Médico Alergista e siga todas as orientações médicas do colega. Saúde.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 541,
+    "question": "Tomei Levoxin e me deu tremores nas maos ...Quantos dias pra desaparecer esse efeito colateral?",
+    "ground_truth": "Boa tarde, levotiroxina não costuma causar tremor nas mãos, apenas quando suas doses estão elevadas. Sugiro procurar o seu endocrinologista para uma avaliação.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 530,
+    "question": "Gostaria de saber sobre a vacina contra febre amarela. Sou alérgica a antibioticos e a vacina contra febre amarela contém eritromicina. Existe tal vacina sem este antibiotico? Como vou viajar e o país onde irei exige a vacina em questão como poderei fazer?",
+    "ground_truth": "É importante você saber quais antibióticos você é alérgica. Se não for a eritromicina não tem problema. Você também pode fazer a vacina em ambiente seguro, como dentro de um hospital. Pacientes alérgicos a ovo e que tem indicação de fazer a vacina de F amarela, que contem ovo, fazem isso. Procure um alergista para orientar quando a sua alergia a antibióticos",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 790,
+    "question": "O sistema unico de saude ofereçe consulta com especialistas alegistas",
+    "ground_truth": "Que eu saiba NÃO. Procure um Médico Alergista na sua região. Alergia a medicamentos pode ser fatal.",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 596,
+    "question": "Fui ao médico para olhar um zumbido no ouvido. Usei cerumim e depois fiz lavagem. Vou observado tipo uma pequena infecção nos dois ouvidos. Não no tímpano. O médico me passou Sinot Clav. Após tomar esse antibiótico a temperatura do meu corpo subiu assustadoramente. Como se tivesse febre interna e também passei por calafrios intensos. Tive uma reação alérgica? O remédio pode ter sido passado em dose muito alta. Senti vários sintomas normais de quem toma antibiótico mas febre foi a primeira vez.Observação: não medi a temperatura do meu corpo mas a sensação foi de febre alta com calafrios.Obrigado.",
+    "ground_truth": "Olá. Esse tipo de sintoma que você teve não é habitual como reação alérgica , mas não é impossível. O melhor seria você insitir na medicação mais uma dose, mas se te der esses mesmos sintomas deve interromper o uso e relatar ao médico para troca por outra medicação",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 813,
+    "question": "Para fazer o IGE especifico para trigo, soja, leite, clara, gema e amendoim, é preciso estar consumindo esses alimentos? Se a pessoa estiver fazendo exclusão desses alimentos o Ige pode dar um falso negativo (em caso de alergia)? qual melhor exame para identificar alergia alimentar o IGE ou teste cutâneo",
+    "ground_truth": "Bom dia para se fazer a dosagem de IgE alimentar não é necessário estar ingerindo os mesmos. Para vir a negativar a dosagem de IgE específica é necessário dieta de exclusão total do alimento por um tempo muito longo (mais de ano). E com a reintrodução do mesmo ela pode voltar a aparecer em novas dosagens. Assim como os sintomas alérgicos.E o teste cutâneo é tão fidedigno quanto a mensuração de IgE específica. Em geral solicitamos a dosagem de IgE quando não temos como fazer o teste cutâneo ou quando este da negativo e queremos fazer uma dupla checagem",
+    "status": "out_of_scope"
+  },
+  {
+    "question_id": 789,
+    "question": "O sistema unico de saude ofereçe consulta com especialistas alegistas",
+    "ground_truth": "Em São Paulo capital sim, existem alguns AMEs que possuem alergistas em seus quadros. Entretanto alergia a medicamentos exige investigações não realizadas nestes serviços (ex. Teste de provocação); Na rede pública hospitais universitários (UNIFESP - EPM, FMUSP) realizam a investigação completa.",
+    "status": "out_of_scope"
+  }
+]
