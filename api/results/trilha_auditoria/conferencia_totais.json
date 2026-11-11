@@ -1,0 +1,61 @@
+{
+ "totais": {
+  "A": {
+   "consenso_estrito": {
+    "sem_consenso": 109,
+    "com_g1": 63,
+    "sem_g1": 56,
+    "ground_truth_medpt": 1
+   },
+   "sem_descarte": {
+    "com_g1": 89,
+    "sem_g1": 97,
+    "sem_consenso": 41,
+    "ground_truth_medpt": 2
+   }
+  },
+  "B": {
+   "consenso_estrito": {
+    "sem_g2": 44,
+    "sem_consenso": 121,
+    "sem_g1": 63,
+    "ground_truth_medpt": 1
+   },
+   "sem_descarte": {
+    "sem_g2": 87,
+    "sem_consenso": 41,
+    "sem_g1": 99,
+    "ground_truth_medpt": 2
+   }
+  },
+  "C": {
+   "consenso_estrito": {
+    "h5_g1": 70,
+    "sem_consenso": 98,
+    "com_g1": 60,
+    "ground_truth_medpt": 1
+   },
+   "sem_descarte": {
+    "h5_g1": 108,
+    "com_g1": 85,
+    "sem_consenso": 34,
+    "ground_truth_medpt": 2
+   }
+  },
+  "D": {
+   "consenso_estrito": {
+    "sem_claude": 178,
+    "sem_consenso": 42,
+    "sem_gemini": 8,
+    "sem_g1": 1
+   },
+   "sem_descarte": {
+    "sem_claude": 201,
+    "sem_g1": 3,
+    "sem_gemini": 17,
+    "sem_consenso": 8
+   }
+  }
+ },
+ "divergencias": []
+}
